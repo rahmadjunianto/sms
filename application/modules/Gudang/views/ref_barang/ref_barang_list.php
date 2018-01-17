@@ -8,7 +8,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title"> 
-                    <h2>Referensi Barang</h2>
+                    <h2>Referensi Supplier</h2>
             <div class="pull-right">
                 <div class="btn-group">
                 <?php echo anchor(site_url('gudang/ref_barang/create'), '<i class="fa fa-plus"></i> Tambah', 'class="btn btn-success btn-sm"'); 
