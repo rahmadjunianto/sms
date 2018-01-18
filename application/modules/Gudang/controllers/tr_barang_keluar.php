@@ -18,7 +18,76 @@ class tr_barang_keluar extends CI_Controller {
     public function json() {
         header('Content-Type: application/json');
         echo $this->Mtr_barang_keluar->json_barang();
-    }	
+    }
+    public function import()
+    {
+        $data = array('action' => site_url('gudang/tr_barang_keluar/importaction'), );
+        $this->template->load('welcome/halaman','gudang/tr_barang_keluar/import_form',$data);
+    } 
+    function importaction(){
+        // $this->load->library('excel_reader');
+        include_once ( APPPATH."libraries/Excel_reader.php");
+        if(!empty($_FILES['fileimport']['name']) && !empty($_FILES['fileimport']['tmp_name'])){ 
+             $target = basename($_FILES['fileimport']['name']) ;
+             move_uploaded_file($_FILES['fileimport']['tmp_name'], $target);
+
+              chmod($_FILES['fileimport']['name'],0777);
+              $data  = new Spreadsheet_Excel_Reader($_FILES['fileimport']['name'],false);
+              $baris = $data->rowcount($sheet_index=0);
+              $no    =1;
+              // $dataimort['tp']=array(
+              if ($baris>=10002) {
+                $notif="<div class='alert alert-warning'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> Import Data Maximal 10.000</div>";
+                $this->session->set_flashdata('notif',$notif);
+                redirect('gudang/tr_barang_keluar/import');
+        }
+            elseif($baris<=10001) {              
+              $this->db->query("DELETE FROM tr_barang_keluar_importtemp WHERE kd_pengguna='".$this->session->userdata('ku')."'");
+              $this->db->query("DELETE FROM tr_barang_keluar_log WHERE kd_pengguna='".$this->session->userdata('ku')."'");
+            for($i=2; $i<=$baris; $i++){
+
+                // echo $data->val($i,2);
+                    
+                    $this->db->set('tanggal',substr($data->val($i, 2),6,4)."-".substr($data->val($i, 2),0,2)."-".substr($data->val($i, 2),3,2));
+                    $this->db->set('kd_barang',$data->val($i,3));
+                    $this->db->set('nm_barang',$data->val($i, 4));
+                    $this->db->set('jumlah',$data->val($i, 5));
+                    $this->db->set('harga',$data->val($i, 6));
+                    $this->db->set('kd_pengguna',$this->session->userdata('ku'));
+                    $this->db->insert('tr_barang_keluar_importtemp');
+
+            }
+
+            $arr['record']=$baris-1;
+            unlink($_FILES['fileimport']['name']);
+           $this->template->load('Welcome/halaman','tr_barang_keluar/previewimport',$arr);
+        }
+    }}
+    function prosesinsertimport($ku){
+        if(!empty($ku)){
+            $berhasil=0;
+            $ku=$this->session->userdata('ku');
+            $temp = $this->db->query("select * from tr_barang_keluar_importtemp WHERE kd_pengguna=$ku")->result();
+            foreach ($temp as $temp) {
+
+                    $this->db->query("INSERT INTO tr_barang_keluar (kd_barang,tanggal,jumlah,harga,nm_barang) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang')");
+                    $this->db->query("INSERT INTO tr_barang_keluar_log (kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku')");
+                        $berhasil++;
+                
+            }
+    $notifs="<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> ".$berhasil." Data berhasil di import</div>";
+    $this->session->set_flashdata('notifs',$notifs);  
+        $sess=array(
+                'berhasil'=>$berhasil,
+                );
+        $this->session->set_userdata($sess);      
+            redirect('gudang/tr_barang_keluar/data_import');
+        }
+    }
+        public function data_import(){
+
+        $this->template->load('welcome/halaman','gudang/tr_barang_keluar/data_import');
+    } 	
     public function create() 
     {
         $data = array(

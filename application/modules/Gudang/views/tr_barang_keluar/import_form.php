@@ -20,7 +20,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="file" id="last-name" name="fileimport"  placeholder="Harga" class="form-control col-md-7 col-xs-12" value="">                     
-                        </div><a href="<?php echo base_url().'Template/Template_barang_masuk.XLS'?>">Template</a>
+                        </div><a href="<?php echo base_url().'Template/Template_harga_kayu.XLS'?>">Template</a>
                       </div>                                                                                                                 
                       <div class="ln_solid"></div>
                       <div class="form-group">
@@ -39,21 +39,3 @@
 
             </div>
 
-<script type="text/javascript">
-
-function getval(sel)
-{
- $( "#kelas_diameter" ).empty();
-    var panjang_kayu = sel.value;
-    $.ajax({
-         type: "POST",
-        url: "<?php echo base_url().'Pembelian/man_harga_kayu/getkelas'?>",
-        data: "panjang_kayu="+panjang_kayu,
-        cache: false,
-        success: function(msga){
-            //alert(msga);
-            $("#kelas_diameter").html(msga);
-        }
-    });    
-}    
-</script>

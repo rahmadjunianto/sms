@@ -11,6 +11,10 @@
                     <h2>Transaksi Barang Keluar</h2>
             <div class="pull-right">
                 <div class="btn-group">
+                <?php echo anchor(site_url('gudang/tr_barang_keluar/import'), '<i class="fa fa-cloud-upload"></i> Import', 'class="btn btn-primary btn-sm"'); 
+                ?>
+                </div>                
+                <div class="btn-group">
                 <?php echo anchor(site_url('gudang/tr_barang_keluar/create'), '<i class="fa fa-plus"></i> Tambah', 'class="btn btn-success btn-sm"'); 
                 ?>
                 </div>
