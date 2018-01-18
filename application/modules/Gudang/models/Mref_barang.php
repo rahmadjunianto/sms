@@ -23,6 +23,18 @@ class Mref_barang extends CI_Model
         $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/ref_barang/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/ref_barang/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_barang');
         return $this->datatables->generate();
     }
+    function json_barang_stock() {
+        $this->datatables->select('a.kd_barang,a.nm_barang,IFNULL(jmasuk, 0) jmasuk,IFNULL(jkeluar, 0) jkeluar, (IFNULL(jmasuk, 0)-IFNULL(jkeluar, 0)) stock');
+        $this->datatables->from('ref_barang a');
+        $this->datatables->join('(SELECT kd_barang,SUM(jumlah) jmasuk
+FROM tr_barang_masuk
+GROUP BY kd_barang ) masuk', 'a.kd_barang=masuk.kd_barang','left');
+        $this->datatables->join('(SELECT kd_barang,SUM(jumlah) jkeluar
+FROM tr_barang_keluar
+GROUP BY kd_barang) keluar', 'a.kd_barang=keluar.kd_barang','left');$this->db->order_by("a.nm_barang", "asc");
+
+        return $this->datatables->generate();
+    }
  
     // get data by id
     function get_by_id($id)

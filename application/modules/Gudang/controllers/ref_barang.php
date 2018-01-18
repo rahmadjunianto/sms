@@ -15,9 +15,17 @@ class ref_barang extends CI_Controller {
 	{
 		$this->template->load('welcome/halaman','gudang/ref_barang/Ref_barang_list');
 	}
+    public function harga_stock()
+    {
+        $this->template->load('welcome/halaman','gudang/ref_barang/Ref_harga_stock_list');
+    }    
     public function json() {
         header('Content-Type: application/json');
         echo $this->Mref_barang->json_barang();
+    }    
+    public function json_stock() {
+        header('Content-Type: application/json');
+        echo $this->Mref_barang->json_barang_stock();
     }	
     public function create() 
     {
