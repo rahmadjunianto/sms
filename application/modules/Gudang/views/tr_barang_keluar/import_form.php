@@ -20,7 +20,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="file" id="last-name" name="fileimport"  placeholder="Harga" class="form-control col-md-7 col-xs-12" value="">                     
-                        </div><a href="<?php echo base_url().'Template/Template_harga_kayu.XLS'?>">Template</a>
+                        </div><a href="<?php echo base_url().'Template/Template_barang_keluar.XLS'?>">Template</a>
                       </div>                                                                                                                 
                       <div class="ln_solid"></div>
                       <div class="form-group">

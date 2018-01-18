@@ -48,11 +48,12 @@ class tr_barang_keluar extends CI_Controller {
 
                 // echo $data->val($i,2);
                     
-                    $this->db->set('tanggal',substr($data->val($i, 2),6,4)."-".substr($data->val($i, 2),0,2)."-".substr($data->val($i, 2),3,2));
-                    $this->db->set('kd_barang',$data->val($i,3));
-                    $this->db->set('nm_barang',$data->val($i, 4));
-                    $this->db->set('jumlah',$data->val($i, 5));
-                    $this->db->set('harga',$data->val($i, 6));
+                    $this->db->set('kd_barang',$data->val($i,2));
+                    $this->db->set('tanggal',substr($data->val($i, 3),6,4)."-".substr($data->val($i, 3),0,2)."-".substr($data->val($i, 3),3,2));
+                    $this->db->set('jumlah',$data->val($i, 4));
+                    $this->db->set('harga',$data->val($i, 5));
+                    $this->db->set('nm_barang',$data->val($i, 6));
+                    $this->db->set('kd_unit',$data->val($i, 7));
                     $this->db->set('kd_pengguna',$this->session->userdata('ku'));
                     $this->db->insert('tr_barang_keluar_importtemp');
 
@@ -63,6 +64,10 @@ class tr_barang_keluar extends CI_Controller {
            $this->template->load('Welcome/halaman','tr_barang_keluar/previewimport',$arr);
         }
     }}
+    public function jsonsukses() {
+        header('Content-Type: application/json');
+        echo $this->Mtr_barang_keluar->json_sukses();
+    }
     function prosesinsertimport($ku){
         if(!empty($ku)){
             $berhasil=0;
@@ -70,8 +75,8 @@ class tr_barang_keluar extends CI_Controller {
             $temp = $this->db->query("select * from tr_barang_keluar_importtemp WHERE kd_pengguna=$ku")->result();
             foreach ($temp as $temp) {
 
-                    $this->db->query("INSERT INTO tr_barang_keluar (kd_barang,tanggal,jumlah,harga,nm_barang) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang')");
-                    $this->db->query("INSERT INTO tr_barang_keluar_log (kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku')");
+                    $this->db->query("INSERT INTO tr_barang_keluar (kd_barang,tanggal,jumlah,harga,nm_barang,kd_unit) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','$temp->kd_unit')");
+                    $this->db->query("INSERT INTO tr_barang_keluar_log (kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_unit) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku','$temp->kd_unit')");
                         $berhasil++;
                 
             }
