@@ -14,6 +14,21 @@
                   <div class="x_content">
 <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left"  action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
                       <div class="form-group">
+
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Nama Unit 
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class="select2_single form-control" name="kd_unit"  id="kd_unit" >
+                    <option></option>
+                    <?php foreach($unit as $unit){?>
+                    <option <?php if($kd_unit==$unit->kd_unit){echo "selected";}?> value="<?php echo $unit->kd_unit?>"><?php echo $unit->nm_unit?></option>
+                    <?php                     
+           }?>
+
+</select>                
+                        </div>
+                      </div>  
+                      <div class="form-group">
 <?php
 $nm_barang = "var nama = new Array();\n";
 ?>                         

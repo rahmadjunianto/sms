@@ -25,12 +25,14 @@ class tr_barang_keluar extends CI_Controller {
             'button'     => 'Tambah barang keluar',
             'action'     => site_url('gudang/tr_barang_keluar/create_action'),
             'kd_barang' => set_value('kd_barang'),
+            'kd_unit' => set_value('kd_unit'),
             'kd_barang_keluar' => set_value('kd_barang_keluar'),
             'jumlah' => set_value('jumlah'),
             'harga'=> set_value('harga'),
             'nama_barang'=> set_value('nama_barang'),
             'date'=> date("d/m/Y"),
-            'barang'=>$this->Mtr_barang_keluar->ListBarang()
+            'barang'=>$this->Mtr_barang_keluar->ListBarang(),
+            'unit'=>$this->Mtr_barang_keluar->ListUnit()
 
 	);
         $this->template->load('Welcome/halaman','tr_barang_keluar/tr_barang_keluar_form', $data);
@@ -43,6 +45,7 @@ class tr_barang_keluar extends CI_Controller {
 		'jumlah' => $this->input->post('jumlah',TRUE),
         'harga' => $this->input->post('harga',TRUE),
         'nm_barang' => $this->input->post('nm_barang',TRUE),
+        'kd_unit' => $this->input->post('kd_unit',TRUE),
 	    );
 
             $this->Mtr_barang_keluar->insert($data);
@@ -73,11 +76,13 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
                 'button'     => 'Update Referensi barang',
                 'action'     => site_url('gudang/tr_barang_keluar/update_action'),
             'kd_barang_keluar' => set_value('kd_barang_keluar',$row->kd_barang_keluar),
+            'kd_unit' => set_value('kd_unit',$row->kd_unit),
             'kd_barang' => set_value('kd_barang',$row->kd_barang),
             'jumlah' => set_value('jumlah',$row->jumlah),
             'nama_barang'=> set_value('nm_barang',$row->nm_barang),
             'date'=> set_value('tanggal',$tgl),
-            'harga'=> set_value('harga',$row->harga),'barang'=>$this->Mtr_barang_keluar->ListBarang()
+            'harga'=> set_value('harga',$row->harga),'barang'=>$this->Mtr_barang_keluar->ListBarang(),
+            'unit'=>$this->Mtr_barang_keluar->ListUnit()
 	    );
            $this->template->load('Welcome/halaman','tr_barang_keluar/tr_barang_keluar_form', $data);
         } else {
@@ -93,6 +98,7 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
 		'jumlah' => $this->input->post('jumlah',TRUE),
         'tanggal' => substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),
         'kd_barang' => $this->input->post('barang',TRUE),
+        'kd_unit' => $this->input->post('kd_unit',TRUE),
 	    );
 
             $this->Mtr_barang_keluar->update($this->input->post('kd_barang_keluar', TRUE), $data);

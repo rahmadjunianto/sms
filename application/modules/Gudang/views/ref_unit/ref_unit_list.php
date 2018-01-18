@@ -8,10 +8,10 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title"> 
-                    <h2>Transaksi Barang Keluar</h2>
+                    <h2>Referensi unit</h2>
             <div class="pull-right">
                 <div class="btn-group">
-                <?php echo anchor(site_url('gudang/tr_barang_keluar/create'), '<i class="fa fa-plus"></i> Tambah', 'class="btn btn-success btn-sm"'); 
+                <?php echo anchor(site_url('gudang/ref_unit/create'), '<i class="fa fa-plus"></i> Tambah', 'class="btn btn-success btn-sm"'); 
                 ?>
                 </div>
             </div>                    
@@ -22,11 +22,7 @@
                       <thead>
                         <tr>
                           <th width="5%">No</th>
-                          <th width="15%">Tanggal</th>
-                          <th width="10%">Unit</th>
-                          <th width="15%">Nama Barang</th>
-                          <th width="10%">Jumlah</th>
-                          <th width="10%">Harga</th>
+                          <th width="70%">Nama unit</th>
                           <th width="7%">Aksi</th>
                         </tr>
                       </thead>
@@ -92,13 +88,13 @@
                     },
                     processing: true,
                     serverSide: true,
-                    ajax: {"url": "<?php echo base_url()?>gudang/tr_barang_keluar/json", "type": "POST"},
+                    ajax: {"url": "<?php echo base_url()?>gudang/ref_unit/json", "type": "POST"},
                     columns: [
                         {
-                            "data": "kd_barang_keluar",
+                            "data": "kd_unit",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "nm_unit"},{"data": "nm_barang"},{"data": "jumlah"},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
+                        },{"data": "nm_unit"},
                         {
                             "data" : "action",
                             "orderable": false,

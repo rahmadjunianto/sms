@@ -17,8 +17,10 @@ class Mtr_barang_keluar extends CI_Model
 
     // datatables
     function json_barang() {
-        $this->datatables->select("kd_barang_keluar,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah");
-        $this->datatables->from('tr_barang_keluar ');;$this->db->order_by("nm_barang", "asc");
+        $this->datatables->select("kd_barang_keluar,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,nm_unit");
+        $this->datatables->from('tr_barang_keluar a');  
+        $this->datatables->join('ref_unit b', 'a.kd_unit=b.kd_unit');
+        $this->db->order_by("tanggal", "desc");
         $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/tr_barang_keluar/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/tr_barang_keluar/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_barang_keluar');
         return $this->datatables->generate();
     }
@@ -55,6 +57,9 @@ class Mtr_barang_keluar extends CI_Model
 
     function ListBarang(){
         return $this->db->query("SELECT * from ref_barang ORDER BY nm_barang ASC")->result();
+    }
+    function ListUnit(){
+        return $this->db->query("SELECT * from ref_unit ORDER BY nm_unit ASC")->result();
     }
 
 }
