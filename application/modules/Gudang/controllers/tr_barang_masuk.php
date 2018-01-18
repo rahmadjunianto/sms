@@ -18,6 +18,11 @@ class tr_barang_masuk extends CI_Controller {
     public function json() {
         header('Content-Type: application/json');
         echo $this->Mtr_barang_masuk->json_barang();
+    }
+    public function import()
+    {
+        $data = array('action' => site_url('gudang/tr_barang_masuk/importaction'), );
+        $this->template->load('welcome/halaman','gudang/tr_barang_masuk/import_form',$data);
     }	
     public function create() 
     {
