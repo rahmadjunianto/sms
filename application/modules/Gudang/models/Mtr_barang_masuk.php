@@ -22,6 +22,12 @@ class Mtr_barang_masuk extends CI_Model
         $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/tr_barang_masuk/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/tr_barang_masuk/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_barang_masuk');
         return $this->datatables->generate();
     }
+    function json_sukses() {
+        $this->datatables->select("kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah");
+        $this->datatables->from('tr_barang_masuk_log ');;$this->db->order_by("tanggal", "desc");
+        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/tr_barang_masuk/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/tr_barang_masuk/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_barang_masuk');
+        return $this->datatables->generate();
+    }
  
     // get data by id
     function get_by_id($id)

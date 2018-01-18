@@ -211,12 +211,6 @@ $notifg="<div class='alert alert-info'><button type='button' class='close' data-
                 );
         $this->session->set_userdata($sess);      
             redirect('Pembelian/man_harga_kayu/data_import');
-
-            /*
-            $this->db->query("INSERT INTO P_PEMBAYARAN_TP (NOP,TAHUN_PAJAK,NOMINAL,DENDA,TANGGAL_BAYAR,TANGGAL_IMPORT,KODE_PENGGUNA)
-                                select NOP,TAHUN_PAJAK,NOMINAL,DENDA,TANGGAL_BAYAR,TANGGAL_IMPORT,KODE_PENGGUNA from p_pembayaran_tempimport WHERE KODE_PENGGUNA=$ku");
-            $this->db->query("DELETE FROM P_PEMBAYARAN_TEMPIMPORT WHERE KODE_PENGGUNA='".$ku."'");
-            redirect('Monitoringrealisasi/pembayaran/datapembayaran');*/
         }
     }
         public function data_import(){
