@@ -24,8 +24,9 @@ class Mref_barang extends CI_Model
         return $this->datatables->generate();
     }
     function json_barang_stock() {
-        $this->datatables->select('a.kd_barang,a.nm_barang,IFNULL(jmasuk, 0) jmasuk,IFNULL(jkeluar, 0) jkeluar, (IFNULL(jmasuk, 0)-IFNULL(jkeluar, 0)) stock');
-        $this->datatables->from('ref_barang a');
+        $this->datatables->select('a.kd_barang,a.nm_barang,IFNULL(jmasuk, 0) jmasuk,IFNULL(jkeluar, 0) jkeluar, (IFNULL(jmasuk, 0)-IFNULL(jkeluar, 0)) stock,nm_kategori,satuan');
+        $this->datatables->from('(SELECT kd_barang,nm_kategori,nm_barang,satuan
+FROM ref_barang a JOIN ref_kategori b ON a.kd_kategori=b.kd_kategori) a');
         $this->datatables->join('(SELECT kd_barang,SUM(jumlah) jmasuk
 FROM tr_barang_masuk
 GROUP BY kd_barang ) masuk', 'a.kd_barang=masuk.kd_barang','left');

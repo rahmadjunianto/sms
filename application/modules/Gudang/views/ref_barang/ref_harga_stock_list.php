@@ -16,10 +16,10 @@
                       <thead>
                         <tr>
                           <th width="5%">No</th>
+                          <th width="15%">Kategori</th>
                           <th width="15%">Nama Barang</th>
-                          <th width="15%">Barang Masuk</th>
-                          <th width="10%">Barang Keluar</th>
                           <th width="10%">Stock</th>
+                          <th width="15%">Satuan</th>
                         </tr>
                       </thead>
 
@@ -90,7 +90,7 @@
                             "data": "kd_barang",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_barang"},{"data": "jmasuk"},{"data": "jkeluar"},{"data": "stock"}
+                        },{"data": "nm_kategori"},{"data": "nm_barang"},{"data": "stock"},{"data": "satuan"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();
