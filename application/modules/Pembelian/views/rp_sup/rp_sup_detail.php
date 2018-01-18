@@ -19,7 +19,7 @@
                 </div>                
             </div>                                       
 
-                    <h2 class="text-center">Rekap Terima Pembayaran Log</h2>
+                    <h2 class="text-center">Rekap Terima Pembayaran Lo</h2>
  <div class="clearfix"></div>
 
                   </div>
