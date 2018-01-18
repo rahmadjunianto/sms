@@ -32,7 +32,7 @@ FROM tr_barang_masuk
 GROUP BY kd_barang ) masuk', 'a.kd_barang=masuk.kd_barang','left');
         $this->datatables->join('(SELECT kd_barang,SUM(jumlah) jkeluar
 FROM tr_barang_keluar
-GROUP BY kd_barang) keluar', 'a.kd_barang=keluar.kd_barang','left');$this->db->order_by("a.nm_barang", "asc");
+GROUP BY kd_barang) keluar', 'a.kd_barang=keluar.kd_barang','left');$this->db->order_by("a.nm_kategori", "asc");
 
         return $this->datatables->generate();
     }
