@@ -177,10 +177,14 @@ class tr_barang_masuk extends CI_Controller {
             'barang'=>$this->Mtr_barang_masuk->ListBarang()
 
 	);
+
         $this->template->load('Welcome/halaman','tr_barang_masuk/tr_barang_masuk_form', $data);
     }
     public function create_action() 
     {
+        $kd_barang = $this->input->post('barang',TRUE);
+        $jumlah_masuk    = $this->input->post('jumlah',TRUE);
+        $harga_masuk    = $this->input->post('harga',TRUE);
         $data = array(
 		'kd_barang' => $this->input->post('barang',TRUE),
 		'tanggal' => substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),
@@ -189,6 +193,17 @@ class tr_barang_masuk extends CI_Controller {
         'no_faktur' => $this->input->post('no_faktur',TRUE),
         'nm_barang' => $this->input->post('nm_barang',TRUE),
 	    );
+        $row=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$kd_barang")->row();
+        if($row)
+        {
+            $stock=$row->stock;
+            $harga_stock=$row->harga;
+            $harga_rata=(($jumlah_masuk*$harga_masuk)+($stock*$harga_stock))/($jumlah_masuk+$stock);
+            $stock_baru=$stock+$jumlah_masuk;
+        }
+        $update = array('harga' => $harga_rata ,'stock'=>$stock_baru );
+        $this->db->where('kd_barang', $kd_barang);
+        $this->db->update('ref_barang', $update);
 
             $this->Mtr_barang_masuk->insert($data);
             $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah barang Masuk</button>');
