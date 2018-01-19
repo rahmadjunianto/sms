@@ -20,10 +20,9 @@
                         <tr>
                           <th width="5%">No</th>
                           <th width="15%">Tanggal</th>
+                          <th width="15%">No Faktur</th>
                           <th width="15%">Nama barang</th>
                           <th width="15%">Jumlah</th>
-                          <th width="10%">Harga</th>
-                          <th width="10%">Harga</th>
                         </tr>
                       </thead>
 
@@ -89,12 +88,7 @@
                             "data": "kd_barang_masuk",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "nm_barang"},{"data": "jumlah"},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
-                        {
-                            "data" : "action",
-                            "orderable": false,
-                            "className" : "text-center"
-                        }
+                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nm_barang"},{"data": "jumlah"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();

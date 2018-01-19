@@ -53,10 +53,10 @@ class tr_barang_masuk extends CI_Controller {
                 // echo $data->val($i,2);
                     
                     $this->db->set('tanggal',substr($data->val($i, 2),6,4)."-".substr($data->val($i, 2),0,2)."-".substr($data->val($i, 2),3,2));
-                    $this->db->set('kd_barang',$data->val($i,3));
-                    $this->db->set('nm_barang',$data->val($i, 4));
-                    $this->db->set('jumlah',$data->val($i, 5));
-                    $this->db->set('harga',$data->val($i, 6));
+                    $this->db->set('no_faktur',$data->val($i, 3));
+                    $this->db->set('kd_barang',$data->val($i,4));
+                    $this->db->set('nm_barang',$data->val($i, 5));
+                    $this->db->set('jumlah',$data->val($i, 6));
                     $this->db->set('kd_pengguna',$this->session->userdata('ku'));
                     $this->db->insert('tr_barang_masuk_importtemp');
 
@@ -74,8 +74,8 @@ class tr_barang_masuk extends CI_Controller {
             $temp = $this->db->query("select * from tr_barang_masuk_importtemp WHERE kd_pengguna=$ku")->result();
             foreach ($temp as $temp) {
 
-                    $this->db->query("INSERT INTO tr_barang_masuk (kd_barang,tanggal,jumlah,harga,nm_barang) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang')");
-                    $this->db->query("INSERT INTO tr_barang_masuk_log (kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku')");
+                    $this->db->query("INSERT INTO tr_barang_masuk (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang')");
+                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku')");
                         $berhasil++;
                 
             }

@@ -11,7 +11,11 @@
                     <h2>Transaksi Barang Masuk</h2>
             <div class="pull-right">
                 <div class="btn-group">
-                <?php echo anchor(site_url('gudang/tr_barang_masuk/import'), '<i class="fa fa-cloud-upload"></i> Import', 'class="btn btn-primary btn-sm"'); 
+                <?php echo anchor(site_url('gudang/tr_barang_masuk/import'), '<i class="fa fa-cloud-upload"></i> Sinkronisasi Harga', 'class="btn btn-info btn-sm"'); 
+                ?>
+                </div>
+                <div class="btn-group">
+                <?php echo anchor(site_url('gudang/tr_barang_masuk/import'), '<i class="fa fa-cloud-upload"></i> Import Barang', 'class="btn btn-primary btn-sm"'); 
                 ?>
                 </div>                
                 <div class="btn-group">
