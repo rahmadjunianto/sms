@@ -46,7 +46,7 @@
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <button type="submit" class="btn btn-primary">Simpan</button>
-                                    <a href="<?php echo site_url('Pembelian/ref_supplier') ?>" class="btn btn-warning"><i class="fa fa-close"></i> Cancel</a>
+                                    <a href="<?php echo site_url('gudang/ref_barang/') ?>" class="btn btn-warning"><i class="fa fa-close"></i> Cancel</a>
                         </div>
                       </div>
 
