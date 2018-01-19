@@ -25,6 +25,7 @@
                           <th width="10%">Kategori</th>
                           <th width="15%">Nama Barang</th>
                           <th width="10%">Satuan</th>
+                          <th width="10%">Harga</th>
                           <th width="7%">Aksi</th>
                         </tr>
                       </thead>
@@ -96,7 +97,7 @@
                             "data": "kd_barang",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_kategori"},{"data": "nm_barang"},{"data": "satuan"},
+                        },{"data": "nm_kategori"},{"data": "nm_barang"},{"data": "satuan"},{"data": "harga"},
                         {
                             "data" : "action",
                             "orderable": false,

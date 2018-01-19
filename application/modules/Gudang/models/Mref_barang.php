@@ -17,7 +17,7 @@ class Mref_barang extends CI_Model
 
     // datatables
     function json_barang() {
-        $this->datatables->select('nm_kategori,kd_barang,nm_barang,satuan');
+        $this->datatables->select('nm_kategori,kd_barang,nm_barang,satuan,harga');
         $this->datatables->from('ref_barang a');
         $this->datatables->join('ref_kategori b', 'a.kd_kategori=b.kd_kategori');$this->db->order_by("a.kd_barang", "desc");
         $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/ref_barang/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/ref_barang/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_barang');

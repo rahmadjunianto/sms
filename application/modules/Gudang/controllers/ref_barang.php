@@ -48,6 +48,8 @@ class ref_barang extends CI_Controller {
 		'nm_barang' => $this->input->post('nm_barang',TRUE),
 		'satuan' => $this->input->post('satuan',TRUE),
 		'kd_kategori' => $this->input->post('kategori',TRUE),
+        'harga' => 0,
+        'stock' => 0,
 	    );
 
             $this->Mref_barang->insert($data);

@@ -144,6 +144,19 @@ class tr_barang_masuk extends CI_Controller {
             $temp = $this->db->query("select * from tr_barang_masuk_importtemp WHERE kd_pengguna=$ku")->result();
             foreach ($temp as $temp) {
 
+        $jumlah_masuk   = $temp->jumlah;
+        $harga_masuk    = $temp->harga;                
+        $row=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$temp->kd_barang")->row();
+        if($row)
+        {
+            $stock=$row->stock;
+            $harga_stock=$row->harga;
+            $harga_rata=(($jumlah_masuk*$harga_masuk)+($stock*$harga_stock))/($jumlah_masuk+$stock);
+            $stock_baru=$stock+$jumlah_masuk;
+        }
+        $update = array('harga' => $harga_rata ,'stock'=>$stock_baru );
+        $this->db->where('kd_barang', $temp->kd_barang);
+        $this->db->update('ref_barang', $update);        
                     $this->db->query("UPDATE tr_barang_masuk SET harga = '$temp->harga' WHERE no_faktur= '$temp->no_faktur' and kd_barang= '$temp->kd_barang'");
                     $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku')");
                         $berhasil++;
