@@ -3,39 +3,27 @@
             </div>
 
             <div class="clearfix"></div>
-<?php echo $this->session->flashdata('message')?><br>
+<?php if( $this->session->userdata('berhasil')!=0){?>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title"> 
-                    <h2>Transaksi Barang Masuk</h2>
-            <div class="pull-right">
-                <div class="btn-group">
-                <?php echo anchor(site_url('gudang/tr_barang_masuk/imports'), '<i class="fa fa-cloud-upload"></i> Sinkronisasi Harga', 'class="btn btn-info btn-sm"'); 
-                ?>
-                </div>
-                <div class="btn-group">
-                <?php echo anchor(site_url('gudang/tr_barang_masuk/import'), '<i class="fa fa-cloud-upload"></i> Import Barang', 'class="btn btn-primary btn-sm"'); 
-                ?>
-                </div>                
-                <div class="btn-group">
-                <?php echo anchor(site_url('gudang/tr_barang_masuk/create'), '<i class="fa fa-plus"></i> Tambah', 'class="btn btn-success btn-sm"'); 
-                ?>
-                </div>
-            </div>                    
+                <div class="x_panel"><?php echo $this->session->flashdata('notifs');?> 
+                  <div class="x_title">
+            <h2>
+              Data Sinkronisasi Harga Barang Sukses Import
+
+            </h2>                            
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <table id="example2" class="table table-striped table-bordered">
+                    <table id="example" class="table table-striped table-bordered">
                       <thead>
                         <tr>
                           <th width="5%">No</th>
                           <th width="15%">Tanggal</th>
                           <th width="15%">No Faktur</th>
-                          <th width="15%">Nama Barang</th>
-                          <th width="10%">Jumlah</th>
-                          <th width="10%">Harga</th>
-                          <th width="7%">Aksi</th>
+                          <th width="15%">Nama barang</th>
+                          <th width="15%">Jumlah</th>
+                          <th width="15%">Harga</th>
                         </tr>
                       </thead>
 
@@ -45,12 +33,7 @@
                   </div>
                 </div>
               </div>
-
-
-
-            </div>
-
-
+            </div><?php }  ?>
        <script type="text/javascript">
             $(document).ready(function() {
                 $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
@@ -66,7 +49,7 @@
                     };
                 };
 
-                var t = $("#example2").dataTable({
+                var t = $("#example").dataTable({
                     initComplete: function() {
                         var api = this.api();
                         $('#mytable_filter input')
@@ -100,18 +83,13 @@
                     },
                     processing: true,
                     serverSide: true,
-                    ajax: {"url": "<?php echo base_url()?>gudang/tr_barang_masuk/json", "type": "POST"},
+                    ajax: {"url": "<?php echo base_url()?>gudang/tr_barang_masuk/jsonsukses", "type": "POST"},
                     columns: [
                         {
                             "data": "kd_barang_masuk",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nm_barang"},{"data": "jumlah"},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
-                        {
-                            "data" : "action",
-                            "orderable": false,
-                            "className" : "text-center"
-                        }
+                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nm_barang"},{"data": "jumlah"},{"data": "harga"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();
