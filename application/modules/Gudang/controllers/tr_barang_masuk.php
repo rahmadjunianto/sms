@@ -101,6 +101,7 @@ class tr_barang_masuk extends CI_Controller {
             'kd_barang_masuk' => set_value('kd_barang_masuk'),
             'jumlah' => set_value('jumlah'),
             'harga'=> set_value('harga'),
+            'no_faktur'=> set_value('no_faktur'),
             'nama_barang'=> set_value('nama_barang'),
             'date'=> date("d/m/Y"),
             'barang'=>$this->Mtr_barang_masuk->ListBarang()
@@ -115,6 +116,7 @@ class tr_barang_masuk extends CI_Controller {
 		'tanggal' => substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),
 		'jumlah' => $this->input->post('jumlah',TRUE),
         'harga' => $this->input->post('harga',TRUE),
+        'no_faktur' => $this->input->post('no_faktur',TRUE),
         'nm_barang' => $this->input->post('nm_barang',TRUE),
 	    );
 
@@ -148,6 +150,7 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
             'kd_barang_masuk' => set_value('kd_barang_masuk',$row->kd_barang_masuk),
             'kd_barang' => set_value('kd_barang',$row->kd_barang),
             'jumlah' => set_value('jumlah',$row->jumlah),
+            'no_faktur' => set_value('no_faktur',$row->no_faktur),
             'nama_barang'=> set_value('nm_barang',$row->nm_barang),
             'date'=> set_value('tanggal',$tgl),
             'harga'=> set_value('harga',$row->harga),'barang'=>$this->Mtr_barang_masuk->ListBarang()
@@ -164,6 +167,7 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
 		'nm_barang' => $this->input->post('nm_barang',TRUE),
 		'harga' => $this->input->post('harga',TRUE),
 		'jumlah' => $this->input->post('jumlah',TRUE),
+        'no_faktur' => $this->input->post('no_faktur',TRUE),
         'tanggal' => substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),
         'kd_barang' => $this->input->post('barang',TRUE),
 	    );

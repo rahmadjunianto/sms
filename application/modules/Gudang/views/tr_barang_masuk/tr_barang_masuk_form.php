@@ -14,6 +14,14 @@
                   <div class="x_content">
 <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left"  action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >No Faktur
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="last-name" name="no_faktur" required="required" placeholder="No Faktur" class="form-control col-md-7 col-xs-12" value="<?php echo $no_faktur; ?>">                     
+                        </div>
+                      </div> 
+
+                      <div class="form-group">
 <?php
 $nm_barang = "var nama = new Array();\n";
 ?>                         
