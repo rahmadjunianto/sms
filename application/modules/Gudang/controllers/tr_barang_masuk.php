@@ -23,6 +23,10 @@ class tr_barang_masuk extends CI_Controller {
         header('Content-Type: application/json');
         echo $this->Mtr_barang_masuk->json_sukses();
     }
+    public function jsongagal() {
+        header('Content-Type: application/json');
+        echo $this->Mtr_barang_masuk->json_gagal();
+    }
     public function import()
     {
         $data = array('action' => site_url('gudang/tr_barang_masuk/importaction'), );
@@ -73,16 +77,25 @@ class tr_barang_masuk extends CI_Controller {
             $ku=$this->session->userdata('ku');
             $temp = $this->db->query("select * from tr_barang_masuk_importtemp WHERE kd_pengguna=$ku")->result();
             foreach ($temp as $temp) {
+                $t = $this->db->query("SELECT COUNT(no_faktur) no_faktur FROM tr_barang_masuk WHERE no_faktur=$temp->no_faktur AND kd_barang=$temp->kd_barang")->row();
+                if($t->no_faktur==0){
 
                     $this->db->query("INSERT INTO tr_barang_masuk (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang')");
                     $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku')");
                         $berhasil++;
-                
+                }
+                else {
+                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','gagal','$ku')");
+                        $gagal++;                    
+                }
             }
     $notifs="<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> ".$berhasil." Data berhasil di import</div>";
-    $this->session->set_flashdata('notifs',$notifs);  
+    $this->session->set_flashdata('notifs',$notifs);
+    $notif="<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> ".$gagal." Data gagal di import</div>";
+    $this->session->set_flashdata('notif',$notif);    
         $sess=array(
                 'berhasil'=>$berhasil,
+                'gagal'=>$gagal,
                 );
         $this->session->set_userdata($sess);      
             redirect('gudang/tr_barang_masuk/data_import');
@@ -140,10 +153,12 @@ class tr_barang_masuk extends CI_Controller {
     function prosesinsertimports($ku){
         if(!empty($ku)){
             $berhasil=0;
+            $gagal=0;
             $ku=$this->session->userdata('ku');
             $temp = $this->db->query("select * from tr_barang_masuk_importtemp WHERE kd_pengguna=$ku")->result();
             foreach ($temp as $temp) {
-
+        $t = $this->db->query("SELECT COUNT(no_faktur) no_faktur FROM tr_barang_masuk WHERE no_faktur=$temp->no_faktur AND kd_barang=$temp->kd_barang AND harga=0")->row();
+                if($t->no_faktur==1){
         $jumlah_masuk   = $temp->jumlah;
         $harga_masuk    = $temp->harga;                
         $row=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$temp->kd_barang")->row();
@@ -159,13 +174,21 @@ class tr_barang_masuk extends CI_Controller {
         $this->db->update('ref_barang', $update);        
                     $this->db->query("UPDATE tr_barang_masuk SET harga = '$temp->harga' WHERE no_faktur= '$temp->no_faktur' and kd_barang= '$temp->kd_barang'");
                     $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku')");
-                        $berhasil++;
-                
+                        $berhasil++;}
+                else {
+
+                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','gagal','$ku')");
+                        $gagal++;
+
+                }
             }
     $notifs="<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> ".$berhasil." Data berhasil di import</div>";
     $this->session->set_flashdata('notifs',$notifs);  
+    $notif="<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> ".$gagal." Data gagal di import</div>";
+    $this->session->set_flashdata('notif',$notif); 
         $sess=array(
                 'berhasil'=>$berhasil,
+                'gagal'=>$gagal,
                 );
         $this->session->set_userdata($sess);      
             redirect('gudang/tr_barang_masuk/data_imports');
