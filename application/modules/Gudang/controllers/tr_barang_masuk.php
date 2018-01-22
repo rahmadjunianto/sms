@@ -250,6 +250,17 @@ class tr_barang_masuk extends CI_Controller {
         $row = $this->Mtr_barang_masuk->get_by_id($id);
 
         if ($row) {
+        $jumlah_masuk=$row->jumlah;
+        $harga_masuk=$row->harga;
+        $barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$row->kd_barang")->row();
+        $harga_rata=$barang->harga;
+        $stock=$barang->stock;
+        $jumlah=$row->jumlah;
+        $stock_lama=$stock-$jumlah;
+        $harga_rata_lama=(($harga_rata*($jumlah_masuk+$stock_lama))-($jumlah_masuk*$harga_masuk))/$stock_lama;
+        $update = array('stock'=>$stock_lama,'harga'=>$harga_rata_lama );
+        $this->db->where('kd_barang', $row->kd_barang);
+        $this->db->update('ref_barang', $update);
             $this->Mtr_barang_masuk->delete($id);
             $this->db->query("commit");
             $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Hapus barang Masuk</button>');
@@ -284,6 +295,15 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
     } 
         public function update_action() 
     {
+        $jumlah_masuk=$row->jumlah;
+        $harga_masuk=$row->harga;
+        $barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$row->kd_barang")->row();
+        $harga_rata=$barang->harga;
+        $stock=$barang->stock;
+        $jumlah=$row->jumlah;
+        $stock_lama=$stock-$jumlah;
+        $harga_rata_lama=(($harga_rata*($jumlah_masuk+$stock_lama))-($jumlah_masuk*$harga_masuk))/$stock_lama;
+        $update = array('stock'=>$stock_lama,'harga'=>$harga_rata_lama );
             $data = array(
 		'nm_barang' => $this->input->post('nm_barang',TRUE),
 		'harga' => $this->input->post('harga',TRUE),
