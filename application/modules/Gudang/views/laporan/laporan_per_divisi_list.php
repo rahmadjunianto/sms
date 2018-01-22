@@ -32,6 +32,15 @@
                   </div>
 
                   <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                          <select   class="kategori form-control input-sm" name="kategori" required="" >
+                    <option></option>
+                    <option <?php if("all"==$kd_kategori){echo "selected";}?> value="all">Semua Kategori</option>
+                    <?php foreach($kategori as $kategori){?>
+                    <option <?php if($kategori->kd_kategori==$kd_kategori){echo "selected";}?> value="<?php echo $kategori->kd_kategori?>"><?php echo $kategori->nm_kategori ?></option>
+                    <?php }?>
+                          </select>                   
+                  </div>
+                  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
        <div class="input-group">
         <div class="input-group-addon">
          <i class="fa fa-calendar">
@@ -142,8 +151,8 @@
                 });
             });
       $(document).ready(function() {
-        $(".grader").select2({
-          placeholder: "Grader",
+        $(".kategori").select2({
+          placeholder: "Kategori",
           allowClear: true,    dropdownAutoWidth : true,
         });
         $(".unit").select2({

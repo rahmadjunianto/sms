@@ -28,7 +28,16 @@
          </i>
         </div>
         <input class="form-control datepicker" id="datepicker" name="date" value="<?php echo $date ?>" type="text"/>
-       </div></div>      
+       </div></div> 
+                  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                          <select   class="kategori form-control input-sm" name="kategori" required="" >
+                    <option></option>
+                    <option <?php if("all"==$kd_kategori){echo "selected";}?> value="all">Semua Kategori</option>
+                    <?php foreach($kategori as $kategori){?>
+                    <option <?php if($kategori->kd_kategori==$kd_kategori){echo "selected";}?> value="<?php echo $kategori->kd_kategori?>"><?php echo $kategori->nm_kategori ?></option>
+                    <?php }?>
+                          </select>                   
+                  </div>     
                 <div class="pull-right col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
 
               </form><?php if($rk=="tampil"){?>

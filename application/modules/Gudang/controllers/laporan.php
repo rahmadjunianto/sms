@@ -13,34 +13,40 @@ class laporan extends CI_Controller {
     }
 	public function lap_per_divisi()
 	{
-        if(isset($_POST['unit'])&&isset($_POST['date1'])&&isset($_POST['date2'])){
+        if(isset($_POST['kategori'])&&isset($_POST['unit'])&&isset($_POST['date1'])&&isset($_POST['date2'])){
             $unit      =$_POST['unit'];
+            $kategori      =$_POST['kategori'];
             $date1      =$_POST['date1'];
             $date2      =$_POST['date2'];
             $rk="tampil";
         }else{
             $unit='';
+            $kategori='';
             $date1=DATE('d/m/Y');
             $date2=DATE('d/m/Y');
             $rk =" ";
         }
         $sess=array(
                 'unit'=>$unit,
+                'kategori'=>$kategori,
                 'date1'=>substr($this->input->post('date1',TRUE),6,4)."-".substr($this->input->post('date1',TRUE),3,2)."-".substr($this->input->post('date1',TRUE),0,2),
                 'date2'=>substr($this->input->post('date2',TRUE),6,4)."-".substr($this->input->post('date2',TRUE),3,2)."-".substr($this->input->post('date2',TRUE),0,2),                
                 );
         $this->session->set_userdata($sess);         
         $data = array(
-            'unit'      =>$this->M_laporan->ListUnit(), 
+            'unit'      =>$this->M_laporan->ListUnit(),
+            'kategori'      =>$this->M_laporan->ListKategori(), 
         );
         $data['kd_unit']=$unit;
+        $data['kd_kategori']=$kategori;
         $data['date1']=$date1;$data['date2']=$date2;$data['rk'] =$rk;
 		$this->template->load('welcome/halaman','gudang/laporan/laporan_per_divisi_list',$data);
 	}     public function laporan_per_divisi_excel(){
+        $kategori=$this->session->userdata('kategori');
         $unit=$this->session->userdata('unit');
         $date1=$this->session->userdata('date1');
         $date2=$this->session->userdata('date2');
-        $data['rk'] =$this->M_laporan->getlap_divisi($unit,$date1,$date2);   
+        $data['rk'] =$this->M_laporan->getlap_divisi($kategori,$unit,$date1,$date2);   
         $this->load->view('gudang/laporan/lap_perdivisi_excel',$data);
     }
     public function lap_stock_jb()
@@ -78,22 +84,30 @@ class laporan extends CI_Controller {
     public function lap_per_bulan()
     {
         if(isset($_POST['date'])){
+            $kategori     =$_POST['kategori'];
             $date     =$_POST['date'];
             $rk="tampil";
         }else{
             $date=DATE('m/Y');
             $rk =" ";
+            $kategori='';
         }
         $sess=array(
-                'date'=>substr($this->input->post('date',TRUE),3,4)."-".substr($this->input->post('date',TRUE),0,2)        
-                );
+                'date'=>substr($this->input->post('date',TRUE),3,4)."-".substr($this->input->post('date',TRUE),0,2),
+                'kategori'=>$kategori,        
+                );         
+        $data = array(
+            'kategori'      =>$this->M_laporan->ListKategori(), 
+        );
         $this->session->set_userdata($sess); 
         $data['date']=$date;
         $data['rk'] =$rk;
+        $data['kd_kategori']=$kategori;
         $this->template->load('welcome/halaman','gudang/laporan/lap_per_bulan_list',$data);
     }     public function laporan_per_bulan_excel(){
         $date=$this->session->userdata('date');
-        $data['rk'] =$this->M_laporan->getlap_bulan($date);   
+        $kategori=$this->session->userdata('kategori');
+        $data['rk'] =$this->M_laporan->getlap_bulan($kategori,$date);   
         $this->load->view('gudang/laporan/lap_perbulan_excel',$data);
     }
     public function harga_stock()
