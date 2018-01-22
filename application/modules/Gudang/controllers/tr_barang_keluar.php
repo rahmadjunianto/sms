@@ -148,8 +148,15 @@ class tr_barang_keluar extends CI_Controller {
     public function delete($id) 
     {
         $row = $this->Mtr_barang_keluar->get_by_id($id);
-
         if ($row) {
+        $barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$row->kd_barang")->row();
+        $stock=$barang->stock;
+        $jumlah=$row->jumlah;
+        $stock_baru=$jumlah+$stock;
+        $update = array('stock'=>$stock_baru );
+        $this->db->where('kd_barang', $row->kd_barang);
+        $this->db->update('ref_barang', $update);
+
             $this->Mtr_barang_keluar->delete($id);
             $this->db->query("commit");
             $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Hapus barang Keluar</button>');
@@ -164,7 +171,11 @@ class tr_barang_keluar extends CI_Controller {
         $row = $this->Mtr_barang_keluar->get_by_id($id);
 
         if ($row) {
-$tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$row->tanggal",0,4);            
+$tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$row->tanggal",0,4); 
+        $sess=array(
+                'jumlah'=>$row->jumlah,            
+                );
+        $this->session->set_userdata($sess);           
             $data = array(
                 'button'     => 'Update Referensi barang',
                 'action'     => site_url('gudang/tr_barang_keluar/update_action'),
@@ -185,6 +196,16 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
     } 
         public function update_action() 
     {
+        $kd_barang = $this->input->post('barang',TRUE);
+        $barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$kd_barang")->row();
+        if($barang){
+        $stock=$barang->stock;
+        $jumlah_keluar=$this->session->userdata('jumlah');
+        $jumlah_keluar_baru=$this->input->post('jumlah',TRUE);
+        $stock_baru=$jumlah_keluar+$stock-$jumlah_keluar_baru;}
+        $update = array('stock'=>$stock_baru );
+        $this->db->where('kd_barang', $kd_barang);
+        $this->db->update('ref_barang', $update);
             $data = array(
 		'nm_barang' => $this->input->post('nm_barang',TRUE),
 		'harga' => $this->input->post('harga',TRUE),
