@@ -75,6 +75,27 @@ class laporan extends CI_Controller {
         $data['rk'] =$this->M_laporan->getlap_kategori($kategori,$date1,$date2);   
         $this->load->view('gudang/laporan/lap_perkategori_excel',$data);
     }
+    public function lap_per_bulan()
+    {
+        if(isset($_POST['date'])){
+            $date     =$_POST['date'];
+            $rk="tampil";
+        }else{
+            $date=DATE('m/Y');
+            $rk =" ";
+        }
+        $sess=array(
+                'date'=>substr($this->input->post('date',TRUE),3,4)."-".substr($this->input->post('date',TRUE),0,2)        
+                );
+        $this->session->set_userdata($sess); 
+        $data['date']=$date;
+        $data['rk'] =$rk;
+        $this->template->load('welcome/halaman','gudang/laporan/lap_per_bulan_list',$data);
+    }     public function laporan_per_bulan_excel(){
+        $date=$this->session->userdata('date');
+        $data['rk'] =$this->M_laporan->getlap_bulan($date);   
+        $this->load->view('gudang/laporan/lap_perbulan_excel',$data);
+    }
     public function harga_stock()
     {
         $this->template->load('welcome/halaman','gudang/ref_laporan/Ref_harga_stock_list');
@@ -87,6 +108,10 @@ class laporan extends CI_Controller {
         header('Content-Type: application/json');
         echo $this->M_laporan->json_lap_per_kategori();
     }     
+    public function json_bulan() {
+        header('Content-Type: application/json');
+        echo $this->M_laporan->json_lap_per_bulan();
+    }    
     public function json_stock() {
         header('Content-Type: application/json');
         echo $this->Mref_laporan->json_laporan_stock();

@@ -2,7 +2,7 @@
 
 header("Content-type: application/octet-stream");
 
-header("Content-Disposition: attachment; filename=Laporan Pengeluaran per Divisi.xls");
+header("Content-Disposition: attachment; filename=Laporan Pengeluaran per Bulan.xls");
 
 header("Pragma: no-cache");
 
@@ -35,7 +35,7 @@ header("Expires: 0");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">                   
-                   <center> <h4>Laporan Pengeluaran Barang Per Kategori</h4>      </center>             
+                   <center> <h4>Laporan Pengeluaran Barang Per Bulan</h4>      </center>             
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
