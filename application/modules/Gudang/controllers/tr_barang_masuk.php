@@ -300,7 +300,6 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
         $barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$row->kd_barang")->row();
         $harga_rata=$barang->harga;
         $stock=$barang->stock;
-        $jumlah=$row->jumlah;
         $stock_lama=$stock-$jumlah;
         $harga_rata_lama=(($harga_rata*($jumlah_masuk+$stock_lama))-($jumlah_masuk*$harga_masuk))/$stock_lama;
         $update = array('stock'=>$stock_lama,'harga'=>$harga_rata_lama );

@@ -36,7 +36,45 @@ class laporan extends CI_Controller {
         $data['kd_unit']=$unit;
         $data['date1']=$date1;$data['date2']=$date2;$data['rk'] =$rk;
 		$this->template->load('welcome/halaman','gudang/laporan/laporan_per_divisi_list',$data);
-	}
+	}     public function laporan_per_divisi_excel(){
+        $unit=$this->session->userdata('unit');
+        $date1=$this->session->userdata('date1');
+        $date2=$this->session->userdata('date2');
+        $data['rk'] =$this->M_laporan->getlap_divisi($unit,$date1,$date2);   
+        $this->load->view('gudang/laporan/lap_perdivisi_excel',$data);
+    }
+    public function lap_stock_jb()
+    {
+        if(isset($_POST['kategori'])&&isset($_POST['date1'])&&isset($_POST['date2'])){
+            $kategori     =$_POST['kategori'];
+            $date1      =$_POST['date1'];
+            $date2      =$_POST['date2'];
+            $rk="tampil";
+        }else{
+            $kategori='';
+            $date1=DATE('d/m/Y');
+            $date2=DATE('d/m/Y');
+            $rk =" ";
+        }
+        $sess=array(
+                'kategori'=>$kategori,
+                'date1'=>substr($this->input->post('date1',TRUE),6,4)."-".substr($this->input->post('date1',TRUE),3,2)."-".substr($this->input->post('date1',TRUE),0,2),
+                'date2'=>substr($this->input->post('date2',TRUE),6,4)."-".substr($this->input->post('date2',TRUE),3,2)."-".substr($this->input->post('date2',TRUE),0,2),                
+                );
+        $this->session->set_userdata($sess);         
+        $data = array(
+            'kategori'      =>$this->M_laporan->ListKategori(), 
+        );
+        $data['kd_kategori']=$kategori;
+        $data['date1']=$date1;$data['date2']=$date2;$data['rk'] =$rk;
+        $this->template->load('welcome/halaman','gudang/laporan/lap_stock_jb_list',$data);
+    }     public function laporan_per_kategori_excel(){
+        $kategori=$this->session->userdata('kategori');
+        $date1=$this->session->userdata('date1');
+        $date2=$this->session->userdata('date2');
+        $data['rk'] =$this->M_laporan->getlap_kategori($kategori,$date1,$date2);   
+        $this->load->view('gudang/laporan/lap_perkategori_excel',$data);
+    }
     public function harga_stock()
     {
         $this->template->load('welcome/halaman','gudang/ref_laporan/Ref_harga_stock_list');
@@ -45,6 +83,10 @@ class laporan extends CI_Controller {
         header('Content-Type: application/json');
         echo $this->M_laporan->json_lap_per_divisi();
     }    
+    public function json_kategori() {
+        header('Content-Type: application/json');
+        echo $this->M_laporan->json_lap_per_kategori();
+    }     
     public function json_stock() {
         header('Content-Type: application/json');
         echo $this->Mref_laporan->json_laporan_stock();
