@@ -7,8 +7,15 @@
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
-                  <div class="x_title"> 
-                    <h2>Laporan Stock Per Divisi</h2>                    
+                  <div class="x_title">  <?php if ( $rk=="tampil") { ?>
+                  
+            <div class="pull-right">             
+                <div class="btn-group">
+                <?php echo anchor(site_url('gudang/laporan/laporan_per_divisi_excel'), '<i class="fa fa-file-excel-o"></i>  ', 'class="btn btn-success btn-sm"'); 
+                ?>
+                </div>                
+            </div><?php } ?>  
+                    <h2>Laporan Pengeluaran Barang Per Divisi</h2>                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -43,14 +50,16 @@
                 <div class="pull-right col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
 
               </form><?php if($rk=="tampil"){?>
-                    <table id="example2" class="table table-striped table-bordered">
+                    <table id="example2" class=" table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th width="5%">No</th>
-                          <th width="15%">Nama Barang</th>
-                          <th width="10%">Satuan</th>
-                          <th width="10%">Kategori</th>
-                          <th width="10%">Jumlah</th>
+                          <th style="text-align: center ; " width="5%">No</th>
+                          <th style="text-align: center ; " width="15%">Nama Barang</th>
+                          <th style="text-align: center ; " width="10%">Satuan</th>
+                          <th style="text-align: center ; " width="10%">Kategori</th>
+                          <th style="text-align: center ; " width="10%">Jumlah</th>
+                          <th style="text-align: center; ; " width="10%">Harga</th>
+                          <th style="text-align: center; ; " width="10%">Total Harga</th>
                         </tr>
                       </thead>
 
@@ -121,7 +130,7 @@
                             "data": "kd_barang",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "jumlah"}
+                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "jumlah"},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right"},{"data": "total","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();
