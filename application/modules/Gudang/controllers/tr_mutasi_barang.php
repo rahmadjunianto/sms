@@ -12,8 +12,24 @@ class tr_mutasi_barang extends CI_Controller {
 		$this->load->library('datatables');
     }
 	public function index()
-	{
-		$this->template->load('welcome/halaman','gudang/tr_mutasi_barang/tr_mutasi_barang_list');
+	{        
+        if(isset($_POST['barang'])){
+            $barang     =$_POST['barang'];
+            $rk="tampil";
+        }else{
+            $rk =" ";
+            $barang='';
+        }
+        $sess=array(
+                'barang'=>$barang,        
+                );         
+        $data = array(
+            'barang'      =>$this->Mtr_mutasi_barang->ListBarang(), 
+        );
+        $this->session->set_userdata($sess); 
+        $data['rk'] =$rk;
+        $data['kd_barang']=$barang;
+		$this->template->load('welcome/halaman','gudang/tr_mutasi_barang/tr_mutasi_barang_list',$data);
 	}
     public function json() {
         header('Content-Type: application/json');
@@ -50,7 +66,7 @@ GROUP BY a.kd_barang, a.nm_barang")->result();
        foreach ($mutasi as $mutasi) {
         $row=$this->db->query("SELECT COUNT(kd_barang) kd_barang FROM tr_mutasi_barang WHERE kd_barang=$mutasi->kd_barang AND bulan=$bulan AND tahun=$tahun")->row();
         $tr_per_barang=$this->db->query("SELECT COUNT(saldo) AS s, saldo  FROM tr_mutasi_barang WHERE bulan= '$bulans' AND tahun='$tahuns' AND kd_barang=$mutasi->kd_barang")->row();
-        $tr_mutasi=$this->db->query("SELECT * FROM tr_mutasi_barang WHERE bulan='$bulan' AND tahun='$tahun'")->result();
+        //$tr_mutasi=$this->db->query("SELECT * FROM tr_mutasi_barang WHERE bulan='$bulan' AND tahun='$tahun'")->result();
         if ($tr_per_barang->s==0) {
             $saldo=0;
         }

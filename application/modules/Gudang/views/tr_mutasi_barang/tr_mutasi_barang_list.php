@@ -17,24 +17,39 @@
             </div>                    
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content">
+                  <div class="x_content">        <form id="myform" data-parsley-validate   action=""<?php echo base_url().'gudang/laporan/lap_per_divisi'?>" method="post">
+                <div class="row">
+
+                  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                          <select   class="barang form-control input-sm" name="barang" required="" >
+                    <option></option>
+                    <option <?php if("all"==$kd_barang){echo "selected";}?> value="all">Semua barang</option>
+                    <?php foreach($barang as $barang){?>
+                    <option <?php if($barang->kd_barang==$kd_barang){echo "selected";}?> value="<?php echo $barang->kd_barang?>"><?php echo $barang->nm_barang ?></option>
+                    <?php }?>
+                          </select>                   
+                  </div>
+      
+                <div class="pull-right col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
+
+              </form><?php if($rk=="tampil"){?>
                     <table id="example2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th width="5%">No</th>
-                          <th width="15%">Nama barang</th>
-                          <th width="15%">Stock Awal</th>
-                          <th width="20%">Masuk</th>
-                          <th width="20%">Keluar</th>
-                          <th width="20%">Saldo</th>
-                          <th width="7%">Bulan</th>
-                          <th width="7%">Tahun</th>
+                          <th class="text-center" width="5%">No</th>
+                          <th class="text-center" width="15%">Nama barang</th>
+                          <th class="text-center" width="15%">Stock Awal</th>
+                          <th class="text-center" width="20%">Masuk</th>
+                          <th class="text-center" width="20%">Keluar</th>
+                          <th class="text-center" width="20%">Saldo</th>
+                          <th class="text-center" width="7%">Bulan</th>
+                          <th class="text-center" width="7%">Tahun</th>
                         </tr>
                       </thead>
 
 
                       
-                    </table>
+                    </table><?php } ?>
                   </div>
                 </div>
               </div>
@@ -137,4 +152,20 @@
                     }
                 });
             });
+      $(document).ready(function() {
+        $(".barang").select2({
+          placeholder: "Barang",
+          allowClear: true,    dropdownAutoWidth : true,
+        });
+        $(".kategori").select2({
+          placeholder: "Kategori",
+          allowClear: true,    dropdownAutoWidth : true,height: '100%',
+        });        
+        $(".select2_group").select2({});
+        $(".select2_multiple").select2({
+          maximumSelectionLength: 4,
+          placeholder: "With Max Selection limit 4",
+          allowClear: true
+        });
+      });
         </script>

@@ -17,9 +17,21 @@ class Mtr_mutasi_barang extends CI_Model
 
     // datatables
     function json() {
+        $kd_barang=$this->session->userdata('barang');
+        if($kd_barang!="all")
+        {
         $this->datatables->select('kd_mutasi,kd_barang,nm_barang,stok_awal,masuk,keluar, saldo,bulan,tahun');
         $this->datatables->from('tr_mutasi_barang');
+        $this->datatables->where("kd_barang=$kd_barang");
+        $this->db->order_by("nm_barang", "asc");
         return $this->datatables->generate();
+        }
+        else{
+        $this->datatables->select('kd_mutasi,kd_barang,nm_barang,stok_awal,masuk,keluar, saldo,bulan,tahun');
+        $this->datatables->from('tr_mutasi_barang');
+        $this->db->order_by("nm_barang", "asc");
+        return $this->datatables->generate();
+        }
     }
  
     // get data by id
@@ -52,8 +64,8 @@ class Mtr_mutasi_barang extends CI_Model
     }
 
 
-    function ListParent(){
-        return $this->db->query("SELECT kode_menu,nama_menu FROM MENU WHERE PARENT_MENU=0 ORDER BY SORT_MENU ASC")->result();
+    function ListBarang(){
+        return $this->db->query("SELECT * FROM ref_barang  ORDER BY nm_barang ASC")->result();
     }
 
 }
