@@ -13,22 +13,20 @@ class tr_mutasi_barang extends CI_Controller {
     }
 	public function index()
 	{        
-        if(isset($_POST['barang'])){
-            $barang     =$_POST['barang'];
+        if(isset($_POST['date'])){
+            $date     =$_POST['date'];
             $rk="tampil";
         }else{
+            $date=DATE('m/Y');
             $rk =" ";
-            $barang='';
         }
         $sess=array(
-                'barang'=>$barang,        
-                );         
-        $data = array(
-            'barang'      =>$this->Mtr_mutasi_barang->ListBarang(), 
-        );
+         'bulan' => substr($this->input->post('date',TRUE),0,2),
+        'tahun' => substr($this->input->post('date',TRUE),3,4),   
+                ); 
         $this->session->set_userdata($sess); 
+        $data['date']=$date;
         $data['rk'] =$rk;
-        $data['kd_barang']=$barang;
 		$this->template->load('welcome/halaman','gudang/tr_mutasi_barang/tr_mutasi_barang_list',$data);
 	}
     public function json() {
@@ -52,25 +50,27 @@ class tr_mutasi_barang extends CI_Controller {
         $bulans=substr($bulantahuns,0,2);
         $tahuns=substr($bulantahuns,3,4);
         $where="WHERE tanggal LIKE '%$tahun-$bulan%'";
-       $mutasi= $this->db->query("SELECT a.kd_barang, a.nm_barang, IFNULL(masuk,0) AS masuk ,IFNULL(keluar,0) AS keluar
+       $mutasi= $this->db->query("SELECT a.kd_barang, a.nm_barang, IFNULL(masuk,0) AS masuk,IFNULL(masuk.qty,0) AS qty_m ,IFNULL(keluar,0) AS keluar,IFNULL(keluar.qty,0) AS qty_k
 FROM ref_barang a 
 LEFT JOIN 
-(SELECT kd_barang, nm_barang, IFNULL(SUM(harga*jumlah),0) AS masuk 
+(SELECT kd_barang, nm_barang, IFNULL(SUM(harga*jumlah),0) AS masuk ,SUM(jumlah) qty
 FROM tr_barang_masuk $where
 GROUP BY kd_barang, nm_barang ) masuk ON a.kd_barang=masuk.kd_barang
 LEFT  JOIN 
-(SELECT kd_barang, nm_barang, IFNULL(SUM(harga*jumlah),0) AS keluar 
+(SELECT kd_barang, nm_barang, IFNULL(SUM(harga*jumlah),0) AS keluar  ,SUM(jumlah) qty
 FROM tr_barang_keluar $where
 GROUP BY kd_barang, nm_barang) keluar ON a.kd_barang=keluar.kd_barang
 GROUP BY a.kd_barang, a.nm_barang")->result();
        foreach ($mutasi as $mutasi) {
         $row=$this->db->query("SELECT COUNT(kd_barang) kd_barang FROM tr_mutasi_barang WHERE kd_barang=$mutasi->kd_barang AND bulan=$bulan AND tahun=$tahun")->row();
-        $tr_per_barang=$this->db->query("SELECT COUNT(saldo) AS s, saldo  FROM tr_mutasi_barang WHERE bulan= '$bulans' AND tahun='$tahuns' AND kd_barang=$mutasi->kd_barang")->row();
+        $tr_per_barang=$this->db->query("SELECT COUNT(saldo) AS s, saldo,qty  FROM tr_mutasi_barang WHERE bulan= '$bulans' AND tahun='$tahuns' AND kd_barang=$mutasi->kd_barang")->row();
         //$tr_mutasi=$this->db->query("SELECT * FROM tr_mutasi_barang WHERE bulan='$bulan' AND tahun='$tahun'")->result();
         if ($tr_per_barang->s==0) {
             $saldo=0;
+            $stok=0;
         }
-        else {$saldo=$tr_per_barang->saldo;}
+        else {$saldo=$tr_per_barang->saldo;
+            $stok=$tr_per_barang->qty;}
         if($row->kd_barang==0){
         $data = array(
         'bulan' => substr($this->input->post('date',TRUE),0,2),
@@ -78,9 +78,13 @@ GROUP BY a.kd_barang, a.nm_barang")->result();
         'kd_barang'=> $mutasi->kd_barang,
         'nm_barang'=> $mutasi->nm_barang,
         'stok_awal'=>$saldo,
+        'qty_a'=>$stok,
         'masuk'=>$mutasi->masuk,
+        'qty_k'=> $mutasi->qty_k,
+        'qty_m'=>$mutasi->qty_m,
         'keluar'=> $mutasi->keluar,
         'saldo'=>$saldo+$mutasi->masuk-$mutasi->keluar,
+        'qty'=>$stok+$mutasi->qty_m-$qty_k,
         );
         $this->Mtr_mutasi_barang->insert($data);
         }
@@ -91,9 +95,13 @@ GROUP BY a.kd_barang, a.nm_barang")->result();
         'kd_barang'=> $mutasi->kd_barang,
         'nm_barang'=> $mutasi->nm_barang,
         'stok_awal'=>$saldo,
+        'qty_a'=>$stok,
         'masuk'=>$mutasi->masuk,
+        'qty_k'=> $mutasi->qty_k,
+        'qty_m'=>$mutasi->qty_m,
         'keluar'=> $mutasi->keluar,
         'saldo'=>$saldo+$mutasi->masuk-$mutasi->keluar,
+        'qty'=>$stok+$mutasi->qty_m-$mutasi->qty_k,
         );
         
         $this->db->where('kd_barang', $mutasi->kd_barang);

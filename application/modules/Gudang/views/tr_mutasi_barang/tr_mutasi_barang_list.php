@@ -21,14 +21,13 @@
                 <div class="row">
 
                   <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                          <select   class="barang form-control input-sm" name="barang" required="" >
-                    <option></option>
-                    <option <?php if("all"==$kd_barang){echo "selected";}?> value="all">Semua barang</option>
-                    <?php foreach($barang as $barang){?>
-                    <option <?php if($barang->kd_barang==$kd_barang){echo "selected";}?> value="<?php echo $barang->kd_barang?>"><?php echo $barang->nm_barang ?></option>
-                    <?php }?>
-                          </select>                   
-                  </div>
+       <div class="input-group">
+        <div class="input-group-addon">
+         <i class="fa fa-calendar">
+         </i>
+        </div>
+        <input class="form-control datepicker" id="datepicker" name="date" value="<?php echo $date ?>" type="text"/>
+       </div></div> 
       
                 <div class="pull-right col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
 
@@ -36,14 +35,23 @@
                     <table id="example2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th class="text-center" width="5%">No</th>
-                          <th class="text-center" width="15%">Nama barang</th>
-                          <th class="text-center" width="15%">Stock Awal</th>
-                          <th class="text-center" width="20%">Masuk</th>
-                          <th class="text-center" width="20%">Keluar</th>
-                          <th class="text-center" width="20%">Saldo</th>
-                          <th class="text-center" width="7%">Bulan</th>
-                          <th class="text-center" width="7%">Tahun</th>
+                          <th rowspan="2" class="text-center" width="5%">No</th>
+                          <th rowspan="2" class="text-center" width="15%">Nama barang</th>
+                          <th colspan="2" class="text-center" width="20%"> Awal</th>
+                          <th colspan="2" class="text-center" width="20%">Masuk</th>
+                          <th colspan="2" class="text-center" width="20%">Keluar</th>
+                          <th colspan="2" class="text-center" width="20%">Stock Akhir </th>
+                        </tr>
+                        <tr>
+                          
+                          <th class="text-center" width="10%">Qty</th>
+                          <th class="text-center" width="15%">Nominal</th>                          
+                          <th class="text-center" width="10%">Qty</th>
+                          <th class="text-center" width="15%">Nominal</th>                          
+                          <th class="text-center" width="10%">Qty</th>
+                          <th class="text-center" width="15%">Nominal</th>                          
+                          <th class="text-center" width="10%">Qty</th>
+                          <th class="text-center" width="15%">Nominal</th>
                         </tr>
                       </thead>
 
@@ -118,30 +126,29 @@
                         {
                           "data": "nm_barang"
                         },
+                        {"data": "qty_a"},
                         {
                           "data": "stok_awal",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),
                           "className" : "text-right"
                         },
+                        {"data": "qty_m"},
                         {
                           "data": "masuk",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),
                           "className" : "text-right"
                         },
+                        {"data": "qty_k"},
                         {
                           "data": "keluar",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),
                            "className" : "text-right"
                         },
+                        {"data": "qty"},
                         {
                           "data": "saldo",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),
-                          "className" : "text-right"},{"data": "bulan"},
-                        {
-                            "data" : "tahun",
-                            "orderable": false,
-                            "className" : "text-center"
-                        }
+                          "className" : "text-right"},
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();
@@ -167,5 +174,10 @@
           placeholder: "With Max Selection limit 4",
           allowClear: true
         });
-      });
+      });      $("#datepicker").datepicker( {
+    format: "mm/yyyy",
+    startView: "months", 
+    minViewMode: "months",
+      autoclose: true,
+});
         </script>

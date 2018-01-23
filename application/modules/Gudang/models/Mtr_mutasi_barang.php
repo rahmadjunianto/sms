@@ -17,21 +17,14 @@ class Mtr_mutasi_barang extends CI_Model
 
     // datatables
     function json() {
-        $kd_barang=$this->session->userdata('barang');
-        if($kd_barang!="all")
-        {
-        $this->datatables->select('kd_mutasi,kd_barang,nm_barang,stok_awal,masuk,keluar, saldo,bulan,tahun');
+        $bulan=$this->session->userdata('bulan');
+        $tahun=$this->session->userdata('tahun');
+        $this->datatables->select('kd_mutasi,kd_barang,nm_barang,stok_awal,masuk,keluar, saldo,bulan,tahun,qty_m,qty_k,qty_a,qty');
         $this->datatables->from('tr_mutasi_barang');
-        $this->datatables->where("kd_barang=$kd_barang");
+        $this->datatables->where("tahun = '$tahun' and bulan='$bulan'");
         $this->db->order_by("nm_barang", "asc");
         return $this->datatables->generate();
-        }
-        else{
-        $this->datatables->select('kd_mutasi,kd_barang,nm_barang,stok_awal,masuk,keluar, saldo,bulan,tahun');
-        $this->datatables->from('tr_mutasi_barang');
-        $this->db->order_by("nm_barang", "asc");
-        return $this->datatables->generate();
-        }
+
     }
  
     // get data by id
