@@ -18,11 +18,19 @@ class ref_barang extends CI_Controller {
     public function harga_stock()
     {
         $this->template->load('welcome/halaman','gudang/ref_barang/Ref_harga_stock_list');
-    }    
+    }
+    public function stock_barang_gudang()
+    {
+        $this->template->load('welcome/halaman','gudang/ref_barang/ref_stock_barang_gudang_list');
+    }     
     public function json() {
         header('Content-Type: application/json');
         echo $this->Mref_barang->json_barang();
-    }    
+    }      
+    public function json_stock_barang() {
+        header('Content-Type: application/json');
+        echo $this->Mref_barang->json_stock();
+    }   
     public function json_stock() {
         header('Content-Type: application/json');
         echo $this->Mref_barang->json_barang_stock();

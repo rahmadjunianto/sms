@@ -29,6 +29,12 @@ class tr_mutasi_barang extends CI_Controller {
         $data['rk'] =$rk;
 		$this->template->load('welcome/halaman','gudang/tr_mutasi_barang/tr_mutasi_barang_list',$data);
 	}
+        public function list_excel(){
+        $bulan=$this->session->userdata('bulan');
+        $tahun=$this->session->userdata('tahun');
+        $data['rk'] =$this->Mtr_mutasi_barang->getlist($bulan,$tahun);   
+        $this->load->view('gudang/tr_mutasi_barang/tr_mutasi_barang_excel',$data);
+    }
     public function json() {
         header('Content-Type: application/json');
         echo $this->Mtr_mutasi_barang->json();

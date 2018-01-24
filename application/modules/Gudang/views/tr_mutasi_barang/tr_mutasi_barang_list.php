@@ -13,7 +13,11 @@
                 <div class="btn-group">
                 <?php echo anchor(site_url('gudang/tr_mutasi_barang/create'), '<i class="fa fa-plus"></i> Tambah', 'class="btn btn-success btn-sm"'); 
                 ?>
-                </div>
+                </div><?php if($rk=="tampil"){?>
+                <div class="btn-group">
+                <?php echo anchor(site_url('gudang/tr_mutasi_barang/list_excel'), '<i class="fa fa-file-excel-o"></i> ', 'class="btn btn-success btn-sm"'); 
+                ?>
+                </div><?php } ?>
             </div>                    
                     <div class="clearfix"></div>
                   </div>

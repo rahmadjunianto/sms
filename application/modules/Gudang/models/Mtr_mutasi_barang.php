@@ -60,7 +60,9 @@ class Mtr_mutasi_barang extends CI_Model
     function ListBarang(){
         return $this->db->query("SELECT * FROM ref_barang  ORDER BY nm_barang ASC")->result();
     }
-
+    function getList($bulan,$tahun){
+        return $this->db->query("SELECT * FROM tr_mutasi_barang WHERE bulan='$bulan' AND tahun ='$tahun' ORDER BY nm_barang")->result();
+    }
 }
 
 /* End of file Mmenu.php */
