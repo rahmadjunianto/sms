@@ -21,7 +21,7 @@ class laporan extends CI_Controller {
             $rk="tampil";
         }else{
             $unit='';
-            $kategori='';
+            $kategori='all';
             $date1=DATE('d/m/Y');
             $date2=DATE('d/m/Y');
             $rk =" ";

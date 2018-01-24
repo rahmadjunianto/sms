@@ -8,7 +8,12 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title"> 
-                    <h2>Stock Barang Gudang</h2>                 
+                    <h2>Stock Barang Gudang</h2>              <div class="pull-right">             
+                <div class="btn-group">
+                <?php echo anchor(site_url('gudang/ref_barang/stock_gudang_excel'), '<i class="fa fa-file-excel-o"></i>  ', 'class="btn btn-success btn-sm"'); 
+                ?>
+                </div>                
+            </div>               
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">

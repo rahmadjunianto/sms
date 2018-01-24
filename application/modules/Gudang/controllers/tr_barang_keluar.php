@@ -13,7 +13,20 @@ class tr_barang_keluar extends CI_Controller {
     }
 	public function index()
 	{
-		$this->template->load('welcome/halaman','gudang/tr_barang_keluar/tr_barang_keluar_list');
+        if(isset($_POST['date'])){
+            $date     =$_POST['date'];
+            $rk="tampil";
+        }else{
+            $date=DATE('d/m/Y');
+            $rk =" ";
+        }
+        $sess=array(
+            'date'=>substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),        
+                ); 
+        $this->session->set_userdata($sess); 
+        $data['date']=$date;
+        $data['rk'] =$rk;
+		$this->template->load('welcome/halaman','gudang/tr_barang_keluar/tr_barang_keluar_list',$data);
 	}
     public function json() {
         header('Content-Type: application/json');

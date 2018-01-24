@@ -14,7 +14,11 @@ class ref_barang extends CI_Controller {
 	public function index()
 	{
 		$this->template->load('welcome/halaman','gudang/ref_barang/Ref_barang_list');
-	}
+	}  
+    public function stock_gudang_excel(){
+        $data['rk'] =$this->Mref_barang->listBarang();   
+        $this->load->view('gudang/ref_barang/ref_stock_barang_gudang_excel',$data);
+    }
     public function harga_stock()
     {
         $this->template->load('welcome/halaman','gudang/ref_barang/Ref_harga_stock_list');

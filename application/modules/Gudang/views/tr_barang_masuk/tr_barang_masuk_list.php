@@ -26,6 +26,19 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+<form id="myform" data-parsley-validate   action=""<?php echo base_url().'gudang/tr_barang_masuk'?>" method="post">
+                <div class="row">
+                  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+       <div class="input-group">
+        <div class="input-group-addon">
+         <i class="fa fa-calendar">
+         </i>
+        </div>
+        <input class="form-control tanggal" id="date" name="date" value="<?php echo $date ?>" type="text"/>
+       </div></div>      
+                <div class="pull-right col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
+
+              </form>         <?php if($rk=="tampil"){?>           
                     <table id="example2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
@@ -38,10 +51,7 @@
                           <th width="7%">Aksi</th>
                         </tr>
                       </thead>
-
-
-                      
-                    </table>
+                    </table><?php } ?>
                   </div>
                 </div>
               </div>
