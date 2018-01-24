@@ -19,6 +19,7 @@ class Mref_kategori extends CI_Model
     function json_kategori() {
         $this->datatables->select('kd_kategori,nm_kategori');
         $this->datatables->from('ref_kategori');
+        $this->db->order_by("nm_kategori", "asc");
         $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/ref_kategori/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/ref_kategori/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_kategori');
         return $this->datatables->generate();
     }

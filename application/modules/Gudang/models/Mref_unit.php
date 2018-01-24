@@ -19,6 +19,7 @@ class Mref_unit extends CI_Model
     function json_unit() {
         $this->datatables->select('kd_unit,nm_unit');
         $this->datatables->from('ref_unit');
+        $this->db->order_by("nm_unit", "asc");
         $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/ref_unit/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/ref_unit/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_unit');
         return $this->datatables->generate();
     }

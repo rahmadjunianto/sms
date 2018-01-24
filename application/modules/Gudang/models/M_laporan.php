@@ -138,7 +138,7 @@ FROM ref_barang a LEFT JOIN
 (SELECT kd_barang,nm_barang,harga,SUM(jumlah) jumlah
 FROM tr_barang_keluar
 WHERE kd_unit=$unit AND tanggal BETWEEN '$date1' AND '$date2'
-GROUP BY kd_barang,nm_barang,harga) b ON a.kd_barang=b.kd_barang JOIN ref_kategori c ON a.kd_kategori=c.kd_kategori $where")->result();
+GROUP BY kd_barang,nm_barang,harga) b ON a.kd_barang=b.kd_barang JOIN ref_kategori c ON a.kd_kategori=c.kd_kategori $where order by a.nm_barang")->result();
     }
 
     function getlap_bulan($kategori,$date){
@@ -154,7 +154,7 @@ FROM ref_barang a LEFT JOIN
 (SELECT kd_barang,nm_barang,harga,SUM(jumlah) jumlah
 FROM tr_barang_keluar
 WHERE  tanggal LIKE '%$date%'
-GROUP BY kd_barang,nm_barang,harga) b ON a.kd_barang=b.kd_barang JOIN ref_kategori c ON a.kd_kategori=c.kd_kategori $where")->result();
+GROUP BY kd_barang,nm_barang,harga) b ON a.kd_barang=b.kd_barang JOIN ref_kategori c ON a.kd_kategori=c.kd_kategori $where order by a.nm_barang")->result();
     }
     function getlap_kategori($kategori,$date1,$date2){
         if($kategori!="all")
@@ -169,7 +169,7 @@ FROM ref_barang a LEFT JOIN
 (SELECT kd_barang,nm_barang,harga,SUM(jumlah) jumlah
 FROM tr_barang_keluar
 WHERE tanggal BETWEEN '$date1' AND '$date2'
-GROUP BY kd_barang,nm_barang,harga) b ON a.kd_barang=b.kd_barang JOIN ref_kategori c ON a.kd_kategori=c.kd_kategori $where")->result();
+GROUP BY kd_barang,nm_barang,harga) b ON a.kd_barang=b.kd_barang JOIN ref_kategori c ON a.kd_kategori=c.kd_kategori $where order by a.nm_barang")->result();
     }
     function ListUnit(){
         return $this->db->query("SELECT * from ref_unit ORDER BY nm_unit ASC")->result();

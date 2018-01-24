@@ -42,7 +42,7 @@ header("Expires: 0");
  <br>                   
                     <table id="example2" border="1" width="100%" class="table table-striped table-bordered" style="font-size: 12px">
                           <th align="center" width="5%">No</th>
-                          <th width="8%">Nama Barangl</th>
+                          <th width="8%">Nama Barang</th>
                           <th width="13%">Satuan</th>
                           <th width="12%">Nama Kategori</th>
                           <th width="15%">Jumlah</th>
