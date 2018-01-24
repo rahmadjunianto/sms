@@ -227,7 +227,7 @@ class man_dukb extends CI_Controller {
         'kd_siklus' => $this->input->post('kd_siklus',TRUE),
         'nm_kabupaten' => $this->input->post('kabupaten',TRUE),
         'nm_kecamatan' => $this->input->post('kecamatan',TRUE),
-        'jenis_kayu' => $this->input->post('jenis_kayu',TRUE),
+        'jk' => $this->input->post('jenis_kayu',TRUE),
         'asal_kayu' => $this->input->post('asal_kayu',TRUE),
         'kd_pengguna' => $this->session->userdata('ku'),
         'tanggal' => $this->input->post('date',TRUE),
@@ -263,7 +263,7 @@ class man_dukb extends CI_Controller {
         'kd_siklus' ,
         'nm_kabupaten' ,
         'nm_kecamatan' ,
-        'jenis_kayu' ,
+        'jk' ,
         'asal_kayu' ,
         'tanggal' ,
         

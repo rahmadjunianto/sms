@@ -125,7 +125,7 @@ document.getElementById('nama').value = nama[id].n;
                       </div>                                             
                       <div class="form-group">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                          <input type="text" id="last-name" name="jenis_kayu"  placeholder="Jenis Kayu" class="form-control col-md-7 col-xs-12" value="<?php if ($this->session->userdata('jenis_kayu')!=null){echo $this->session->userdata('jenis_kayu');}; ?>">                     
+                          <input type="text" id="last-name" name="jenis_kayu"  placeholder="Jenis Kayu" class="form-control col-md-7 col-xs-12" value="<?php if ($this->session->userdata('jk')!=null){echo $this->session->userdata('jk');}; ?>">                     
                         </div>
                       </div>
                       <div class="form-group">

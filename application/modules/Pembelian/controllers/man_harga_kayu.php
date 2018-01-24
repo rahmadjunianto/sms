@@ -132,7 +132,7 @@ class man_harga_kayu extends CI_Controller {
         $kabupaten=$_POST['kabupaten'];
         
         //$data['parent']=$parent;
-        $data['kc']=$this->db->query("SELECT kabupaten,kecamatan FROM ref_lokasi_kayu WHERE kabupaten ='$kabupaten'")->result();
+        $data['kc']=$this->db->query("SELECT kabupaten,kecamatan FROM ref_lokasi_kayu WHERE kabupaten ='$kabupaten' order by kecamatan asc")->result();
         // print_r($data);
         $this->load->view('man_harga_kayu/getkecamatan',$data);
     } 

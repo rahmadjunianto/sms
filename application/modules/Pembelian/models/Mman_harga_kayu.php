@@ -72,21 +72,21 @@ class Mman_harga_kayu extends CI_Model
 
 
     function ListKab(){
-        return $this->db->query("SELECT DISTINCT kabupaten FROM ref_lokasi_kayu")->result();
+        return $this->db->query("SELECT DISTINCT kabupaten FROM ref_lokasi_kayu order by kabupaten asc")->result();
     }
     function ListSupplier(){
-        return $this->db->query("SELECT * FROM ref_supplier ")->result();
+        return $this->db->query("SELECT * FROM ref_supplier order by nama_supplier asc")->result();
     }
     function ListSPanjangKayu(){
         return $this->db->query("SELECT panjang_kayu  FROM
-(SELECT  DISTINCT panjang_kayu  FROM ref_panjang_kayu)a")->result();
+(SELECT  DISTINCT panjang_kayu  FROM ref_panjang_kayu)a order by panjang_kayu asc")->result();
     }
     function ListKelasDiameter($id){
         return $this->db->query("SELECT CONCAT (kd_bawah,'-',kd_atas) AS kd FROM
 (SELECT  DISTINCT kd_bawah,kd_atas FROM ref_panjang_kayu WHERE panjang_kayu=$id)a")->result();
     } 
     function Listkec($id){
-        return $this->db->query("SELECT kecamatan FROM ref_lokasi_kayu WHERE kabupaten='$id'")->result();
+        return $this->db->query("SELECT kecamatan FROM ref_lokasi_kayu WHERE kabupaten='$id' order by kecamatan asc")->result();
     }        
 
 }
