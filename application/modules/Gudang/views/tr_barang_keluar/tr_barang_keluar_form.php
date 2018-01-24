@@ -14,6 +14,19 @@
                   <div class="x_content">
 <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left"  action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name"  >Tanggal
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+       <div class="input-group">
+        <div class="input-group-addon">
+         <i class="fa fa-calendar">
+         </i>
+        </div>
+        <input class="form-control tanggal" id="date" name="date" value="<?php echo $date ?>" type="text"/>
+       </div>                          
+                        </div>
+                      </div>
+                      <div class="form-group">
 
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Nama Unit 
                         </label>
@@ -31,6 +44,7 @@
                       <div class="form-group">
 <?php
 $nm_barang = "var nama = new Array();\n";
+$harga_barang = "var harga = new Array();\n";
 ?>                         
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Nama Barang 
                         </label>
@@ -38,32 +52,21 @@ $nm_barang = "var nama = new Array();\n";
                           <select class="select2_single form-control" name="barang"  id="barang" onchange="changeValue(this.value)">
                     <option></option>
                     <?php foreach($barang as $barang){?>
-                    <option <?php if($kd_barang==$barang->kd_barang){echo "selected";}?> value="<?php echo $barang->kd_barang?>"><?php echo $barang->nm_barang?></option>
+                    <option <?php if($kd_barang==$barang->kd_barang){echo "selected";}?> value="<?php echo $barang->kd_barang?>"><?php echo $barang->nm_barang." Stock : ".$barang->stock?></option>
                     <?php                     
           $nm_barang .= "nama['" . $barang->kd_barang . "'] = {nama:'".addslashes($barang->nm_barang)."'};\n";
+          $harga_barang .= "harga['" . $barang->kd_barang . "'] = {harga:'".addslashes($barang->harga)."'};\n";
            }?>
 <script type="text/javascript">  
-<?php echo $nm_barang;?>
+<?php echo $nm_barang; echo $harga_barang;?>
 function changeValue(id){
 document.getElementById('nm_barang').value = nama[id].nama;
+document.getElementById('harga_barang').value = harga[id].harga;
 }; 
 </script>
 </select>                
                         </div>
                       </div>  
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name"  >Tanggal
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-       <div class="input-group">
-        <div class="input-group-addon">
-         <i class="fa fa-calendar">
-         </i>
-        </div>
-        <input class="form-control tanggal" id="date" name="date" value="<?php echo $date ?>" type="text"/>
-       </div>                          
-                        </div>
-                      </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name"  >Jumlah
                         </label>
@@ -73,13 +76,7 @@ document.getElementById('nm_barang').value = nama[id].nama;
 <input type="hidden" name="nm_barang" id="nm_barang" value="<?php echo $nama_barang; ?>" />                             
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Harga
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="last-name" name="harga" required="required" placeholder="Harga" class="form-control col-md-7 col-xs-12" value="<?php echo $harga; ?>">                     
-                        </div>
-                      </div> 
+                          <input type="hidden" id="harga_barang" name="harga" required="required" placeholder="Harga" class="form-control col-md-7 col-xs-12" value="<?php echo $harga; ?>">
                                                                                                
                       <div class="ln_solid"></div>
                       <div class="form-group">

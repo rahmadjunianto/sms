@@ -14,6 +14,19 @@
                   <div class="x_content">
 <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left"  action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name"  >Tanggal
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+       <div class="input-group">
+        <div class="input-group-addon">
+         <i class="fa fa-calendar">
+         </i>
+        </div>
+        <input class="form-control tanggal" id="date" name="date" value="<?php echo $date ?>" type="text"/>
+       </div>                          
+                        </div>
+                      </div>
+                      <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >No Faktur
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -45,19 +58,6 @@ document.getElementById('nm_barang').value = nama[id].nama;
                         </div>
                       </div>  
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name"  >Tanggal
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-       <div class="input-group">
-        <div class="input-group-addon">
-         <i class="fa fa-calendar">
-         </i>
-        </div>
-        <input class="form-control tanggal" id="date" name="date" value="<?php echo $date ?>" type="text"/>
-       </div>                          
-                        </div>
-                      </div>
-                      <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name"  >Jumlah
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -67,10 +67,10 @@ document.getElementById('nm_barang').value = nama[id].nama;
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Harga
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Harga Satuan
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="last-name" name="harga" required="required" placeholder="Harga" class="form-control col-md-7 col-xs-12" value="<?php echo $harga; ?>">                     
+                          <input type="text" id="last-name" name="harga" required="required" placeholder="Harga Satuan" class="form-control col-md-7 col-xs-12" value="<?php echo $harga; ?>">                     
                         </div>
                       </div> 
                                                                                                
