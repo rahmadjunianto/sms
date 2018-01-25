@@ -57,15 +57,15 @@ class laporan extends CI_Controller {
             $date2      =$_POST['date2'];
             $rk="tampil";
         }else{
-            $kategori='';
+            $kategori='all';
             $date1=DATE('d/m/Y');
             $date2=DATE('d/m/Y');
-            $rk =" ";
+            $rk ="tampil";
         }
         $sess=array(
-                'kategori'=>$kategori,
-                'date1'=>substr($this->input->post('date1',TRUE),6,4)."-".substr($this->input->post('date1',TRUE),3,2)."-".substr($this->input->post('date1',TRUE),0,2),
-                'date2'=>substr($this->input->post('date2',TRUE),6,4)."-".substr($this->input->post('date2',TRUE),3,2)."-".substr($this->input->post('date2',TRUE),0,2),                
+            'kategori'=>$kategori,
+            'date1' =>date("Y-m-d", strtotime(str_replace('/','-',$date1)))   ,
+            'date2' =>date("Y-m-d", strtotime(str_replace('/','-',$date2)))                 
                 );
         $this->session->set_userdata($sess);         
         $data = array(
@@ -83,7 +83,7 @@ class laporan extends CI_Controller {
     }
     public function lap_per_bulan()
     {
-        if(isset($_POST['date'])){
+        if(isset($_POST['date'])&&isset($_POST['kategori'])){
             $kategori     =$_POST['kategori'];
             $date     =$_POST['date'];
             $rk="tampil";
@@ -93,7 +93,7 @@ class laporan extends CI_Controller {
             $kategori='all';
         }
         $sess=array(
-                'date'=>substr($this->input->post('date',TRUE),3,4)."-".substr($this->input->post('date',TRUE),0,2),
+                'date'=>substr($date,3,4)."-".substr($date,0,2),
                 'kategori'=>$kategori,        
                 );         
         $data = array(
