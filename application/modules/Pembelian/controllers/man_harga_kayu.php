@@ -44,19 +44,33 @@ class man_harga_kayu extends CI_Controller {
     }
     public function create_action() 
     {
-
+        $kode_supplier=$this->input->post('kode_supplier',TRUE);
+        $panjang_kayu= $this->input->post('panjang_kayu',TRUE);
+        $kabupaten = $this->input->post('kabupaten',TRUE);
+        $kecamatan = $this->input->post('kecamatan',TRUE);
+        $kd_bawah =substr($this->input->post('kelas_diameter',TRUE),0,2);
+        $kd_atas = substr($this->input->post('kelas_diameter',TRUE),3,2);
+    $t = $this->db->query("SELECT COUNT(kode_supplier) kode_supplier 
+FROM man_harga_kayu WHERE kode_supplier=$kode_supplier AND panjang_kayu=$panjang_kayu AND kabupaten='$kabupaten' AND kecamatan='$kecamatan' AND kd_bawah=$kd_bawah AND kd_atas=$kd_atas")->row();
+                if($t->kode_supplier==0){
         $data = array(
-		'kode_supplier' => $this->input->post('kode_supplier',TRUE),
-		'panjang_kayu' => $this->input->post('panjang_kayu',TRUE),
-		'kd_bawah' => substr($this->input->post('kelas_diameter',TRUE),0,2),
+        'kode_supplier' => $this->input->post('kode_supplier',TRUE),
+        'panjang_kayu' => $this->input->post('panjang_kayu',TRUE),
+        'kd_bawah' => substr($this->input->post('kelas_diameter',TRUE),0,2),
         'kd_atas' => substr($this->input->post('kelas_diameter',TRUE),3,2),
-		'kecamatan' => $this->input->post('kecamatan',TRUE),
+        'kecamatan' => $this->input->post('kecamatan',TRUE),
         'kabupaten' => $this->input->post('kabupaten',TRUE),
-		'harga' => $this->input->post('harga',TRUE),
-	    );
+        'harga' => $this->input->post('harga',TRUE),
+        );
             $this->Mman_harga_kayu->insert($data);
             $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah Harga Kayu</button>');
-            redirect(site_url('Pembelian/man_harga_kayu'));
+            redirect(site_url('Pembelian/man_harga_kayu'));}
+            else {
+
+
+            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Harga Kayu sudah ada</button>');
+            redirect(site_url('Pembelian/man_harga_kayu'));}                
+            
     }
     public function delete($id) 
     {
