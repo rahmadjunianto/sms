@@ -23,7 +23,7 @@ class tr_barang_masuk extends CI_Controller {
         }
         $sess=array(/*
             'date_bm'=>substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),   */   
-            'date_bm' =>date("Y-m-d", strtotime(str_replace('/','-',$date)))
+            'date' =>date("Y-m-d", strtotime(str_replace('/','-',$date)))
                 ); 
         $this->session->set_userdata($sess); 
         $data['date']=$date;

@@ -18,11 +18,11 @@ class tr_mutasi_barang extends CI_Controller {
             $rk="tampil";
         }else{
             $date=DATE('m/Y');
-            $rk =" ";
+            $rk ="tampil";
         }
         $sess=array(
-         'bulan' => substr($this->input->post('date',TRUE),0,2),
-        'tahun' => substr($this->input->post('date',TRUE),3,4),   
+         'bulan' => substr($date,0,2),
+        'tahun' => substr($date,3,4),   
                 ); 
         $this->session->set_userdata($sess); 
         $data['date']=$date;

@@ -18,10 +18,10 @@ class tr_barang_keluar extends CI_Controller {
             $rk="tampil";
         }else{
             $date=DATE('d/m/Y');
-            $rk =" ";
+            $rk ="tampil";
         }
-        $sess=array(
-            'date'=>substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),        
+        $sess=array( 
+            'date' =>date("Y-m-d", strtotime(str_replace('/','-',$date)))     
                 ); 
         $this->session->set_userdata($sess); 
         $data['date']=$date;
