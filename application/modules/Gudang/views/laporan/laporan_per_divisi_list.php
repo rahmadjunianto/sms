@@ -21,6 +21,7 @@
                   <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                           <select   class="unit form-control input-sm" name="unit" required="" >
                     <option></option>
+                    <option <?php if("all"==$kd_unit){echo "selected";}?> value="all">Semua Unit</option>
                     <?php foreach($unit as $unit){?>
                     <option <?php if($unit->kd_unit==$kd_unit){echo "selected";}?> value="<?php echo $unit->kd_unit?>"><?php echo $unit->nm_unit ?></option>
                     <?php }?>

@@ -28,9 +28,24 @@ class M_laporan extends CI_Model
         $unit=$this->session->userdata('unit');
         $date1=$this->session->userdata('date1');
         $date2=$this->session->userdata('date2');        
-        if($kategori!="all")
+        if(($kategori!="all")&&($unit!="all"))
         {//semua kategori
         $this->datatables->select('a.kd_barang,a.nm_barang, satuan,c.nm_kategori, IFNULL(b.jumlah, 0) jumlah,IFNULL(b.harga, 0) harga,IFNULL(b.jumlah*b.harga,0) AS total');
+        $this->datatables->from('ref_barang a');
+        $this->datatables->join("(SELECT kd_barang,nm_barang,SUM(jumlah) jumlah,SUM(harga) harga FROM tr_barang_keluar WHERE kd_unit=$unit AND tanggal BETWEEN '$date1' AND '$date2' GROUP BY kd_barang,nm_barang,harga) b", "a.kd_barang=b.kd_barang","left");
+        $this->datatables->join('ref_kategori c', 'a.kd_kategori=c.kd_kategori');
+        $this->datatables->where("a.kd_kategori=$kategori");
+        $this->db->order_by("a.nm_barang,c.nm_kategori", "asc");
+        }
+        elseif(($kategori=="all")&&($unit!="all")) {//kategori tertentu
+        $this->datatables->select('a.kd_barang,a.nm_barang,c.nm_kategori, satuan, IFNULL(b.jumlah, 0) jumlah,IFNULL(b.harga, 0) harga,IFNULL(b.jumlah*b.harga,0) AS total');
+        $this->datatables->from('ref_barang a');
+        $this->datatables->join("(SELECT kd_barang,nm_barang,SUM(jumlah) jumlah,SUM(harga) harga FROM tr_barang_keluar WHERE kd_unit=$unit AND tanggal BETWEEN '$date1' AND '$date2' GROUP BY kd_barang,nm_barang,harga) b", "a.kd_barang=b.kd_barang","left");
+        $this->datatables->join('ref_kategori c', 'a.kd_kategori=c.kd_kategori');
+        $this->db->order_by("a.nm_barang,c.nm_kategori", "asc");
+        }
+        elseif(($kategori!="all")&&($unit=="all")) {//kategori tertentu
+        $this->datatables->select('a.kd_barang,a.nm_barang,c.nm_kategori, satuan, IFNULL(b.jumlah, 0) jumlah,IFNULL(b.harga, 0) harga,IFNULL(b.jumlah*b.harga,0) AS total');
         $this->datatables->from('ref_barang a');
         $this->datatables->join("(SELECT kd_barang,nm_barang,SUM(jumlah) jumlah,SUM(harga) harga FROM tr_barang_keluar WHERE kd_unit=$unit AND tanggal BETWEEN '$date1' AND '$date2' GROUP BY kd_barang,nm_barang,harga) b", "a.kd_barang=b.kd_barang","left");
         $this->datatables->join('ref_kategori c', 'a.kd_kategori=c.kd_kategori');
@@ -40,7 +55,7 @@ class M_laporan extends CI_Model
         else{//kategori tertentu
         $this->datatables->select('a.kd_barang,a.nm_barang,c.nm_kategori, satuan, IFNULL(b.jumlah, 0) jumlah,IFNULL(b.harga, 0) harga,IFNULL(b.jumlah*b.harga,0) AS total');
         $this->datatables->from('ref_barang a');
-        $this->datatables->join("(SELECT kd_barang,nm_barang,SUM(jumlah) jumlah,SUM(harga) harga FROM tr_barang_keluar WHERE kd_unit=$unit AND tanggal BETWEEN '$date1' AND '$date2' GROUP BY kd_barang,nm_barang,harga) b", "a.kd_barang=b.kd_barang","left");
+        $this->datatables->join("(SELECT kd_barang,nm_barang,SUM(jumlah) jumlah,SUM(harga) harga FROM tr_barang_keluar WHERE  tanggal BETWEEN '$date1' AND '$date2' GROUP BY kd_barang,nm_barang,harga) b", "a.kd_barang=b.kd_barang","left");
         $this->datatables->join('ref_kategori c', 'a.kd_kategori=c.kd_kategori');
         $this->db->order_by("a.nm_barang,c.nm_kategori", "asc");
         }

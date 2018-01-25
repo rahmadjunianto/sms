@@ -20,17 +20,17 @@ class laporan extends CI_Controller {
             $date2      =$_POST['date2'];
             $rk="tampil";
         }else{
-            $unit='';
+            $unit='all';
             $kategori='all';
             $date1=DATE('d/m/Y');
             $date2=DATE('d/m/Y');
-            $rk =" ";
+            $rk ="tampil";
         }
         $sess=array(
-                'unit'=>$unit,
-                'kategori'=>$kategori,
-                'date1'=>substr($this->input->post('date1',TRUE),6,4)."-".substr($this->input->post('date1',TRUE),3,2)."-".substr($this->input->post('date1',TRUE),0,2),
-                'date2'=>substr($this->input->post('date2',TRUE),6,4)."-".substr($this->input->post('date2',TRUE),3,2)."-".substr($this->input->post('date2',TRUE),0,2),                
+            'unit'=>$unit,
+            'kategori'=>$kategori,
+            'date1' =>date("Y-m-d", strtotime(str_replace('/','-',$date1))),
+            'date2' =>date("Y-m-d", strtotime(str_replace('/','-',$date2)))               
                 );
         $this->session->set_userdata($sess);         
         $data = array(
@@ -64,7 +64,7 @@ class laporan extends CI_Controller {
         }
         $sess=array(
             'kategori'=>$kategori,
-            'date1' =>date("Y-m-d", strtotime(str_replace('/','-',$date1)))   ,
+            'date1' =>date("Y-m-d", strtotime(str_replace('/','-',$date1))),
             'date2' =>date("Y-m-d", strtotime(str_replace('/','-',$date2)))                 
                 );
         $this->session->set_userdata($sess);         
