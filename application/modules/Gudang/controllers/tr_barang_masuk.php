@@ -13,15 +13,17 @@ class tr_barang_masuk extends CI_Controller {
     }
 	public function index()
 	{
+
         if(isset($_POST['date'])){
             $date     =$_POST['date'];
             $rk="tampil";
         }else{
             $date=DATE('d/m/Y');
-            $rk =" ";
+            $rk ="tampil";
         }
-        $sess=array(
-            'date'=>substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),        
+        $sess=array(/*
+            'date_bm'=>substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),   */   
+            'date_bm' =>date("Y-m-d", strtotime(str_replace('/','-',$date)))
                 ); 
         $this->session->set_userdata($sess); 
         $data['date']=$date;

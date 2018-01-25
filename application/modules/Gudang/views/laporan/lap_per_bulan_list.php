@@ -10,7 +10,7 @@
                 ?>
                 </div>                
             </div><?php } ?>  
-                    <h2>Laporan Pengeluaran Barang Per Bulan</h2>                    
+                    <h2>Laporan Pengeluaran Barang Per Bulan <?php $date=DATE("Y-m");echo $date; ?></h2>                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">

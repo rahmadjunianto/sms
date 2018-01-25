@@ -89,8 +89,8 @@ class laporan extends CI_Controller {
             $rk="tampil";
         }else{
             $date=DATE('m/Y');
-            $rk =" ";
-            $kategori='';
+            $rk ="tampil";
+            $kategori='all';
         }
         $sess=array(
                 'date'=>substr($this->input->post('date',TRUE),3,4)."-".substr($this->input->post('date',TRUE),0,2),

@@ -17,7 +17,7 @@ class Mtr_barang_masuk extends CI_Model
 
     // datatables
     function json_barang() {
-        $date=$this->session->userdata('date');
+        $date=$this->session->userdata('date_bm');
         $this->datatables->select("no_faktur,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah");
         $this->datatables->from('tr_barang_masuk ');;$this->db->order_by("kd_barang_masuk", "desc");
         $this->datatables->where("tanggal='$date'");

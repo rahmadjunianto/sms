@@ -3,7 +3,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title"> 
-                    <h2>Transaksi Barang Masuk</h2>
+                    <h2>Transaksi Barang Masuk </h2>
             <div class="pull-right">
                 <div class="btn-group">
                 <?php echo anchor(site_url('gudang/tr_barang_masuk/imports'), '<i class="fa fa-cloud-upload"></i> Sinkronisasi Harga', 'class="btn btn-info btn-sm"'); 

@@ -49,8 +49,17 @@ class M_laporan extends CI_Model
         return $this->datatables->generate();
     }
     function json_lap_per_bulan() {
+        if ($this->session->userdata('kategori')!=null && $this->session->userdata('date')!=null){
+
         $kategori=$this->session->userdata('kategori');
         $date=$this->session->userdata('date');
+        }
+
+        else
+        {
+            $kategori="all";
+            $date=DATE("Y-d");
+        }
         if($kategori!="all")
         {
         $this->datatables->select('a.kd_barang,a.nm_barang, satuan,c.nm_kategori, IFNULL(b.jumlah, 0) jumlah,IFNULL(b.harga, 0) harga,IFNULL(b.jumlah*b.harga,0) AS total');
