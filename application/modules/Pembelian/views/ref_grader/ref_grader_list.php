@@ -1,8 +1,3 @@
-<div class="page-title">
-
-            </div>
-
-            <div class="clearfix"></div>
 <?php echo $this->session->flashdata('message')?><br>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
@@ -21,8 +16,8 @@
                     <table id="example2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th width="5%">No</th>
-                          <th >Nama Grader</th>
+                          <th class="text-center"  width="5%">No</th>
+                          <th class="text-center"  >Nama Grader</th>
                           <?php if ($this->session->userdata('kg')==5) {?><th width="7%">Aksi</th><?php } ?>
                         </tr>
                       </thead>

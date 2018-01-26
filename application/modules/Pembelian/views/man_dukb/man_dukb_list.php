@@ -1,14 +1,9 @@
-<div class="page-title">
-
-            </div>
-
-            <div class="clearfix"></div>
 <?php echo $this->session->flashdata('message')?><br>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title"> 
-                    <h2>Transakasi DUKB  </h2>
+                    <h2>Transaksi DUKB  </h2>
 <?php if ($this->session->userdata('kg')==5) {?>
             <div class="pull-right">             
                 <div class="btn-group">
@@ -21,46 +16,35 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-        <form id="myform" data-parsley-validate class="form-label-left form-inline"  action=""<?php echo base_url().'pembelian/man_dukb'?>" method="post">
+        <form id="myform" data-parsley-validate  action=""<?php echo base_url().'pembelian/man_dukb'?>" method="post">
                 <div class="row">
-
-
                   <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                                            <div class="form-group">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
                           <select   class="grader form-control input-sm" name="nama_grader" required="" >
                     <option></option>
                     <?php foreach($grader as $grader){?>
                     <option <?php if($grader->kd_grader==$nama_grader){echo "selected";}?>  value="<?php echo $grader->kd_grader?>" ><?php echo $grader->nm_grader?></option>
                     <?php }?>
-                          </select>                         
-                        </div>
-                      </div>
+                          </select>  
                   </div>
 
-                  <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                        <div class="form-group">
-                        <div class="col-md-10 col-sm-8 col-xs-12">
+                  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                           <select   class="supplier form-control input-sm" name="supplier" required="" >
                     <option></option>
                     <?php foreach($supplier as $supplier){?>
                     <option <?php if($supplier->kode_supplier==$nm_supplier){echo "selected";}?> value="<?php echo $supplier->kode_supplier?>"><?php echo $supplier->nama_supplier ?></option>
                     <?php }?>
-                          </select>                         
-                        </div>
-                      </div>                     
+                          </select>                   
                   </div>
 
-                  <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                  <div class="form-group">
+                  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
        <div class="input-group">
         <div class="input-group-addon">
          <i class="fa fa-calendar">
          </i>
         </div>
         <input class="form-control tanggal" id="date" name="date" value="<?php echo $date ?>" type="text"/>
-       </div></div></div>
-                <div class="pull-right col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-default"><i class="fa fa-search"></i> Tampilkan</button></div>                                                          
+       </div></div>
+                <div class="col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                          
 
               </form>
  <br>                   <?php if($rk=="tampil"){?>
@@ -171,7 +155,6 @@
         $(".grader").select2({
           placeholder: "Grader",
           allowClear: true,    dropdownAutoWidth : true,
-    width: '200%',height: '100%',
         });
         $(".supplier").select2({
           placeholder: "Supllier",

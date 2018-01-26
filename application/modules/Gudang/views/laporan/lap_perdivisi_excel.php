@@ -2,7 +2,7 @@
 
 header("Content-type: application/octet-stream");
 
-header("Content-Disposition: attachment; filename=Laporan Pengeluaran Divisi.xls");
+header("Content-Disposition: attachment; filename=Laporan_Pengeluaran_Divisi.xls");
 
 header("Pragma: no-cache");
 

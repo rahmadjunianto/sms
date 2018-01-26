@@ -26,7 +26,7 @@
     <script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
     <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>    
     <!-- Custom Theme Style -->
-    <link href="<?php echo base_url().'gentelella/'?>/build/css/custom.min.css" rel="stylesheet">
+    <link href="<?php echo base_url().'gentelella/'?>build/css/custom.min.css" rel="stylesheet">
     <script src="<?php echo base_url().'gentelella/'?>datetimepicker/jquery.datetimepicker.full.js" type="text/javascript"></script>
     <script src="<?php echo base_url().'gentelella/'?>datetimepicker/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
     <link href="<?php echo base_url().'gentelella/'?>datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" type="text/css" />    <script type="text/javascript" src="<?php echo base_url().'gentelella/datepicker/'?>bootstrap-datepicker.min.js"></script>

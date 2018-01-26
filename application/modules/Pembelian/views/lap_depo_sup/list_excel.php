@@ -2,7 +2,7 @@
 
 header("Content-type: application/octet-stream");
 
-header("Content-Disposition: attachment; filename=Laporan Depo Supplier.xls");
+header("Content-Disposition: attachment; filename=Laporan_Depo_Supplier.xls");
 
 header("Pragma: no-cache");
 

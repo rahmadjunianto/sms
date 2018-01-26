@@ -1,6 +1,3 @@
-<div class="page-title">
-
-            </div>
 <?php $this->session->userdata('faktur'); ?>
             <div class="clearfix"></div>
 <?php if( $this->session->userdata('berhasil')!=0){?>

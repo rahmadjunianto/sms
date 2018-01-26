@@ -290,7 +290,11 @@ class tr_barang_masuk extends CI_Controller {
         $row = $this->Mtr_barang_masuk->get_by_id($id);
 
         if ($row) {
-$tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$row->tanggal",0,4);            
+$tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$row->tanggal",0,4); 
+        $sess=array(
+                'jumlah'=>$row->jumlah,            
+                );
+        $this->session->set_userdata($sess);            
             $data = array(
                 'button'     => 'Update Referensi barang',
                 'action'     => site_url('gudang/tr_barang_masuk/update_action'),
@@ -310,14 +314,23 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
     } 
         public function update_action() 
     {
+        $kd_barang_masuk = $this->input->post('kd_barang_masuk', TRUE);
+        $row=$this->db->query("SELECT * FROM tr_barang_masuk WHERE kd_barang_masuk=$kd_barang_masuk")->row();
         $jumlah_masuk=$row->jumlah;
         $harga_masuk=$row->harga;
+        $stok_baru=$this->input->post('jumlah',TRUE);
+        $harga_baru=$this->input->post('harga',TRUE);
         $barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$row->kd_barang")->row();
         $harga_rata=$barang->harga;
         $stock=$barang->stock;
-        $stock_lama=$stock-$jumlah;
+        $stock_lama=$stock-$jumlah_masuk;
+        $stock_baru=$stock-$jumlah_masuk+$stok_baru;
         $harga_rata_lama=(($harga_rata*($jumlah_masuk+$stock_lama))-($jumlah_masuk*$harga_masuk))/$stock_lama;
-        $update = array('stock'=>$stock_lama,'harga'=>$harga_rata_lama );
+        $harga_rata_baru=($stok_baru*$harga_baru+$stock_lama*$harga_rata_lama)/($stok_baru+$stock_lama);
+
+        $update = array('stock'=>$stock_baru,'harga'=>$harga_rata_baru );
+        $this->db->where('kd_barang', $row->kd_barang);
+        $this->db->update('ref_barang', $update);
             $data = array(
 		'nm_barang' => $this->input->post('nm_barang',TRUE),
 		'harga' => $this->input->post('harga',TRUE),

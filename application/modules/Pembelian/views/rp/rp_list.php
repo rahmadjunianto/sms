@@ -1,8 +1,3 @@
-<div class="page-title">
-
-            </div>
-
-            <div class="clearfix"></div>
 <?php echo $this->session->flashdata('message')?><br>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
@@ -141,7 +136,7 @@
                             "data": "kode_supplier",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data":"tgl"},{"data":"tgl_val"},{"data":"nama_supplier"},{"data":"volume"},{"data":"harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
+                        },{"data":"tgl"},{"data":"tgl_val"},{"data":"nama_supplier"},{"data":"volume","className" : "text-right",},{"data":"harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
                         {
                             "data": "action",
                             "orderable": false,

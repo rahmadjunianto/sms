@@ -1,8 +1,3 @@
-<div class="page-title">
-
-            </div>
-
-            <div class="clearfix"></div>
 <?php echo $this->session->flashdata('message')?><br>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
@@ -47,23 +42,23 @@
         </div>
         <input class="form-control tanggal" id="date" name="date2" value="<?php echo $date2 ?>" type="text"/>
        </div></div>       
-                <div class="pull-right col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
+                <div class=" col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
 
               </form>
  <br>                   <?php if($rk=="tampil"){?>
                     <table id="example2" class="table table-striped table-bordered" style="font-size: 12px">
                       <thead>
                         <tr>
-                          <th width="5%">No</th>
-                          <th width="8%">Tanggal</th>
-                          <th width="13%">Tanggal Validasi</th>
-                          <th width="12%">Kode Siklus</th>
-                          <th width="15%">Nama Supplier</th>
-                          <th width="10%">Kabupaten</th>
-                          <th width="10%">Kecamatan</th>
-                          <th width="10%">Volume</th>
-                          <th width="10%">Nominal</th>
-                          <th width="10%">Aksi</th>
+                          <th class="text-center" width="5%">No</th>
+                          <th class="text-center" width="8%">Tanggal</th>
+                          <th class="text-center" width="13%">Tanggal Validasi</th>
+                          <th class="text-center" width="12%">Kode Siklus</th>
+                          <th class="text-center" width="15%">Nama Supplier</th>
+                          <th class="text-center" width="10%">Kabupaten</th>
+                          <th class="text-center" width="10%">Kecamatan</th>
+                          <th class="text-center" width="10%">Volume</th>
+                          <th class="text-center" width="10%">Nominal</th>
+                          <th class="text-center" width="10%">Aksi</th>
                         </tr>
                       </thead>
                     </table><?php } ?>
@@ -131,7 +126,7 @@
                             "data": "id_dukb",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "tanggal_val"},{"data": "kd_siklus"},{"data":"nama_supplier"},{"data": "kabupaten"},{"data": "kecamatan"},{"data": "volume"},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
+                        },{"data": "tanggal"},{"data": "tanggal_val"},{"data": "kd_siklus"},{"data":"nama_supplier"},{"data": "kabupaten"},{"data": "kecamatan"},{"data": "volume","className" : "text-right",},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
                         {
                             "data" : "action",
                             "orderable": false,

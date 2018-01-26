@@ -1,8 +1,3 @@
-<div class="page-title">
-
-            </div>
-
-            <div class="clearfix"></div>
 <?php echo $this->session->flashdata('message')?><br>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
@@ -21,12 +16,12 @@
                     <table id="example2" class="table table-striped table-bordered" >
                       <thead>
                         <tr>
-                          <th width="5%">No</th>
-                          <th width="15%">Panjang Kayu</th>
-                          <th width="15%">Kelas Diameter</th>
-                          <th width="10%">Diameter</th>
-                          <th width="10%">M<sup>3</sup> / Btg</th>
-                          <?php if ($this->session->userdata('kg')==5) {?><th width="7%">Aksi</th><?php } ?>
+                          <th class="text-center"  width="5%">No</th>
+                          <th class="text-center"  width="15%">Panjang Kayu</th>
+                          <th class="text-center"  width="15%">Kelas Diameter</th>
+                          <th class="text-center"  width="10%">Diameter</th>
+                          <th class="text-center"  width="10%">M<sup>3</sup> / Btg</th>
+                          <?php if ($this->session->userdata('kg')==5) {?><th class="text-center"  width="7%">Aksi</th><?php } ?>
                         </tr>
                       </thead>
 
