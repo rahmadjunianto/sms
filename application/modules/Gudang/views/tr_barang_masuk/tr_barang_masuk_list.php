@@ -31,19 +31,19 @@
         </div>
         <input class="form-control tanggal" id="date" name="date" value="<?php echo $date ?>" type="text"/>
        </div></div>      
-                <div class="pull-right col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
+                <div class="col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
 
               </form>         <?php if($rk=="tampil"){?>           
                     <table id="example2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th width="5%">No</th>
-                          <th width="15%">Tanggal</th>
-                          <th width="15%">No Faktur</th>
-                          <th width="15%">Nama Barang</th>
-                          <th width="10%">Jumlah</th>
-                          <th width="10%">Harga</th>
-                          <th width="7%">Aksi</th>
+                          <th class="text-center" width="5%">No</th>
+                          <th class="text-center" width="15%">Tanggal</th>
+                          <th class="text-center" width="15%">No Faktur</th>
+                          <th class="text-center" width="15%">Nama Barang</th>
+                          <th class="text-center" width="10%">Jumlah</th>
+                          <th class="text-center" width="10%">Harga</th>
+                          <th class="text-center" width="7%">Aksi</th>
                         </tr>
                       </thead>
                     </table><?php } ?>
@@ -111,7 +111,7 @@
                             "data": "kd_barang_masuk",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nm_barang"},{"data": "jumlah"},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
+                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nm_barang"},{"data": "jumlah","className" : "text-right",},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
                         {
                             "data" : "action",
                             "orderable": false,

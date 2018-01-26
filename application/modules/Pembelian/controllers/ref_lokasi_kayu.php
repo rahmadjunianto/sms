@@ -63,7 +63,7 @@ class ref_lokasi_kayu extends CI_Controller {
 
         if ($row) {
             $data = array(
-                'button'     => 'Update Referensi Supplier',
+                'button'     => 'Update Referensi Lokasi Kayu',
                 'action'     => site_url('pembelian/ref_lokasi_kayu/update_action'),
             'kode_lokasi' => set_value('kode_supplier',$row->kode_lokasi),
             'kecamatan'=> set_value('kecamatan',$row->kecamatan),

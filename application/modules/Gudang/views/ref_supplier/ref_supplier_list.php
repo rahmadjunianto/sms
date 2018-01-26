@@ -16,14 +16,14 @@
                     <table id="example2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th width="5%">No</th>
-                          <th width="15%">Nama Supplier</th>
-                          <th width="15%">Email</th>
-                          <th width="10%">No HP</th>
-                          <th width="10%">Kecamatan</th>
-                          <th width="10%">Kabupaten</th>
-                          <th>Alamat</th>
-                          <th width="7%">Aksi</th>
+                          <th  class="text-center" width="5%">No</th>
+                          <th  class="text-center" width="15%">Nama Supplier</th>
+                          <th  class="text-center" width="15%">Email</th>
+                          <th  class="text-center" width="10%">No HP</th>
+                          <th  class="text-center" width="10%">Kecamatan</th>
+                          <th  class="text-center" width="10%">Kabupaten</th>
+                          <th class="text-center" >Alamat</th>
+                          <th  class="text-center" width="7%">Aksi</th>
                         </tr>
                       </thead>
 

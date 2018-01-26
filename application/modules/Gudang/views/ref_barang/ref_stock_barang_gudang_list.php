@@ -14,13 +14,13 @@
                     <table id="example2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th width="5%">No</th>
-                          <th width="15%">Nama Barang</th>
-                          <th width="10%">Satuan</th>
-                          <th width="10%">Kategori</th>
-                          <th width="10%">Stock</th>
-                          <th width="10%">Harga</th>
-                          <th width="7%">Nominal</th>
+                          <th class="text-center" width="5%">No</th>
+                          <th class="text-center" width="15%">Nama Barang</th>
+                          <th class="text-center" width="10%">Satuan</th>
+                          <th class="text-center" width="10%">Kategori</th>
+                          <th class="text-center" width="10%">Stock</th>
+                          <th class="text-center" width="10%">Harga</th>
+                          <th class="text-center" width="7%">Nominal</th>
                         </tr>
                       </thead>
 
@@ -91,7 +91,8 @@
                             "data": "kd_barang",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "stock"},{"data": "harga",
+                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "stock",
+                          "className" : "text-right"},{"data": "harga",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),
                           "className" : "text-right"},
                         {

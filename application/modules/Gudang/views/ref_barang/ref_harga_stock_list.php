@@ -10,11 +10,11 @@
                     <table id="example2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th width="5%">No</th>
-                          <th width="30%">Nama Barang</th>
-                          <th width="15%">Satuan</th>
-                          <th width="15%">Kategori</th>
-                          <th width="10%">Stock</th>
+                          <th class="text-center" width="5%">No</th>
+                          <th class="text-center" width="30%">Nama Barang</th>
+                          <th class="text-center" width="15%">Satuan</th>
+                          <th class="text-center" width="15%">Kategori</th>
+                          <th class="text-center" width="10%">Stock</th>
                         </tr>
                       </thead>
 
@@ -85,7 +85,8 @@
                             "data": "kd_barang",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "stock"}
+                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "stock",
+                            "className" : "text-right",}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();

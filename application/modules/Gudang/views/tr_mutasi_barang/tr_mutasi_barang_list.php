@@ -28,7 +28,7 @@
         <input class="form-control datepicker" id="datepicker" name="date" value="<?php echo $date ?>" type="text"/>
        </div></div> 
       
-                <div class="pull-right col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
+                <div class="col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
 
               </form><?php if($rk=="tampil"){?>
                     <table id="example2" class="table table-striped table-bordered">
@@ -125,25 +125,29 @@
                         {
                           "data": "nm_barang"
                         },
-                        {"data": "qty_a"},
+                        {"data": "qty_a",
+                          "className" : "text-right"},
                         {
                           "data": "stok_awal",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),
                           "className" : "text-right"
                         },
-                        {"data": "qty_m"},
+                        {"data": "qty_m",
+                          "className" : "text-right"},
                         {
                           "data": "masuk",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),
                           "className" : "text-right"
                         },
-                        {"data": "qty_k"},
+                        {"data": "qty_k",
+                          "className" : "text-right"},
                         {
                           "data": "keluar",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),
                            "className" : "text-right"
                         },
-                        {"data": "qty"},
+                        {"data": "qty",
+                          "className" : "text-right"},
                         {
                           "data": "saldo",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),

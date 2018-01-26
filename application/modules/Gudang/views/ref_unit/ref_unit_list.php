@@ -16,9 +16,9 @@
                     <table id="example2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th width="5%">No</th>
-                          <th width="70%">Nama unit</th>
-                          <th width="7%">Aksi</th>
+                          <th class="text-center" width="5%">No</th>
+                          <th class="text-center" width="70%">Nama unit</th>
+                          <th class="text-center" width="7%">Aksi</th>
                         </tr>
                       </thead>
 
