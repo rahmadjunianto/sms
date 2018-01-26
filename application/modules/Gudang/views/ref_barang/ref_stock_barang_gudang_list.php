@@ -11,6 +11,21 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+        <form id="myform" data-parsley-validate   action=""<?php echo base_url().'gudang/laporan/lap_per_divisi'?>" method="post">
+                <div class="row">
+
+                  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                          <select   class="kategori form-control input-sm" name="kategori" required="" >
+                    <option></option>
+                    <option <?php if("all"==$kd_kategori){echo "selected";}?> value="all">Semua Kategori</option>
+                    <?php foreach($kategori as $kategori){?>
+                    <option <?php if($kategori->kd_kategori==$kd_kategori){echo "selected";}?> value="<?php echo $kategori->kd_kategori?>"><?php echo $kategori->nm_kategori ?></option>
+                    <?php }?>
+                          </select>                   
+                  </div>      
+                <div class="col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
+
+              </form>
                     <table id="example2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
@@ -110,4 +125,20 @@
                     }
                 });
             });
+      $(document).ready(function() {
+        $(".grader").select2({
+          placeholder: "Grader",
+          allowClear: true,    dropdownAutoWidth : true,
+        });
+        $(".kategori").select2({
+          placeholder: "Kategori",
+          allowClear: true,    dropdownAutoWidth : true,height: '100%',
+        });        
+        $(".select2_group").select2({});
+        $(".select2_multiple").select2({
+          maximumSelectionLength: 4,
+          placeholder: "With Max Selection limit 4",
+          allowClear: true
+        });
+      });
         </script>

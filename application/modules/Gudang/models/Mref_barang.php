@@ -25,12 +25,23 @@ class Mref_barang extends CI_Model
         return $this->datatables->generate();
     }
     function json_stock() {
+        $kategori=$this->session->userdata('kategori');
+        if($kategori!="all")
+        {
         $this->datatables->select('kd_barang,nm_barang,nm_kategori,satuan,harga,stock, (harga* stock) nominal');
         $this->datatables->from('ref_barang a');
         $this->datatables->join('ref_kategori b', 'a.kd_kategori=b.kd_kategori');
         $this->db->order_by("a.nm_barang", "asc");
-        return $this->datatables->generate();
-    }
+        $this->datatables->where("a.kd_kategori=$kategori");
+        return $this->datatables->generate();}
+        else {
+        $this->datatables->select('kd_barang,nm_barang,nm_kategori,satuan,harga,stock, (harga* stock) nominal');
+        $this->datatables->from('ref_barang a');
+        $this->datatables->join('ref_kategori b', 'a.kd_kategori=b.kd_kategori');
+        $this->db->order_by("a.nm_barang", "asc");
+        return $this->datatables->generate();}
+        }
+    
     function json_barang_stock() {
         $this->datatables->select('a.kd_barang,a.nm_barang,IFNULL(jmasuk, 0) jmasuk,IFNULL(jkeluar, 0) jkeluar, (IFNULL(jmasuk, 0)-IFNULL(jkeluar, 0)) stock,nm_kategori,satuan');
         $this->datatables->from('(SELECT kd_barang,nm_kategori,nm_barang,satuan
@@ -80,10 +91,20 @@ GROUP BY kd_barang) keluar', 'a.kd_barang=keluar.kd_barang','left');
         return $this->db->query("SELECT * from ref_kategori ORDER BY nm_kategori ASC")->result();
     }
     function Listbarang(){
+        $kategori=$this->session->userdata('kategori');
+        if($kategori!="all")
+        {
+        return $this->db->query("SELECT kd_barang,nm_barang, satuan, nm_kategori,stock,harga, stock*harga AS nominal
+FROM ref_barang a 
+JOIN ref_kategori b ON a.kd_kategori=b.kd_kategori where a.kd_kategori=$kategori
+ORDER BY nm_barang asc")->result();}
+        else {
+
         return $this->db->query("SELECT kd_barang,nm_barang, satuan, nm_kategori,stock,harga, stock*harga AS nominal
 FROM ref_barang a 
 JOIN ref_kategori b ON a.kd_kategori=b.kd_kategori
 ORDER BY nm_barang asc")->result();
+        }
     }
 
 }

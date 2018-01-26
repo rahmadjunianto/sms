@@ -25,7 +25,20 @@ class ref_barang extends CI_Controller {
     }
     public function stock_barang_gudang()
     {
-        $this->template->load('welcome/halaman','gudang/ref_barang/ref_stock_barang_gudang_list');
+        if(isset($_POST['kategori'])){
+            $kategori     =$_POST['kategori'];
+        }else{
+            $kategori='all';
+        }
+        $sess=array(
+            'kategori'=>$kategori,                
+                );
+        $this->session->set_userdata($sess);         
+        $data = array(
+            'kategori'      =>$this->Mref_barang->ListKategori(), 
+        );
+        $data['kd_kategori']=$kategori;
+        $this->template->load('welcome/halaman','gudang/ref_barang/ref_stock_barang_gudang_list',$data);
     }     
     public function json() {
         header('Content-Type: application/json');
