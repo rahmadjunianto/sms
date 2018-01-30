@@ -19,6 +19,31 @@ class ref_grader extends CI_Controller {
         header('Content-Type: application/json');
         echo $this->Mref_grader->json();
     }	
+    public function hapus()
+    {
+            $response = array();
+    
+    if ($_POST['delete']) {
+        
+        
+        $id = $_POST['delete'];
+        $row = $this->Mref_grader->get_by_id($id);
+        
+        if ($row) {
+            $this->Mref_grader->delete($id);
+            $response['status']  = 'success';
+            $response['message'] = 'Data Grader Sudah Dihapus ...';
+        } else {
+            $response['status']  = 'error';
+            $response['message'] = 'Unable to delete product ...';
+        }
+        echo json_encode($response);
+    }
+    }
+    public function table()
+    {
+         $this->load->view('pembelian/ref_grader/ref_grader_table');
+    }
     public function create() 
     {
         $data = array(

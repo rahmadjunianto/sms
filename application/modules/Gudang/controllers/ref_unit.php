@@ -18,6 +18,31 @@ class ref_unit extends CI_Controller {
     public function json() {
         header('Content-Type: application/json');
         echo $this->Mref_unit->json_unit();
+    }
+    public function hapus()
+    {
+            $response = array();
+    
+    if ($_POST['delete']) {
+        
+        
+        $id = $_POST['delete'];
+        $row = $this->Mref_unit->get_by_id($id);
+        
+        if ($row) {
+            $this->Mref_unit->delete($id);
+            $response['status']  = 'success';
+            $response['message'] = 'Data Unit Sudah Dihapus ...';
+        } else {
+            $response['status']  = 'error';
+            $response['message'] = 'Unable to delete product ...';
+        }
+        echo json_encode($response);
+    }
+    }
+    public function table()
+    {
+         $this->load->view('gudang/ref_unit/ref_unit_table');
     }	
     public function create() 
     {
@@ -39,7 +64,7 @@ class ref_unit extends CI_Controller {
             $this->Mref_unit->insert($data);
             $this->session->set_flashdata('message', '<script>
   $(window).load(function(){
-   swal("Berhasil Hapus Unit", "", "success")
+   swal("Berhasil Tambah Unit", "", "success")
   });
 
 </script>');

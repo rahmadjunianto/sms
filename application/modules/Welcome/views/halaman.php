@@ -11,7 +11,7 @@
   <!-- This is what you need -->
   <script src="<?php echo base_url().'gentelella/'?>build/swal/dist/sweetalert2.all.js"></script>
   <script src="<?php echo base_url().'gentelella/'?>build/swal/dist/sweetalert2.js"></script>
-  <link rel="stylesheet" href="<?php echo base_url().'gentelella/'?>build/swal/sweetalert2.css">
+  <link rel="stylesheet" href="<?php echo base_url().'gentelella/'?>build/swal/dist/sweetalert2.css">
   <!--.......................-->
     <title>PT Sukses Mitra Sejahtera </title>
 <script src="<?php echo base_url().'gentelella/'?>vendors/jquery/dist/jquery.min.js"></script>

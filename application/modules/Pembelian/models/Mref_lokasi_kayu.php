@@ -19,7 +19,7 @@ class Mref_lokasi_kayu extends CI_Model
     function json() {
         $this->datatables->select('kode_lokasi,kecamatan,kabupaten');
         $this->datatables->from('ref_lokasi_kayu');
-        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('pembelian/ref_lokasi_kayu/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('pembelian/ref_lokasi_kayu/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kode_lokasi');
+        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('pembelian/ref_lokasi_kayu/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('pembelian/ref_lokasi_kayu/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" id="delete" data-id="$1" href="javascript:void(0)"').'</div>', 'kode_lokasi');
         return $this->datatables->generate();
     }
  

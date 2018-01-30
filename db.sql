@@ -50,7 +50,7 @@ CREATE TABLE `man_harga_kayu` (
   `kd_bawah` int(11) DEFAULT NULL,
   `kd_atas` int(11) DEFAULT NULL,
   PRIMARY KEY (`kode_harga_kayu`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=latin1;
 
 /*Data for the table `man_harga_kayu` */
 
@@ -141,7 +141,7 @@ CREATE TABLE `ref_barang` (
 
 /*Data for the table `ref_barang` */
 
-insert  into `ref_barang`(`kd_barang`,`nm_barang`,`satuan`,`kd_kategori`,`stock`,`harga`) values (1,'Kertas A4 80 gr','rim',1,100,37081),(4,'Tinta','Botol',1,296,35000),(5,'Monitor','unit',4,267,350000),(6,'Spidol','pack',1,673,13146),(7,'Keyboard','unit',4,459,50000),(8,'Printer','unit',4,17,400000),(9,'Buku Tulis','pack',1,796,20126),(10,'Pensil','pack',1,387,10000),(11,'Proyektor','unit',4,69,900000),(12,'Lakban','pack',1,149,8000),(13,'Ballpoin','pack',1,639,13948),(14,'CPU','Unit',4,10,3000000);
+insert  into `ref_barang`(`kd_barang`,`nm_barang`,`satuan`,`kd_kategori`,`stock`,`harga`) values (1,'Kertas A4 80 gr','rim',1,5,40000),(4,'Tinta','Botol',1,102,35000),(5,'Monitor','unit',4,94,350000),(6,'Spidol','pack',1,66,13000),(7,'Keyboard','unit',4,278,50000),(8,'Printer','unit',4,7,400000),(9,'Buku Tulis','pack',1,192,20000),(10,'Pensil','pack',1,94,10000),(11,'Proyektor','unit',4,13,900000),(12,'Lakban','pack',1,58,8000),(13,'Ballpoin','pack',1,82,12000),(14,'CPU','Unit',4,0,0);
 
 /*Table structure for table `ref_grader` */
 
@@ -149,7 +149,7 @@ CREATE TABLE `ref_grader` (
   `kd_grader` int(11) NOT NULL AUTO_INCREMENT,
   `nm_grader` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`kd_grader`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ref_grader` */
 
@@ -174,7 +174,7 @@ CREATE TABLE `ref_lokasi_kayu` (
   `kabupaten` varchar(100) DEFAULT NULL,
   `kecamatan` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`kode_lokasi`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ref_lokasi_kayu` */
 
@@ -191,7 +191,7 @@ CREATE TABLE `ref_panjang_kayu` (
   `kd_atas` int(3) DEFAULT NULL,
   `kd_bawah` int(3) DEFAULT NULL,
   PRIMARY KEY (`kode_panjang_kayu`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ref_panjang_kayu` */
 
@@ -208,7 +208,7 @@ CREATE TABLE `ref_supplier` (
   `kabupaten` varchar(100) DEFAULT NULL,
   `alamat` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`kode_supplier`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ref_supplier` */
 
@@ -268,11 +268,11 @@ CREATE TABLE `tr_barang_keluar` (
   `nm_barang` varchar(50) DEFAULT NULL,
   `kd_unit` int(11) DEFAULT NULL,
   PRIMARY KEY (`kd_barang_keluar`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_barang_keluar` */
 
-insert  into `tr_barang_keluar`(`kd_barang_keluar`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`kd_unit`) values (62,1,'2018-01-18',10,30000,'Kertas A4 80 gr',3),(63,5,'2018-01-18',10,375000,'Monitor',4),(64,4,'2018-01-18',10,35000,'Tinta',3),(65,5,'2018-01-22',10,350000,'Monitor',4),(66,5,'2018-01-23',10,380000,'Monitor',4),(67,13,'2018-01-23',10,14000,'Ballpoin',4),(68,6,'2018-01-23',10,12000,'Spidol',4),(69,7,'2018-01-23',10,50000,'Keyboard',4),(70,1,'2018-02-18',10,30000,'Kertas A4 80 gr',3),(71,5,'2018-02-19',10,375000,'Monitor',4),(72,4,'2018-02-20',10,35000,'Tinta',3),(73,6,'2018-02-21',10,13000,'Spidol',3),(74,7,'2018-02-22',10,50000,'Keyboard',4),(75,8,'2018-02-23',10,400000,'Printer',3),(76,9,'2018-02-24',10,20000,'Buku Tulis',3),(77,10,'2018-02-25',10,10000,'Pensil',4),(78,11,'2018-02-26',10,900000,'Proyektor',3),(79,12,'2018-02-27',10,8000,'Lakban ',4),(80,13,'2018-02-28',10,14000,'Ballpoin',3),(81,1,'2018-03-18',15,30000,'Kertas A4 80 gr',3),(82,5,'2018-03-19',13,375000,'Monitor',4),(83,4,'2018-03-20',14,35000,'Tinta',3),(84,6,'2018-03-21',17,13000,'Spidol',3),(85,7,'2018-03-22',11,50000,'Keyboard',4),(86,8,'2018-03-23',8,400000,'Printer',3),(87,9,'2018-03-24',4,20000,'Buku Tulis',3),(88,10,'2018-03-25',3,10000,'Pensil',4),(89,11,'2018-03-26',6,900000,'Proyektor',3),(90,12,'2018-03-27',1,8000,'Lakban ',4),(91,13,'2018-03-28',9,14000,'Ballpoin',3),(92,13,'2018-01-24',100,13947,'Ballpoin',4),(93,1,'2018-01-24',10,37081,'Kertas A4 80 gr',4),(94,13,'2018-01-25',10,13948,'Ballpoin',3),(95,1,'2018-01-25',15,37081,'Kertas A4 80 gr',4),(96,7,'2018-01-25',10,50000,'Keyboard',4),(97,13,'2018-01-25',12,13948,'Ballpoin',4);
+insert  into `tr_barang_keluar`(`kd_barang_keluar`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`kd_unit`) values (106,5,'2018-01-29',13,375000,'Monitor',4),(107,4,'2018-01-29',14,35000,'Tinta',3),(108,6,'2018-01-29',17,13000,'Spidol',3),(109,7,'2018-01-29',11,50000,'Keyboard',4),(110,8,'2018-01-29',8,400000,'Printer',3),(111,9,'2018-01-29',4,20000,'Buku Tulis',3),(112,10,'2018-01-29',3,10000,'Pensil',4),(113,11,'2018-01-29',6,900000,'Proyektor',3),(114,12,'2018-01-29',1,8000,'Lakban ',4),(115,13,'2018-01-29',9,14000,'Ballpoin',3),(116,1,'2018-01-29',15,30000,'Kertas A4 80 gr',3),(117,5,'2018-01-29',13,375000,'Monitor',4),(118,4,'2018-01-29',14,35000,'Tinta',3),(119,6,'2018-01-29',17,13000,'Spidol',3),(120,7,'2018-01-29',11,50000,'Keyboard',4),(122,9,'2018-01-29',4,20000,'Buku Tulis',3),(123,10,'2018-01-29',3,10000,'Pensil',4),(124,11,'2018-01-29',6,900000,'Proyektor',3),(125,12,'2018-01-29',1,8000,'Lakban ',4),(126,13,'2018-01-29',9,14000,'Ballpoin',3);
 
 /*Table structure for table `tr_barang_keluar_importtemp` */
 
@@ -286,11 +286,11 @@ CREATE TABLE `tr_barang_keluar_importtemp` (
   `kd_unit` int(11) DEFAULT NULL,
   `kd_pengguna` int(11) DEFAULT NULL,
   PRIMARY KEY (`kd_barang_keluar`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_barang_keluar_importtemp` */
 
-insert  into `tr_barang_keluar_importtemp`(`kd_barang_keluar`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`kd_unit`,`kd_pengguna`) values (72,1,'2018-03-18',15,30000,'Kertas A4 80 gr',3,4),(73,5,'2018-03-19',13,375000,'Monitor',4,4),(74,4,'2018-03-20',14,35000,'Tinta',3,4),(75,6,'2018-03-21',17,13000,'Spidol',3,4),(76,7,'2018-03-22',11,50000,'Keyboard',4,4),(77,8,'2018-03-23',8,400000,'Printer',3,4),(78,9,'2018-03-24',4,20000,'Buku Tulis',3,4),(79,10,'2018-03-25',3,10000,'Pensil',4,4),(80,11,'2018-03-26',6,900000,'Proyektor',3,4),(81,12,'2018-03-27',1,8000,'Lakban ',4,4),(82,13,'2018-03-28',9,14000,'Ballpoin',3,4);
+insert  into `tr_barang_keluar_importtemp`(`kd_barang_keluar`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`kd_unit`,`kd_pengguna`) values (94,1,'2018-01-29',15,30000,'Kertas A4 80 gr',3,4),(95,5,'2018-01-29',13,375000,'Monitor',4,4),(96,4,'2018-01-29',14,35000,'Tinta',3,4),(97,6,'2018-01-29',17,13000,'Spidol',3,4),(98,7,'2018-01-29',11,50000,'Keyboard',4,4),(99,8,'2018-01-29',8,400000,'Printer',3,4),(100,9,'2018-01-29',4,20000,'Buku Tulis',3,4),(101,10,'2018-01-29',3,10000,'Pensil',4,4),(102,11,'2018-01-29',6,900000,'Proyektor',3,4),(103,12,'2018-01-29',1,8000,'Lakban ',4,4),(104,13,'2018-01-29',9,14000,'Ballpoin',3,4);
 
 /*Table structure for table `tr_barang_keluar_log` */
 
@@ -305,11 +305,11 @@ CREATE TABLE `tr_barang_keluar_log` (
   `kd_pengguna` int(11) DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`kd_barang_keluar`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_barang_keluar_log` */
 
-insert  into `tr_barang_keluar_log`(`kd_barang_keluar`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`kd_unit`,`kd_pengguna`,`status`) values (60,1,'2018-03-18',15,30000,'Kertas A4 80 gr',3,4,'sukses'),(61,5,'2018-03-19',13,375000,'Monitor',4,4,'sukses'),(62,4,'2018-03-20',14,35000,'Tinta',3,4,'sukses'),(63,6,'2018-03-21',17,13000,'Spidol',3,4,'sukses'),(64,7,'2018-03-22',11,50000,'Keyboard',4,4,'sukses'),(65,8,'2018-03-23',8,400000,'Printer',3,4,'sukses'),(66,9,'2018-03-24',4,20000,'Buku Tulis',3,4,'sukses'),(67,10,'2018-03-25',3,10000,'Pensil',4,4,'sukses'),(68,11,'2018-03-26',6,900000,'Proyektor',3,4,'sukses'),(69,12,'2018-03-27',1,8000,'Lakban ',4,4,'sukses'),(70,13,'2018-03-28',9,14000,'Ballpoin',3,4,'sukses');
+insert  into `tr_barang_keluar_log`(`kd_barang_keluar`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`kd_unit`,`kd_pengguna`,`status`) values (82,1,'2018-01-29',15,30000,'Kertas A4 80 gr',3,4,'sukses'),(83,5,'2018-01-29',13,375000,'Monitor',4,4,'sukses'),(84,4,'2018-01-29',14,35000,'Tinta',3,4,'sukses'),(85,6,'2018-01-29',17,13000,'Spidol',3,4,'sukses'),(86,7,'2018-01-29',11,50000,'Keyboard',4,4,'sukses'),(87,8,'2018-01-29',8,400000,'Printer',3,4,'sukses'),(88,9,'2018-01-29',4,20000,'Buku Tulis',3,4,'sukses'),(89,10,'2018-01-29',3,10000,'Pensil',4,4,'sukses'),(90,11,'2018-01-29',6,900000,'Proyektor',3,4,'sukses'),(91,12,'2018-01-29',1,8000,'Lakban ',4,4,'sukses'),(92,13,'2018-01-29',9,14000,'Ballpoin',3,4,'sukses');
 
 /*Table structure for table `tr_barang_masuk` */
 
@@ -322,11 +322,11 @@ CREATE TABLE `tr_barang_masuk` (
   `nm_barang` varchar(50) DEFAULT NULL,
   `no_faktur` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`kd_barang_masuk`)
-) ENGINE=InnoDB AUTO_INCREMENT=276 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=299 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_barang_masuk` */
 
-insert  into `tr_barang_masuk`(`kd_barang_masuk`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`no_faktur`) values (194,5,'2018-01-18',100,350000,'Monitor','1114'),(195,4,'2018-01-18',100,35000,'Tinta','1114'),(197,1,'2018-01-22',100,35000,'Kertas A4 80 gr','1115'),(198,1,'2018-01-22',10,40000,'Kertas A4 80 gr','1111'),(199,6,'2018-01-23',100,12000,'Spidol','1111'),(200,1,'2018-01-18',10,40000,'Kertas A4 80 gr','1114'),(201,6,'2018-01-18',200,13000,'Spidol','1114'),(202,7,'2018-01-18',100,50000,'Keyboard','1114'),(203,8,'2018-01-18',10,400000,'Printer','1114'),(204,9,'2018-01-18',300,20000,'Buku Tulis','1114'),(205,10,'2018-01-18',150,10000,'Pensil','1114'),(206,11,'2018-01-18',30,900000,'Proyektor','1114'),(207,12,'2018-01-18',50,8000,'Lakban ','1114'),(208,13,'2018-01-18',320,14000,'Ballpoin','1114'),(209,6,'2018-01-23',10,12000,'Spidol','1115'),(210,1,'2018-02-18',10,40000,'Kertas A4 80 gr','1116'),(211,5,'2018-02-19',100,350000,'Monitor','1116'),(212,4,'2018-02-20',100,35000,'Tinta','1116'),(213,6,'2018-02-21',200,13000,'Spidol','1116'),(214,7,'2018-02-22',100,50000,'Keyboard','1116'),(215,8,'2018-02-23',10,400000,'Printer','1116'),(216,9,'2018-02-24',300,20000,'Buku Tulis','1116'),(217,10,'2018-02-25',150,10000,'Pensil','1116'),(218,11,'2018-02-26',30,900000,'Proyektor','1116'),(219,12,'2018-02-27',50,8000,'Lakban ','1116'),(220,13,'2018-02-28',320,14000,'Ballpoin','1116'),(221,13,'2018-01-23',10,12000,'Ballpoin','1115'),(222,1,'2018-03-18',20,40000,'Kertas A4 80 gr','1117'),(223,5,'2018-03-19',120,350000,'Monitor','1117'),(224,4,'2018-03-20',130,35000,'Tinta','1117'),(225,6,'2018-03-21',100,13000,'Spidol','1117'),(226,7,'2018-03-22',300,50000,'Keyboard','1117'),(227,8,'2018-03-23',15,400000,'Printer','1117'),(228,9,'2018-03-24',200,20000,'Buku Tulis','1117'),(229,10,'2018-03-25',100,10000,'Pensil','1117'),(230,11,'2018-03-26',25,900000,'Proyektor','1117'),(231,12,'2018-03-27',60,8000,'Lakban ','1117'),(232,13,'2018-03-28',120,14000,'Ballpoin','1117'),(233,1,'2018-01-23',10,40000,'Kertas A4 80 gr','1115'),(234,13,'2018-01-24',10,12000,'Ballpoin','1111'),(235,13,'2018-01-24',10,14000,'Ballpoin','1115'),(236,6,'2018-01-25',100,15000,'Spidol','1111'),(237,9,'2018-01-25',10,30000,'Buku Tulis','1115'),(263,14,'2018-01-29',10,3000000,'CPU','1111'),(265,1,'2018-01-29',20,0,'Kertas A4 80 gr','1118'),(266,5,'2018-01-29',120,0,'Monitor','1118'),(267,4,'2018-01-29',130,0,'Tinta','1118'),(268,6,'2018-01-29',100,0,'Spidol','1118'),(269,7,'2018-01-29',300,0,'Keyboard','1118'),(270,8,'2018-01-29',15,0,'Printer','1118'),(271,9,'2018-01-29',200,0,'Buku Tulis','1118'),(272,10,'2018-01-29',100,0,'Pensil','1118'),(273,11,'2018-01-29',25,0,'Proyektor','1118'),(274,12,'2018-01-29',60,0,'Lakban ','1118'),(275,13,'2018-01-29',120,0,'Ballpoin','1118');
+insert  into `tr_barang_masuk`(`kd_barang_masuk`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`no_faktur`) values (284,1,'2018-01-29',20,40000,'Kertas A4 80 gr','1118'),(285,5,'2018-01-29',120,350000,'Monitor','1118'),(286,4,'2018-01-29',130,35000,'Tinta','1118'),(287,6,'2018-01-29',100,13000,'Spidol','1118'),(288,7,'2018-01-29',300,50000,'Keyboard','1118'),(289,8,'2018-01-29',15,400000,'Printer','1118'),(290,9,'2018-01-29',200,20000,'Buku Tulis','1118'),(291,10,'2018-01-29',100,10000,'Pensil','1118'),(292,11,'2018-01-29',25,900000,'Proyektor','1118'),(293,12,'2018-01-29',60,8000,'Lakban ','1118'),(298,13,'2018-01-30',100,12000,'Ballpoin','1118');
 
 /*Table structure for table `tr_barang_masuk_importtemp` */
 
@@ -340,11 +340,11 @@ CREATE TABLE `tr_barang_masuk_importtemp` (
   `kd_pengguna` int(11) DEFAULT NULL,
   `no_faktur` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`kd_barang_masuk`)
-) ENGINE=InnoDB AUTO_INCREMENT=484 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=506 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_barang_masuk_importtemp` */
 
-insert  into `tr_barang_masuk_importtemp`(`kd_barang_masuk`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`kd_pengguna`,`no_faktur`) values (473,1,'2018-01-29',20,NULL,'Kertas A4 80 gr',4,'1118'),(474,5,'2018-01-29',120,NULL,'Monitor',4,'1118'),(475,4,'2018-01-29',130,NULL,'Tinta',4,'1118'),(476,6,'2018-01-29',100,NULL,'Spidol',4,'1118'),(477,7,'2018-01-29',300,NULL,'Keyboard',4,'1118'),(478,8,'2018-01-29',15,NULL,'Printer',4,'1118'),(479,9,'2018-01-29',200,NULL,'Buku Tulis',4,'1118'),(480,10,'2018-01-29',100,NULL,'Pensil',4,'1118'),(481,11,'2018-01-29',25,NULL,'Proyektor',4,'1118'),(482,12,'2018-01-29',60,NULL,'Lakban ',4,'1118'),(483,13,'2018-01-29',120,NULL,'Ballpoin',4,'1118');
+insert  into `tr_barang_masuk_importtemp`(`kd_barang_masuk`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`kd_pengguna`,`no_faktur`) values (495,1,'2018-01-29',20,40000,'Kertas A4 80 gr',4,'1118'),(496,5,'2018-01-29',120,350000,'Monitor',4,'1118'),(497,4,'2018-01-29',130,35000,'Tinta',4,'1118'),(498,6,'2018-01-29',100,13000,'Spidol',4,'1118'),(499,7,'2018-01-29',300,50000,'Keyboard',4,'1118'),(500,8,'2018-01-29',15,400000,'Printer',4,'1118'),(501,9,'2018-01-29',200,20000,'Buku Tulis',4,'1118'),(502,10,'2018-01-29',100,10000,'Pensil',4,'1118'),(503,11,'2018-01-29',25,900000,'Proyektor',4,'1118'),(504,12,'2018-01-29',60,8000,'Lakban ',4,'1118'),(505,13,'2018-01-29',120,14000,'Ballpoin',4,'1118');
 
 /*Table structure for table `tr_barang_masuk_log` */
 
@@ -359,11 +359,11 @@ CREATE TABLE `tr_barang_masuk_log` (
   `status` varchar(10) DEFAULT NULL,
   `no_faktur` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`kd_barang_masuk`)
-) ENGINE=InnoDB AUTO_INCREMENT=397 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=419 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_barang_masuk_log` */
 
-insert  into `tr_barang_masuk_log`(`kd_barang_masuk`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`kd_pengguna`,`status`,`no_faktur`) values (386,1,'2018-01-29',20,0,'Kertas A4 80 gr',4,'sukses','1118'),(387,5,'2018-01-29',120,0,'Monitor',4,'sukses','1118'),(388,4,'2018-01-29',130,0,'Tinta',4,'sukses','1118'),(389,6,'2018-01-29',100,0,'Spidol',4,'sukses','1118'),(390,7,'2018-01-29',300,0,'Keyboard',4,'sukses','1118'),(391,8,'2018-01-29',15,0,'Printer',4,'sukses','1118'),(392,9,'2018-01-29',200,0,'Buku Tulis',4,'sukses','1118'),(393,10,'2018-01-29',100,0,'Pensil',4,'sukses','1118'),(394,11,'2018-01-29',25,0,'Proyektor',4,'sukses','1118'),(395,12,'2018-01-29',60,0,'Lakban ',4,'sukses','1118'),(396,13,'2018-01-29',120,0,'Ballpoin',4,'sukses','1118');
+insert  into `tr_barang_masuk_log`(`kd_barang_masuk`,`kd_barang`,`tanggal`,`jumlah`,`harga`,`nm_barang`,`kd_pengguna`,`status`,`no_faktur`) values (408,1,'2018-01-29',20,40000,'Kertas A4 80 gr',4,'sukses','1118'),(409,5,'2018-01-29',120,350000,'Monitor',4,'sukses','1118'),(410,4,'2018-01-29',130,35000,'Tinta',4,'sukses','1118'),(411,6,'2018-01-29',100,13000,'Spidol',4,'sukses','1118'),(412,7,'2018-01-29',300,50000,'Keyboard',4,'sukses','1118'),(413,8,'2018-01-29',15,400000,'Printer',4,'sukses','1118'),(414,9,'2018-01-29',200,20000,'Buku Tulis',4,'sukses','1118'),(415,10,'2018-01-29',100,10000,'Pensil',4,'sukses','1118'),(416,11,'2018-01-29',25,900000,'Proyektor',4,'sukses','1118'),(417,12,'2018-01-29',60,8000,'Lakban ',4,'sukses','1118'),(418,13,'2018-01-29',120,14000,'Ballpoin',4,'sukses','1118');
 
 /*Table structure for table `tr_dukb` */
 
@@ -382,7 +382,7 @@ CREATE TABLE `tr_dukb` (
   `status` varchar(50) DEFAULT NULL,
   `tgl_validasi` date DEFAULT NULL,
   PRIMARY KEY (`id_dukb`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_dukb` */
 
@@ -402,7 +402,7 @@ CREATE TABLE `tr_dukb_detail` (
   `kd_pengguna` int(11) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_dukb_detail`)
-) ENGINE=InnoDB AUTO_INCREMENT=979 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=993 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_dukb_detail` */
 
@@ -422,7 +422,7 @@ CREATE TABLE `tr_dukb_detail_temp` (
   `kd_pengguna` int(11) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_dukb_detail`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_dukb_detail_temp` */
 
@@ -443,11 +443,11 @@ CREATE TABLE `tr_mutasi_barang` (
   `qty_k` int(10) DEFAULT NULL,
   `qty` int(10) DEFAULT NULL,
   PRIMARY KEY (`kd_mutasi`)
-) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_mutasi_barang` */
 
-insert  into `tr_mutasi_barang`(`kd_mutasi`,`kd_barang`,`nm_barang`,`stok_awal`,`masuk`,`keluar`,`saldo`,`bulan`,`tahun`,`qty_a`,`qty_m`,`qty_k`,`qty`) values (114,1,'Kertas A4 80 gr',0,4700000,670810,4029190,'01','2018',0,130,20,110),(115,4,'Tinta',0,3500000,350000,3150000,'01','2018',0,100,10,90),(116,5,'Monitor',0,35000000,11050000,23950000,'01','2018',0,100,30,70),(117,6,'Spidol',0,3920000,120000,3800000,'01','2018',0,310,10,300),(118,7,'Keyboard',0,5000000,500000,4500000,'01','2018',0,100,10,90),(119,8,'Printer',0,4000000,0,4000000,'01','2018',0,10,0,10),(120,9,'Buku Tulis',0,6000000,0,6000000,'01','2018',0,300,0,300),(121,10,'Pensil',0,1500000,0,1500000,'01','2018',0,150,0,150),(122,11,'Proyektor',0,27000000,0,27000000,'01','2018',0,30,0,30),(123,12,'Lakban',0,400000,0,400000,'01','2018',0,50,0,50),(124,13,'Ballpoin',0,4860000,1534700,3325300,'01','2018',0,350,110,240),(125,1,'Kertas A4 80 gr',4029190,400000,300000,4129190,'02','2018',110,10,10,110),(126,4,'Tinta',3150000,3500000,350000,6300000,'02','2018',90,100,10,180),(127,5,'Monitor',23950000,35000000,3750000,55200000,'02','2018',70,100,10,160),(128,6,'Spidol',3800000,2600000,130000,6270000,'02','2018',300,200,10,490),(129,7,'Keyboard',4500000,5000000,500000,9000000,'02','2018',90,100,10,180),(130,8,'Printer',4000000,4000000,4000000,4000000,'02','2018',10,10,10,10),(131,9,'Buku Tulis',6000000,6000000,200000,11800000,'02','2018',300,300,10,590),(132,10,'Pensil',1500000,1500000,100000,2900000,'02','2018',150,150,10,290),(133,11,'Proyektor',27000000,27000000,9000000,45000000,'02','2018',30,30,10,50),(134,12,'Lakban',400000,400000,80000,720000,'02','2018',50,50,10,90),(135,13,'Ballpoin',3185300,4480000,140000,7525300,'02','2018',230,320,10,540),(136,1,'Kertas A4 80 gr',4129190,800000,450000,4479190,'03','2018',110,20,15,115),(137,4,'Tinta',6300000,4550000,490000,10360000,'03','2018',180,130,14,296),(138,5,'Monitor',55200000,42000000,4875000,92325000,'03','2018',160,120,13,267),(139,6,'Spidol',6270000,1300000,221000,7349000,'03','2018',490,100,17,573),(140,7,'Keyboard',9000000,15000000,550000,23450000,'03','2018',180,300,11,469),(141,8,'Printer',4000000,6000000,3200000,6800000,'03','2018',10,15,8,17),(142,9,'Buku Tulis',11800000,4000000,80000,15720000,'03','2018',590,200,4,786),(143,10,'Pensil',2900000,1000000,30000,3870000,'03','2018',290,100,3,387),(144,11,'Proyektor',45000000,22500000,5400000,62100000,'03','2018',50,25,6,69),(145,12,'Lakban',720000,480000,8000,1192000,'03','2018',90,60,1,149),(146,13,'Ballpoin',7525300,1680000,126000,9079300,'03','2018',540,120,9,651);
+insert  into `tr_mutasi_barang`(`kd_mutasi`,`kd_barang`,`nm_barang`,`stok_awal`,`masuk`,`keluar`,`saldo`,`bulan`,`tahun`,`qty_a`,`qty_m`,`qty_k`,`qty`) values (171,1,'Kertas A4 80 gr',0,800000,0,800000,'01','2018',0,20,0,20),(172,4,'Tinta',0,4550000,0,4550000,'01','2018',0,130,0,130),(173,5,'Monitor',0,42000000,0,42000000,'01','2018',0,120,0,120),(174,6,'Spidol',0,1300000,0,1300000,'01','2018',0,100,0,100),(175,7,'Keyboard',0,15000000,0,15000000,'01','2018',0,300,0,300),(176,8,'Printer',0,6000000,0,6000000,'01','2018',0,15,0,15),(177,9,'Buku Tulis',0,4000000,0,4000000,'01','2018',0,200,0,200),(178,10,'Pensil',0,1000000,0,1000000,'01','2018',0,100,0,100),(179,11,'Proyektor',0,22500000,0,22500000,'01','2018',0,25,0,25),(180,12,'Lakban',0,480000,0,480000,'01','2018',0,60,0,60),(181,13,'Ballpoin',0,1200000,0,1200000,'01','2018',0,100,0,100),(182,14,'CPU',0,0,0,0,'01','2018',0,0,0,0),(183,1,'Kertas A4 80 gr',800000,0,0,800000,'02','2018',20,0,0,20),(184,4,'Tinta',4550000,0,0,4550000,'02','2018',130,0,0,130),(185,5,'Monitor',42000000,0,0,42000000,'02','2018',120,0,0,120),(186,6,'Spidol',1300000,0,0,1300000,'02','2018',100,0,0,100),(187,7,'Keyboard',15000000,0,0,15000000,'02','2018',300,0,0,300),(188,8,'Printer',6000000,0,0,6000000,'02','2018',15,0,0,15),(189,9,'Buku Tulis',4000000,0,0,4000000,'02','2018',200,0,0,200),(190,10,'Pensil',1000000,0,0,1000000,'02','2018',100,0,0,100),(191,11,'Proyektor',22500000,0,0,22500000,'02','2018',25,0,0,25),(192,12,'Lakban',480000,0,0,480000,'02','2018',60,0,0,60),(193,13,'Ballpoin',1200000,0,0,1200000,'02','2018',100,0,0,100),(194,14,'CPU',0,0,0,0,'02','2018',0,0,0,0);
 
 /*Table structure for table `v_ref_panjang_kayu` */
 

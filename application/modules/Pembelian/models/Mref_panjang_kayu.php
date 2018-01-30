@@ -19,7 +19,7 @@ class Mref_panjang_kayu extends CI_Model
     function json() {
         $this->datatables->select("kode_panjang_kayu,panjang_kayu,diameter,kd,v_per_btg");
         $this->datatables->from('v_ref_panjang_kayu');
-        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('pembelian/ref_panjang_kayu/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('pembelian/ref_panjang_kayu/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kode_panjang_kayu');
+        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('pembelian/ref_panjang_kayu/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('pembelian/ref_panjang_kayu/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" id="delete" data-id="$1" href="javascript:void(0)"').'</div>', 'kode_panjang_kayu');
         return $this->datatables->generate();
     }
  

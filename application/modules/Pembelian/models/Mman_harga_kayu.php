@@ -20,7 +20,7 @@ class Mman_harga_kayu extends CI_Model
         $this->datatables->select("a.kode_harga_kayu,b.nama_supplier,CONCAT (a.panjang_kayu,' cm') AS panjang,a.kabupaten,a.kecamatan,REPLACE(FORMAT(a.harga, 0), '.', ',') as harga,CONCAT (a.kd_bawah,'-',a.kd_atas ,' cm') AS kd ");
         $this->datatables->from('man_harga_kayu a');
         $this->datatables->join('ref_supplier b', 'a.kode_supplier = b.kode_supplier');;$this->db->order_by("a.kode_harga_kayu", "desc");
-        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('pembelian/man_harga_kayu/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('pembelian/man_harga_kayu/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kode_harga_kayu');
+        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('pembelian/man_harga_kayu/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('pembelian/man_harga_kayu/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" id="delete" data-id="$1" href="javascript:void(0)"').'</div>', 'kode_harga_kayu');
         return $this->datatables->generate();
     }
      function jsonsukses() {

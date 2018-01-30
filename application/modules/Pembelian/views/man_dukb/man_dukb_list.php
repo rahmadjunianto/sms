@@ -46,23 +46,7 @@
        </div></div>
                 <div class="col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                          
 
-              </form>
- <br>                   <?php if($rk=="tampil"){?>
-                    <table id="example2" class="table table-striped table-bordered" style="font-size: 12px">
-                      <thead>
-                        <tr>
-                          <th class="text-center"  width="5%">No</th>
-                          <th class="text-center"  width="8%">Tanggal</th>
-                          <th class="text-center"  width="10%">Kode Siklus</th>
-                          <th class="text-center"  width="11%">Nama Grader</th>
-                          <th class="text-center"  width="13%">Nama Supplier</th>
-                          <th class="text-center"  width="10%">Kabupaten</th>
-                          <th class="text-center"  width="10%">Kecamatan</th>
-                          <th class="text-center"  width="10%">Status</th>
-                          <th class="text-center"  width="10%">Aksi</th>
-                        </tr>
-                      </thead>
-                    </table><?php } ?>
+              </form><div class="tabel"> </div>
                   </div>
                 </div>
               </div>
@@ -72,85 +56,66 @@
             </div>
 
 
-       <script type="text/javascript">
-            $(document).ready(function() {
-                $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
-                {
-                    return {
-                        "iStart": oSettings._iDisplayStart,
-                        "iEnd": oSettings.fnDisplayEnd(),
-                        "iLength": oSettings._iDisplayLength,
-                        "iTotal": oSettings.fnRecordsTotal(),
-                        "iFilteredTotal": oSettings.fnRecordsDisplay(),
-                        "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
-                        "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
-                    };
-                };
-
-                var t = $("#example2").dataTable({
-                    initComplete: function() {
-                        var api = this.api();
-                        $('#mytable_filter input')
-                                .off('.DT')
-                                .on('keyup.DT', function(e) {
-                                    if (e.keyCode == 13) {
-                                        api.search(this.value).draw();
-                            }
-                        });
-                    },
-                    
-                        
-                    
-                    'oLanguage':
-                    {
-                      "sProcessing":   "Sedang memproses...",
-                      "sLengthMenu":   "Tampilkan _MENU_ entri",
-                      "sZeroRecords":  "Tidak ditemukan data yang sesuai",
-                      "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                      "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
-                      "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
-                      "sInfoPostFix":  "",
-                      "sSearch":       "Cari:",
-                      "sUrl":          "",
-                      "oPaginate": {
-                        "sFirst":    "Pertama",
-                        "sPrevious": "Sebelumnya",
-                        "sNext":     "Selanjutnya",
-                        "sLast":     "Terakhir"
-                      }
-                    },
-                    processing: true,
-                    serverSide: true,
-                    ajax: {"url": "<?php echo base_url()?>Pembelian/man_dukb/json", "type": "POST"},
-                    columns: [
-                        {
-                            "data": "id_dukb",
-                            "orderable": false,
-                            "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "kd_siklus"},{"data": "nm_grader"},{"data":"nama_supplier"},{"data": "kabupaten"},{"data": "kecamatan"},{"data": "status"},
-         {
-    "data": "status","className" : "text-center",
-    "render": function ( data, type, row, meta ) {
-                  switch(data) {
-               case 'Tervalidasi' : return "<div class='btn-group'><a href='<?php echo base_url()?>/pembelian/man_dukb/detail/"+row['id_dukb']+".html' class='btn btn-xs btn-success'><i class='fa fa-binoculars'></i></a></div>"; break;
-               <?php if ($this->session->userdata('kg')==5) {?>
-               case 'Belum Tervalidasi' : return "<div class='btn-group'><a href='<?php echo base_url()?>/pembelian/man_dukb/detail/"+row['id_dukb']+".html' class='btn btn-xs btn-success'><i class='fa fa-binoculars'></i></a></div><div class='btn-group' ><a href='<?php echo base_url()?>/pembelian/man_dukb/delete_dukb/"+row['id_dukb']+".html' class='btn btn-xs btn-danger' onclick='return deleteConfirmation()' ><i class='fa fa-trash'></i></a></div>"; break;<?php } elseif ($this->session->userdata('kg')!=5) { ?>
-               case 'Belum Tervalidasi' : return "<div class='btn-group'><a href='<?php echo base_url()?>/pembelian/man_dukb/detail/"+row['id_dukb']+".html' class='btn btn-xs btn-success'><i class='fa fa-binoculars'></i></a></div>"; break                
-                <?php }?>
-               default  : return 'N/A';
-            }
-    }
+ <script>
+  $(document).ready(function(){
+    
+   readProducts(); /* it will load products when document loads */
+    
+    $(document).on('click', '#delete', function(e){
+      
+      var productId = $(this).data('id');
+      SwalDelete(productId);
+      e.preventDefault();
+    });
+    
+  });
+  
+  function SwalDelete(productId){
+    
+    swal({
+      title: 'Apakah Anda Yakin?',
+      text: "Data Akan dihapus Permanen!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, Hapus Data!',
+      showLoaderOnConfirm: true,
+        
+      preConfirm: function() {
+        return new Promise(function(resolve) {
+             
+           $.ajax({
+            url: '<?php echo base_url()?>pembelian/man_dukb/hapus',
+            type: 'POST',
+              data: 'delete='+productId,
+              dataType: 'json'
+           })
+           .done(function(response){
+            swal('Deleted!', response.message, response.status);
+          readProducts();
+           })
+           .fail(function(response){
+            swal('Oops...', 'Something went wrong with ajax !', 'error');
+           });
+        });
+        },
+      allowOutsideClick: false        
+    }); 
+    
   }
-                    ],
-                    rowCallback: function(row, data, iDisplayIndex) {
-                        var info = this.fnPagingInfo();
-                        var page = info.iPage;
-                        var length = info.iLength;
-                        var index = page * length + (iDisplayIndex + 1);
-                        $('td:eq(0)', row).html(index);
-                    }
-                });
-            });
+  <?php if($rk=="tampil"){?>
+    function readProducts(){
+    $('.tabel').load('man_dukb/table/tampil'); 
+  }
+  <?php } else { ?> 
+    function readProducts(){
+    $('.tabel').load('man_dukb/table/tdktampil'); 
+  }
+    <?php } ?>
+</script>
+                         <script type="text/javascript">
+
       $(document).ready(function() {
         $(".grader").select2({
           placeholder: "Grader",
@@ -172,4 +137,3 @@ return confirm("Apakah Anda Yakin?");
 
 }               
         </script>
-

@@ -19,7 +19,7 @@ class Mref_supplier extends CI_Model
     function json_supplier() {
         $this->datatables->select('kode_supplier,nama_supplier,email,hp,kecamatan,kabupaten,alamat');
         $this->datatables->from('ref_supplier_gudang');
-        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/ref_supplier/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/ref_supplier/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kode_supplier');
+        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/ref_supplier/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/ref_supplier/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" id="delete" data-id="$1" href="javascript:void(0)"').'</div>', 'kode_supplier');
         return $this->datatables->generate();
     }
  

@@ -23,7 +23,7 @@ class Mtr_barang_keluar extends CI_Model
         $this->datatables->join('ref_unit b', 'a.kd_unit=b.kd_unit');
         $this->db->order_by("tanggal", "desc");
         $this->datatables->where("a.tanggal='$date'");
-        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/tr_barang_keluar/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/tr_barang_keluar/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_barang_keluar');
+        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/tr_barang_keluar/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/tr_barang_keluar/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" id="delete" data-id="$1" href="javascript:void(0)"').'</div>', 'kd_barang_keluar');
         return $this->datatables->generate();
     }
  

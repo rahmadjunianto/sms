@@ -19,7 +19,7 @@ class Mref_grader extends CI_Model
     function json() {
         $this->datatables->select('kd_grader,nm_grader');
         $this->datatables->from('ref_grader');
-        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('pembelian/ref_grader/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('pembelian/ref_grader/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_grader');
+        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('pembelian/ref_grader/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('pembelian/ref_grader/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" id="delete" data-id="$1" href="javascript:void(0)"').'</div>', 'kd_grader');
         return $this->datatables->generate();
     }
  

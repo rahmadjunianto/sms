@@ -90,7 +90,7 @@ GROUP BY a.kd_barang, a.nm_barang")->result();
         'qty_m'=>$mutasi->qty_m,
         'keluar'=> $mutasi->keluar,
         'saldo'=>$saldo+$mutasi->masuk-$mutasi->keluar,
-        'qty'=>$stok+$mutasi->qty_m-$qty_k,
+        'qty'=>$stok+$mutasi->qty_m-$mutasi->qty_k,
         );
         $this->Mtr_mutasi_barang->insert($data);
         }

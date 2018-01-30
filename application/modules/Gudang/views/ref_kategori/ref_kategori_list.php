@@ -13,96 +13,62 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <table id="example2" class="table table-striped table-bordered">
-                      <thead>
-                        <tr>
-                          <th class="text-center" width="5%">No</th>
-                          <th class="text-center" width="50%">Nama Kategori</th>
-                          <th class="text-center" width="7%">Aksi</th>
-                        </tr>
-                      </thead>
 
-
-                      
-                    </table>
                   </div>
                 </div>
               </div>
 
 
 
-            </div>
-
-
-       <script type="text/javascript">
-            $(document).ready(function() {
-                $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
-                {
-                    return {
-                        "iStart": oSettings._iDisplayStart,
-                        "iEnd": oSettings.fnDisplayEnd(),
-                        "iLength": oSettings._iDisplayLength,
-                        "iTotal": oSettings.fnRecordsTotal(),
-                        "iFilteredTotal": oSettings.fnRecordsDisplay(),
-                        "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
-                        "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
-                    };
-                };
-
-                var t = $("#example2").dataTable({
-                    initComplete: function() {
-                        var api = this.api();
-                        $('#mytable_filter input')
-                                .off('.DT')
-                                .on('keyup.DT', function(e) {
-                                    if (e.keyCode == 13) {
-                                        api.search(this.value).draw();
-                            }
-                        });
-                    },
-                    
-                        
-                    
-                    'oLanguage':
-                    {
-                      "sProcessing":   "Sedang memproses...",
-                      "sLengthMenu":   "Tampilkan _MENU_ entri",
-                      "sZeroRecords":  "Tidak ditemukan data yang sesuai",
-                      "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                      "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
-                      "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
-                      "sInfoPostFix":  "",
-                      "sSearch":       "Cari:",
-                      "sUrl":          "",
-                      "oPaginate": {
-                        "sFirst":    "Pertama",
-                        "sPrevious": "Sebelumnya",
-                        "sNext":     "Selanjutnya",
-                        "sLast":     "Terakhir"
-                      }
-                    },
-                    processing: true,
-                    serverSide: true,
-                    ajax: {"url": "<?php echo base_url()?>gudang/ref_kategori/json", "type": "POST"},
-                    columns: [
-                        {
-                            "data": "kd_kategori",
-                            "orderable": false,
-                            "className" : "text-center",
-                        },{"data": "nm_kategori"},
-                        {
-                            "data" : "action",
-                            "orderable": false,
-                            "className" : "text-center"
-                        }
-                    ],
-                    rowCallback: function(row, data, iDisplayIndex) {
-                        var info = this.fnPagingInfo();
-                        var page = info.iPage;
-                        var length = info.iLength;
-                        var index = page * length + (iDisplayIndex + 1);
-                        $('td:eq(0)', row).html(index);
-                    }
-                });
-            });
-        </script>
+            </div><script>
+  $(document).ready(function(){
+    
+   readProducts(); /* it will load products when document loads */
+    
+    $(document).on('click', '#delete', function(e){
+      
+      var productId = $(this).data('id');
+      SwalDelete(productId);
+      e.preventDefault();
+    });
+    
+  });
+  
+  function SwalDelete(productId){
+    
+    swal({
+      title: 'Apakah Anda Yakin?',
+      text: "Data Akan dihapus Permanen!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, Hapus Data!',
+      showLoaderOnConfirm: true,
+        
+      preConfirm: function() {
+        return new Promise(function(resolve) {
+             
+           $.ajax({
+            url: '<?php echo base_url()?>gudang/ref_kategori/hapus',
+            type: 'POST',
+              data: 'delete='+productId,
+              dataType: 'json'
+           })
+           .done(function(response){
+            swal('Deleted!', response.message, response.status);
+          readProducts();
+           })
+           .fail(function(){
+            swal('Oops...', 'Something went wrong with ajax !', 'error');
+           });
+        });
+        },
+      allowOutsideClick: false        
+    }); 
+    
+  }
+    function readProducts(){
+    $('.x_content').load('ref_kategori/table'); 
+  }
+</script>

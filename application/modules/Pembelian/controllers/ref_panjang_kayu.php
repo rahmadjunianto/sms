@@ -19,6 +19,31 @@ class ref_panjang_kayu extends CI_Controller {
         header('Content-Type: application/json');
         echo $this->Mref_panjang_kayu->json();
     }	
+    public function hapus()
+    {
+            $response = array();
+    
+    if ($_POST['delete']) {
+        
+        
+        $id = $_POST['delete'];
+        $row = $this->Mref_panjang_kayu->get_by_id($id);
+        
+        if ($row) {
+            $this->Mref_panjang_kayu->delete($id);
+            $response['status']  = 'success';
+            $response['message'] = 'Data Panjang Kayu Sudah Dihapus ...';
+        } else {
+            $response['status']  = 'error';
+            $response['message'] = 'Unable to delete product ...';
+        }
+        echo json_encode($response);
+    }
+    }
+    public function table()
+    {
+         $this->load->view('pembelian/ref_panjang_kayu/ref_panjang_kayu_table');
+    }
     public function create() 
     {
         $data = array(

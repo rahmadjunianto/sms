@@ -32,6 +32,38 @@ class tr_barang_keluar extends CI_Controller {
         header('Content-Type: application/json');
         echo $this->Mtr_barang_keluar->json_barang();
     }
+    public function hapus()
+    {
+            $response = array();
+    
+    if ($_POST['delete']) {
+        
+        
+        $id = $_POST['delete'];
+        $row = $this->Mtr_barang_keluar->get_by_id($id);
+        
+        if ($row) {
+        $barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$row->kd_barang")->row();
+        $stock=$barang->stock;
+        $jumlah=$row->jumlah;
+        $stock_baru=$jumlah+$stock;
+        $update = array('stock'=>$stock_baru );
+        $this->db->where('kd_barang', $row->kd_barang);
+        $this->db->update('ref_barang', $update);            
+            $this->Mtr_barang_keluar->delete($id);
+            $response['status']  = 'success';
+            $response['message'] = 'Data Barang Keluar Sudah Dihapus ...';
+        } else {
+            $response['status']  = 'error';
+            $response['message'] = 'Unable to delete product ...';
+        }
+        echo json_encode($response);
+    }
+    }
+    public function table()
+    {
+         $this->load->view('gudang/tr_barang_keluar/tr_barang_keluar_table');
+    } 
     public function import()
     {
         $data = array('action' => site_url('gudang/tr_barang_keluar/importaction'), );

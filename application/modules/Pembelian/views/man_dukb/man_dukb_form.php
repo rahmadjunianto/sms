@@ -150,42 +150,9 @@ document.getElementById('nama').value = nama[id].n;
                    
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content">
+                  <div class="detail_dukb_temp">
 
-<table id="datatable-keytable" class="table table-striped table-bordered">
-                            <thead>
-                              <tr>
-                        <tr>
-                          <th class="text-center" width="5%">No</th>
-                          <th class="text-center" width="15%">Panjang Kayu</th>
-                          <th class="text-center" width="15%">Diamater</th>
-                          <th class="text-center" width="15%">Batang</th>
-                          <th class="text-center" width="10%">Volume</th>
-                          <th class="text-center" width="10%">Harga</th>
-                          <th class="text-center" width="7%">Aksi</th>
-                        </tr>
-                              </tr>
-                            </thead>
-                            <tbody>
-<?php $ku=$this->session->userdata('ku');
-$dt=$this->db->query("SELECT id_dukb_detail,batang,panjang_kayu,diameter, (CASE WHEN (LENGTH(volume) = 5) THEN REPLACE(CONCAT(volume,'0'),'.',',') WHEN (LENGTH(volume) = 4) THEN REPLACE(CONCAT(volume,'00 '),'.',',') ELSE REPLACE(CONCAT(volume,' '),'.',',') END) AS volume,harga from tr_dukb_detail_temp where kd_pengguna=$ku")->result(); $no=1;
 
-$warna='#E6E6E6';
-$last=null;
-foreach ($dt as $dt) { if($last!==$dt->panjang_kayu){ $last=$dt->panjang_kayu; if($warna=='#E6E6E6'){$warna= "#EFF8FB";}else{$warna= "#E6E6E6";} } ?>
-                              
-                              <tr style="background-color:<?php echo $warna?>">
-                                <td class="text-center" ><?php echo $no++; ?></td>
-                                <td class="text-center" ><?php echo $dt->panjang_kayu; ?></td>
-                                <td class="text-center" ><?php echo $dt->diameter; ?></td>
-                                <td class="text-center" ><?php echo $dt->batang; ?></td>
-                                <td class="text-center" ><?php echo $dt->volume; ?></td>
-                                <td class="text-center" ><?php echo number_format($dt->harga,'0','','.'); ?></td>
-                                <td align="right" ><?php echo '<div class="btn-group">'.anchor(site_url('pembelian/man_dukb/delete/'.$dt->id_dukb_detail.''),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>'; ?></td>
-                              </tr>
-<?php   } ?>                              
-                            </tbody>
-                          </table>
                   </div>
                 </div>
               </div>
@@ -309,77 +276,56 @@ $('.list_panjang').on('click', '.remove_project_file', function(e) {
     e.preventDefault();
 
     $(this).parent().remove();
-});
-</script>  
-      <script type="text/javascript">
-            $(document).ready(function() {
-                $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
-                {
-                    return {
-                        "iStart": oSettings._iDisplayStart,
-                        "iEnd": oSettings.fnDisplayEnd(),
-                        "iLength": oSettings._iDisplayLength,
-                        "iTotal": oSettings.fnRecordsTotal(),
-                        "iFilteredTotal": oSettings.fnRecordsDisplay(),
-                        "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
-                        "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
-                    };
-                };
-
-                var t = $("#example2").dataTable({
-                    initComplete: function() {
-                        var api = this.api();
-                        $('#mytable_filter input')
-                                .off('.DT')
-                                .on('keyup.DT', function(e) {
-                                    if (e.keyCode == 13) {
-                                        api.search(this.value).draw();
-                            }
-                        });
-                    },
-                    
-                        
-                    
-                    'oLanguage':
-                    {
-                      "sProcessing":   "Sedang memproses...",
-                      "sLengthMenu":   "Tampilkan _MENU_ entri",
-                      "sZeroRecords":  "Tidak ditemukan data yang sesuai",
-                      "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                      "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
-                      "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
-                      "sInfoPostFix":  "",
-                      "sSearch":       "Cari:",
-                      "sUrl":          "",
-                      "oPaginate": {
-                        "sFirst":    "Pertama",
-                        "sPrevious": "Sebelumnya",
-                        "sNext":     "Selanjutnya",
-                        "sLast":     "Terakhir"
-                      }
-                    },
-                    processing: true,
-                    serverSide: true,
-                    ajax: {"url": "<?php echo base_url()?>Pembelian/man_dukb/json_dukb_detail_temp", "type": "POST"},
-                    columns: [
-                        {
-                            "data": "id_dukb_detail",
-                            "orderable": false,
-                            "className" : "text-center",
-                        },{"data":"panjang_kayu"},{"data": "diameter"},{"data": "batang"},{"data": "volume"},
-                        {
-                            "data" : "action",
-                            "orderable": false,
-                            "className" : "text-center"
-                        }
-                    ],
-                    rowCallback: function(row, data, iDisplayIndex) {
-                        var info = this.fnPagingInfo();
-                        var page = info.iPage;
-                        var length = info.iLength;
-                        var index = page * length + (iDisplayIndex + 1);
-                        $('td:eq(0)', row).html(index);
-                    }
-                });
-            });
-        </script>
+});</script>
+              <script>
+  $(document).ready(function(){
+    
+   readProducts(); /* it will load products when document loads */
+    
+    $(document).on('click', '#delete', function(e){
+      
+      var productId = $(this).data('id');
+      SwalDelete(productId);
+      e.preventDefault();
+    });
+    
+  });
+  
+  function SwalDelete(productId){
+    
+    swal({
+      title: 'Apakah Anda Yakin?',
+      text: "Data Akan dihapus Permanen!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, Hapus Data!',
+      showLoaderOnConfirm: true,
+        
+      preConfirm: function() {
+        return new Promise(function(resolve) {
+             
+           $.ajax({
+            url: '<?php echo base_url()?>pembelian/man_dukb/hapus_detail_dukb_temp',
+            type: 'POST',
+              data: 'delete='+productId,
+              dataType: 'json'
+           })
+           .done(function(response){
+            swal('Deleted!', response.message, response.status);
+          readProducts();
+           })
+           .fail(function(){
+            swal('Oops...', 'Something went wrong with ajax !', 'error');
+           });
+        });
+        },
+      allowOutsideClick: false        
+    }); 
+    
+  }
+    function readProducts(){
+    $('.detail_dukb_temp').load('detail_dukb_temp'); 
+  }
+</script>

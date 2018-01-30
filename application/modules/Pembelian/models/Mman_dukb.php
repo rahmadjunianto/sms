@@ -29,7 +29,7 @@ class Mman_dukb extends CI_Model
         $this->datatables->join('ref_supplier b', 'a.kode_supplier = b.kode_supplier');
         $this->datatables->join('ref_grader c', 'a.kd_grader=c.kd_grader');
         $this->datatables->where($wh);$this->db->order_by("a.id_dukb", "desc");
-        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('pembelian/man_dukb/detail/$1'),'<i class="fa fa-binoculars"></i>','class="btn btn-xs btn-success"').anchor(site_url('pembelian/man_dukb/delete_dukb/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'id_dukb');
+        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('pembelian/man_dukb/detail/$1'),'<i class="fa fa-binoculars"></i>','class="btn btn-xs btn-success"').anchor(site_url('pembelian/man_dukb/delete_dukb/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" id="delete" data-id="$1" href="javascript:void(0)"').'</div>', 'id_dukb');
         return $this->datatables->generate();
     }
         function json_val() {
@@ -83,7 +83,11 @@ class Mman_dukb extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+        function get_by_dukb($id)
+    {
+        $this->db->where('id_dukb', $id);
+        return $this->db->get('tr_dukb')->row();
+    }
   
 
     // insert data

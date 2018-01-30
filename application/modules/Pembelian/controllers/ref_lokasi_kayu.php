@@ -18,6 +18,31 @@ class ref_lokasi_kayu extends CI_Controller {
     public function json() {
         header('Content-Type: application/json');
         echo $this->Mref_lokasi_kayu->json();
+    }
+    public function hapus()
+    {
+            $response = array();
+    
+    if ($_POST['delete']) {
+        
+        
+        $id = $_POST['delete'];
+        $row = $this->Mref_lokasi_kayu->get_by_id($id);
+        
+        if ($row) {
+            $this->Mref_lokasi_kayu->delete($id);
+            $response['status']  = 'success';
+            $response['message'] = 'Data Lokasi Kayu Sudah Dihapus ...';
+        } else {
+            $response['status']  = 'error';
+            $response['message'] = 'Unable to delete product ...';
+        }
+        echo json_encode($response);
+    }
+    }
+    public function table()
+    {
+         $this->load->view('pembelian/ref_lokasi_kayu/ref_lokasi_kayu_table');
     }	
     public function create() 
     {

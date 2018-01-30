@@ -132,7 +132,52 @@ class man_dukb extends CI_Controller {
     public function json_dukb_detail() {
         header('Content-Type: application/json');
         echo $this->Mman_dukb->json_dukb_detail();
-    }       	
+    }   
+    public function hapus()
+    {
+            $response = array();
+    
+    if ($_POST['delete']) {
+        
+        
+        $id = $_POST['delete'];
+        $row = $this->Mman_dukb->get_by_dukb($id);
+        $ku=$this->session->userdata('ku');
+        if ($row) {
+            
+        $this->db->delete('tr_dukb', array('id_dukb' => $id,'kd_pengguna'=>$ku));
+        $this->db->delete('tr_dukb_detail', array('tr_dukb_id' => $id,'kd_pengguna'=>$ku));
+            $response['status']  = 'success';
+            $response['message'] = 'Data DUKB Sudah Dihapus ...';
+        } else {
+            $response['status']  = 'error';
+            $response['message'] = 'Unable to delete product ...';
+        }
+        echo json_encode($response);
+    }
+    }
+    public function table($tampil)
+    {    $data['rk'] ="$tampil";
+         $this->load->view('pembelian/man_dukb/man_dukb_table',$data);
+    }   
+    public function hapus_detail_dukb_temp()
+    {
+            $response = array();
+    
+    if ($_POST['delete']) {
+        
+        
+        $id = $_POST['delete'];
+            $this->db->where('id_dukb_detail', $id);
+            $this->db->delete('tr_dukb_detail_temp');
+            $response['status']  = 'success';
+            $response['message'] = 'Data Kayu Sudah Dihapus ...';
+        echo json_encode($response);
+    }
+    }
+    public function detail_dukb_temp(){
+         $this->load->view('pembelian/man_dukb/detail_dukb_temp');
+    }     	
     public function create() 
     {
         $data = array(
@@ -314,7 +359,8 @@ class man_dukb extends CI_Controller {
             redirect(site_url('Pembelian/man_dukb/create'));
     }
     public function delete_dukb($id) 
-    {$ku=$this->session->userdata('ku');
+    {
+    $ku=$this->session->userdata('ku');
     $this->db->delete('tr_dukb', array('id_dukb' => $id,'kd_pengguna'=>$ku));
     $this->db->delete('tr_dukb_detail', array('tr_dukb_id' => $id,'kd_pengguna'=>$ku));
             redirect(site_url('Pembelian/man_dukb/'));

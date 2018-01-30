@@ -24,6 +24,31 @@ class man_harga_kayu extends CI_Controller {
         header('Content-Type: application/json');
         echo $this->Mman_harga_kayu->json();
     }	
+    public function hapus()
+    {
+            $response = array();
+    
+    if ($_POST['delete']) {
+        
+        
+        $id = $_POST['delete'];
+        $row = $this->Mman_harga_kayu->get_by_id($id);
+        
+        if ($row) {
+            $this->Mman_harga_kayu->delete($id);
+            $response['status']  = 'success';
+            $response['message'] = 'Data Harga Kayu Sudah Dihapus ...';
+        } else {
+            $response['status']  = 'error';
+            $response['message'] = 'Unable to delete product ...';
+        }
+        echo json_encode($response);
+    }
+    }
+    public function table()
+    {
+         $this->load->view('pembelian/man_harga_kayu/man_harga_kayu_table');
+    }
     public function create() 
     {
         $data = array(

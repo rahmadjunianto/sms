@@ -30,6 +30,48 @@ class tr_barang_masuk extends CI_Controller {
         $data['rk'] =$rk;
 		$this->template->load('welcome/halaman','gudang/tr_barang_masuk/tr_barang_masuk_list',$data);
 	}
+    public function hapus()
+    {
+            $response = array();
+    
+    if ($_POST['delete']) {
+        
+        
+        $id = $_POST['delete'];
+        $row = $this->Mtr_barang_masuk->get_by_id($id);
+        
+        if ($row) {
+        $jumlah_masuk=$row->jumlah;
+        $harga_masuk=$row->harga;
+        $barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$row->kd_barang")->row();
+        $harga_rata=$barang->harga;
+        $stock=$barang->stock;
+        $jumlah=$row->jumlah;
+        $stock_lama=$stock-$jumlah;
+        
+        if($stock_lama==0){
+            $harga_rata_lama=(($harga_rata*($jumlah_masuk+$stock_lama))-($jumlah_masuk*$harga_masuk))/1;
+        }
+        else {
+            $harga_rata_lama=(($harga_rata*($jumlah_masuk+$stock_lama))-($jumlah_masuk*$harga_masuk))/$stock_lama;
+        }
+        $update = array('stock'=>$stock_lama,'harga'=>$harga_rata_lama );
+        $this->db->where('kd_barang', $row->kd_barang);
+        $this->db->update('ref_barang', $update);
+            $this->Mtr_barang_masuk->delete($id);
+            $response['status']  = 'success';
+            $response['message'] = 'Data Barang Masuk Sudah Dihapus ...';
+        } else {
+            $response['status']  = 'error';
+            $response['message'] = 'Unable to delete product ...';
+        }
+        echo json_encode($response);
+    }
+    }
+    public function table()
+    {
+         $this->load->view('gudang/tr_barang_masuk/tr_barang_masuk_table');
+    }   
     public function json() {
         header('Content-Type: application/json');
         echo $this->Mtr_barang_masuk->json_barang();

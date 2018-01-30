@@ -19,6 +19,32 @@ class ref_supplier extends CI_Controller {
         header('Content-Type: application/json');
         echo $this->Mref_supplier->json_supplier();
     }	
+
+    public function hapus()
+    {
+            $response = array();
+    
+    if ($_POST['delete']) {
+        
+        
+        $id = $_POST['delete'];
+        $row = $this->Mref_supplier->get_by_id($id);
+        
+        if ($row) {
+            $this->Mref_supplier->delete($id);
+            $response['status']  = 'success';
+            $response['message'] = 'Data Supplier Sudah Dihapus ...';
+        } else {
+            $response['status']  = 'error';
+            $response['message'] = 'Unable to delete product ...';
+        }
+        echo json_encode($response);
+    }
+    }
+    public function table()
+    {
+         $this->load->view('gudang/ref_supplier/ref_supplier_table');
+    }
     public function create() 
     {
         $data = array(
@@ -55,25 +81,6 @@ class ref_supplier extends CI_Controller {
 
 </script>');
             redirect(site_url('gudang/ref_supplier'));
-    }
-    public function delete($id) 
-    {
-        $row = $this->Mref_supplier->get_by_id($id);
-
-        if ($row) {
-            $this->Mref_supplier->delete($id);
-            $this->db->query("commit");
-            $this->session->set_flashdata('message', '<script>
-  $(window).load(function(){
-   swal("Berhasil Hapus Supplier", "", "success")
-  });
-
-</script>');
-            redirect(site_url('gudang/ref_supplier'));
-        } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('gudang/ref_supplier'));
-        }
     } 
     public function update($id) 
     {
