@@ -37,7 +37,12 @@ class ref_unit extends CI_Controller {
 	    );
 
             $this->Mref_unit->insert($data);
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah unit</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Hapus Unit", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/ref_unit'));
     }
     public function delete($id) 
@@ -47,7 +52,12 @@ class ref_unit extends CI_Controller {
         if ($row) {
             $this->Mref_unit->delete($id);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Hapus unit</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Hapus Unit", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/ref_unit'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -79,7 +89,12 @@ class ref_unit extends CI_Controller {
 
             $this->Mref_unit->update($this->input->post('kd_unit', TRUE), $data);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Update unit</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Update Unit", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/ref_unit'));
     }          
 }

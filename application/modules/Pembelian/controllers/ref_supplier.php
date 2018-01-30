@@ -48,7 +48,12 @@ class ref_supplier extends CI_Controller {
 	    );
 
             $this->Mref_supplier->insert($data);
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah Supplier</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Tambah Supplier", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_supplier'));
     }
     public function delete($id) 
@@ -58,7 +63,12 @@ class ref_supplier extends CI_Controller {
         if ($row) {
             $this->Mref_supplier->delete($id);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Hapus Supplier</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Hapus Supplier", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_supplier'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -100,7 +110,12 @@ class ref_supplier extends CI_Controller {
 
             $this->Mref_supplier->update($this->input->post('kode_supplier', TRUE), $data);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Update Supplier</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Update Supplier", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_supplier'));
     }          
 }

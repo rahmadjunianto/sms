@@ -38,7 +38,12 @@ class ref_kategori extends CI_Controller {
 	    );
 
             $this->Mref_kategori->insert($data);
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah kategori</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Tambah Kategori", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/ref_kategori'));
     }
     public function delete($id) 
@@ -48,7 +53,12 @@ class ref_kategori extends CI_Controller {
         if ($row) {
             $this->Mref_kategori->delete($id);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Hapus kategori</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Hapus Kategori", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/ref_kategori'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -80,7 +90,12 @@ class ref_kategori extends CI_Controller {
 
             $this->Mref_kategori->update($this->input->post('kd_kategori', TRUE), $data);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Update kategori</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Update Kategori", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/ref_kategori'));
     }          
 }

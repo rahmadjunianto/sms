@@ -78,7 +78,12 @@ class ref_barang extends CI_Controller {
 	    );
 
             $this->Mref_barang->insert($data);
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah barang</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Tambah Barang", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/ref_barang'));
     }
     public function delete($id) 
@@ -88,7 +93,12 @@ class ref_barang extends CI_Controller {
         if ($row) {
             $this->Mref_barang->delete($id);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Hapus barang</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Hapus Barang", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/ref_barang'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -124,7 +134,12 @@ class ref_barang extends CI_Controller {
 
             $this->Mref_barang->update($this->input->post('kd_barang', TRUE), $data);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Update barang</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Update Barang", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/ref_barang'));
     }          
 }

@@ -117,7 +117,12 @@ GROUP BY a.kd_barang, a.nm_barang")->result();
 
         }
        } 
-        $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah Mutasi barang</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Tambah Mutasi Barang", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/tr_mutasi_barang'));
     }
     public function delete($id) 

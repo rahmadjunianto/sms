@@ -155,7 +155,12 @@ class tr_barang_keluar extends CI_Controller {
         $this->db->where('kd_barang', $kd_barang);
         $this->db->update('ref_barang', $update);
             $this->Mtr_barang_keluar->insert($data);
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah barang Keluar</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Tambah Barang Keluar", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/tr_barang_keluar'));
     }
     public function delete($id) 
@@ -172,7 +177,12 @@ class tr_barang_keluar extends CI_Controller {
 
             $this->Mtr_barang_keluar->delete($id);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Hapus barang Keluar</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Hapus Barang Keluar", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/tr_barang_keluar'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -230,7 +240,12 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
 
             $this->Mtr_barang_keluar->update($this->input->post('kd_barang_keluar', TRUE), $data);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Update barang Keluar</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Update Barang Keluar", "", "success")
+  });
+
+</script>');
             redirect(site_url('gudang/tr_barang_keluar'));
     }          
 }

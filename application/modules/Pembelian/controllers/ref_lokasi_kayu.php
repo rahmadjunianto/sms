@@ -40,7 +40,12 @@ class ref_lokasi_kayu extends CI_Controller {
 	    );
 
             $this->Mref_lokasi_kayu->insert($data);
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah Lokasi Kayu</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Tambah Lokasi Kayu", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_lokasi_kayu'));
     }
     public function delete($id) 
@@ -50,7 +55,12 @@ class ref_lokasi_kayu extends CI_Controller {
         if ($row) {
             $this->Mref_lokasi_kayu->delete($id);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Hapus Lokasi Kayu</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Hapus Lokasi Kayu", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_lokasi_kayu'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -84,7 +94,12 @@ class ref_lokasi_kayu extends CI_Controller {
 
             $this->Mref_lokasi_kayu->update($this->input->post('kode_lokasi', TRUE), $data);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Update Lokasi Kayu</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Update Lokasi Kayu", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_lokasi_kayu'));
     }          
 }

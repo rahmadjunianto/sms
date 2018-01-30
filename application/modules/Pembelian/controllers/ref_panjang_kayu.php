@@ -45,7 +45,12 @@ class ref_panjang_kayu extends CI_Controller {
 		'v_per_btg' => str_replace(",",".", $this->input->post('v',TRUE)),
 	    );
             $this->Mref_panjang_kayu->insert($data);
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah Panjang Kayu</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Tambah Panjang Kayu", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_panjang_kayu'));
     }
     public function delete($id) 
@@ -55,7 +60,12 @@ class ref_panjang_kayu extends CI_Controller {
         if ($row) {
             $this->Mref_panjang_kayu->delete($id);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Hapus Panjang kayu</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Delete Panjang Kayu", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_panjang_kayu'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -95,7 +105,12 @@ class ref_panjang_kayu extends CI_Controller {
 
             $this->Mref_panjang_kayu->update($this->input->post('kode_panjang_kayu', TRUE), $data);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Update Panjang Kayu</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Update Panjang Kayur", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_panjang_kayu'));
     }          
 }

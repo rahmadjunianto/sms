@@ -37,7 +37,12 @@ class ref_grader extends CI_Controller {
 	    );
 
             $this->Mref_grader->insert($data);
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah Grader</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Tambah Grader", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_grader'));
     }
     public function delete($id) 
@@ -47,7 +52,12 @@ class ref_grader extends CI_Controller {
         if ($row) {
             $this->Mref_grader->delete($id);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Hapus Grader</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Delete Grader", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_grader'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -79,7 +89,12 @@ class ref_grader extends CI_Controller {
 
             $this->Mref_grader->update($this->input->post('kd_grader', TRUE), $data);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Update Grader</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Update Grader", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/ref_grader'));
     }          
 }

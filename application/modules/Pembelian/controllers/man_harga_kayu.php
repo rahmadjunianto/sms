@@ -62,13 +62,26 @@ FROM man_harga_kayu WHERE kode_supplier=$kode_supplier AND panjang_kayu=$panjang
         'kabupaten' => $this->input->post('kabupaten',TRUE),
         'harga' => $this->input->post('harga',TRUE),
         );
-            $this->Mman_harga_kayu->insert($data);
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Menambah Harga Kayu</button>');
+            $this->Mman_harga_kayu->insert($data);            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Tambah Harga Kayu", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/man_harga_kayu'));}
             else {
 
 
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Harga Kayu sudah ada</button>');
+$this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+swal({
+  type: "error",
+  title: "Oops...",
+  text: "Harga Kayu Sudah Ada",
+})
+  });
+
+</script>');
             redirect(site_url('Pembelian/man_harga_kayu'));}                
             
     }
@@ -79,7 +92,12 @@ FROM man_harga_kayu WHERE kode_supplier=$kode_supplier AND panjang_kayu=$panjang
         if ($row) {
             $this->Mman_harga_kayu->delete($id);
             $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Hapus Harga Kayu</button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Delete Harga Kayu", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/man_harga_kayu'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -130,8 +148,12 @@ FROM man_harga_kayu WHERE kode_supplier=$kode_supplier AND panjang_kayu=$panjang
 	    );
 
             $this->Mman_harga_kayu->update($this->input->post('kode_harga_kayu', TRUE), $data);
-            $this->db->query("commit");
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Update Harga Kayu</button>');
+            $this->db->query("commit"); $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Update Harga Kayu", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/man_harga_kayu'));
     }    
         function getkelas(){

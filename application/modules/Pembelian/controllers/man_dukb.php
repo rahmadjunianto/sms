@@ -97,7 +97,12 @@ class man_dukb extends CI_Controller {
 
         $this->db->where('id_dukb', $id);
         $this->db->update('tr_dukb', $data);
-            $this->session->set_flashdata('message', '<button type="button" class="btn btn-success"> Berhasil Validasi </button>');
+            $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Validasi DUKB", "", "success")
+  });
+
+</script>');
             redirect(site_url('Pembelian/man_dukb/validasi'));           
         }    
     public function coba()
@@ -291,6 +296,12 @@ class man_dukb extends CI_Controller {
             $this->db->query("INSERT INTO tr_dukb_detail (diameter,panjang_kayu,batang,volume,tr_dukb_id,kd_bawah,kd_atas,kd_pengguna,harga) VALUES ('$temp->diameter','$temp->panjang_kayu','$temp->batang','$temp->volume',$tr_dukb_id,'$temp->kd_bawah','$temp->kd_atas','$ku','$temp->harga')");
         }
         $this->db->query("DELETE FROM tr_dukb_detail_temp WHERE kd_pengguna=$ku");
+                    $this->session->set_flashdata('message', '<script>
+  $(window).load(function(){
+   swal("Berhasil Tambah DUKB", "", "success")
+  });
+
+</script>');
         redirect(site_url('Pembelian/man_dukb'));
         } 
          //redirect(site_url('Pembelian/man_dukb/create'));
