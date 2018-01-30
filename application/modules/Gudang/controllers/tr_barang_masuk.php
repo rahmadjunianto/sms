@@ -325,9 +325,16 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
         $stock=$barang->stock;
         $stock_lama=$stock-$jumlah_masuk;
         $stock_baru=$stock-$jumlah_masuk+$stok_baru;
+        if ($stock_lama==0)
+        {
+
+        $harga_rata_lama=(($harga_rata*($jumlah_masuk+$stock_lama))-($jumlah_masuk*$harga_masuk))/1;
+        $harga_rata_baru=($stok_baru*$harga_baru+$stock_lama*$harga_rata_lama)/($stok_baru+$stock_lama);
+        } else         {
+            
         $harga_rata_lama=(($harga_rata*($jumlah_masuk+$stock_lama))-($jumlah_masuk*$harga_masuk))/$stock_lama;
         $harga_rata_baru=($stok_baru*$harga_baru+$stock_lama*$harga_rata_lama)/($stok_baru+$stock_lama);
-
+        }   
         $update = array('stock'=>$stock_baru,'harga'=>$harga_rata_baru );
         $this->db->where('kd_barang', $row->kd_barang);
         $this->db->update('ref_barang', $update);
