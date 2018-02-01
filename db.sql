@@ -50,7 +50,7 @@ CREATE TABLE `man_harga_kayu` (
   `kd_bawah` int(11) DEFAULT NULL,
   `kd_atas` int(11) DEFAULT NULL,
   PRIMARY KEY (`kode_harga_kayu`)
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=latin1;
 
 /*Data for the table `man_harga_kayu` */
 
@@ -137,7 +137,7 @@ CREATE TABLE `ref_barang` (
   `stock` int(11) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
   PRIMARY KEY (`kd_barang`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ref_barang` */
 
@@ -149,7 +149,7 @@ CREATE TABLE `ref_grader` (
   `kd_grader` int(11) NOT NULL AUTO_INCREMENT,
   `nm_grader` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`kd_grader`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ref_grader` */
 
@@ -161,7 +161,7 @@ CREATE TABLE `ref_kategori` (
   `kd_kategori` int(11) NOT NULL AUTO_INCREMENT,
   `nm_kategori` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`kd_kategori`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ref_kategori` */
 
@@ -174,7 +174,7 @@ CREATE TABLE `ref_lokasi_kayu` (
   `kabupaten` varchar(100) DEFAULT NULL,
   `kecamatan` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`kode_lokasi`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ref_lokasi_kayu` */
 
@@ -191,7 +191,7 @@ CREATE TABLE `ref_panjang_kayu` (
   `kd_atas` int(3) DEFAULT NULL,
   `kd_bawah` int(3) DEFAULT NULL,
   PRIMARY KEY (`kode_panjang_kayu`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ref_panjang_kayu` */
 
@@ -208,7 +208,7 @@ CREATE TABLE `ref_supplier` (
   `kabupaten` varchar(100) DEFAULT NULL,
   `alamat` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`kode_supplier`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ref_supplier` */
 
@@ -237,7 +237,7 @@ CREATE TABLE `ref_unit` (
   `kd_unit` int(11) NOT NULL AUTO_INCREMENT,
   `nm_unit` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`kd_unit`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ref_unit` */
 
@@ -382,7 +382,7 @@ CREATE TABLE `tr_dukb` (
   `status` varchar(50) DEFAULT NULL,
   `tgl_validasi` date DEFAULT NULL,
   PRIMARY KEY (`id_dukb`)
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_dukb` */
 
@@ -402,7 +402,7 @@ CREATE TABLE `tr_dukb_detail` (
   `kd_pengguna` int(11) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_dukb_detail`)
-) ENGINE=InnoDB AUTO_INCREMENT=993 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=979 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_dukb_detail` */
 
@@ -422,7 +422,7 @@ CREATE TABLE `tr_dukb_detail_temp` (
   `kd_pengguna` int(11) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_dukb_detail`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `tr_dukb_detail_temp` */
 

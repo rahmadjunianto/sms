@@ -23,6 +23,25 @@ class M_laporan extends CI_Model
         $this->db->order_by("a.kd_barang", "desc");
         return $this->datatables->generate();
     }
+    function json_rb() {
+        $kd_barang=$this->session->userdata("barang");
+        if($kd_barang!="all"){
+
+        $this->datatables->select("tanggal,nm_barang,jumlah,a.kd_unit,nm_unit");
+        $this->datatables->from("(SELECT tanggal, kd_barang,nm_barang,SUM(jumlah) AS jumlah,IFNULL(NULL, 0) AS kd_unit,NULL AS nm_unit FROM tr_barang_masuk WHERE kd_barang='$kd_barang' GROUP BY tanggal 
+UNION 
+SELECT tanggal,kd_barang,nm_barang,SUM(jumlah) AS jumlah,a.kd_unit,b.nm_unit FROM tr_barang_keluar a
+JOIN ref_unit b ON a.kd_unit=b.kd_unit 
+WHERE kd_barang='$kd_barang' GROUP BY tanggal,kd_unit 
+ORDER BY tanggal ASC) a");
+        return $this->datatables->generate();
+        }
+        else {
+        $this->datatables->select("tanggal,nm_barang,jumlah,kd_unit,nm_unit");
+        $this->datatables->from("v_lap_rb");
+        return $this->datatables->generate();
+        }
+    }
     function json_lap_per_divisi() {
         $kategori=$this->session->userdata('kategori');
         $unit=$this->session->userdata('unit');
@@ -212,6 +231,9 @@ GROUP BY kd_barang,nm_barang,harga) b ON a.kd_barang=b.kd_barang JOIN ref_katego
     }
     function ListKategori(){
         return $this->db->query("SELECT * from ref_kategori ORDER BY nm_kategori ASC")->result();
+    }
+    function Listbarang(){
+        return $this->db->query("SELECT * from ref_barang ORDER BY nm_barang ASC")->result();
     }
 
 }

@@ -110,6 +110,26 @@ class laporan extends CI_Controller {
         $data['rk'] =$this->M_laporan->getlap_bulan($kategori,$date);   
         $this->load->view('gudang/laporan/lap_perbulan_excel',$data);
     }
+    public function lap_rb()
+    {
+        if(isset($_POST['barang'])){
+            $barang     =$_POST['barang'];
+            $rk="tampil";
+        }else{
+            $rk ="tampil";
+            $barang='all';
+        }
+        $sess=array(
+                'barang'=>$barang,        
+                );         
+        $data = array(
+            'barang'      =>$this->M_laporan->ListBarang(), 
+        );
+        $this->session->set_userdata($sess); 
+        $data['rk'] =$rk;
+        $data['kd_barang']=$barang;
+        $this->template->load('welcome/halaman','gudang/laporan/lap_rb',$data);
+    }
     public function harga_stock()
     {
         $this->template->load('welcome/halaman','gudang/ref_laporan/Ref_harga_stock_list');
@@ -129,6 +149,10 @@ class laporan extends CI_Controller {
     public function json_stock() {
         header('Content-Type: application/json');
         echo $this->Mref_laporan->json_laporan_stock();
+    }   
+    public function json_rb() {
+        header('Content-Type: application/json');
+        echo $this->M_laporan->json_rb();
     }	
     public function create() 
     {

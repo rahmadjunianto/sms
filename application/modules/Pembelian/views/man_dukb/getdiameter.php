@@ -17,7 +17,7 @@ $var.="<tr>";
  $var.="<td height='10'><input style='height: 25px' id='tv' class='form-control' readonly type='text' height='10'></td><td></td>";
  $var.="<td height='10'><input style='height: 25px' id='th' class='form-control' readonly type='text' height='10'></td>";
  $var.="</tr"; ?>
-<?php $var.="</tbody></table><button  type=submit name=simpantemp class=btn btn-primary>Tambah</button></div></div> "; ?>
+<?php $var.="</tbody></table><button  type=submit name=simpantemp class='btn btn-info'>Tambah</button></div></div> "; ?>
  <script type="text/javascript">
      //$('.list_panjang').empty(); //remove all child nodes
         var newOption = $("<?php echo $var?>");
