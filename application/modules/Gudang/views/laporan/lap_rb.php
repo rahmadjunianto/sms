@@ -28,7 +28,7 @@
                 <div class="col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
 
               </form><?php if($rk=="tampil"){?>
-                    <table id="example2" class=" table table-striped table-bordered">
+                    <table id="example2" class=" table  table-bordered">
                       <thead>
                         <tr>
                           <th style="text-align: center ; " width="5%">No</th>
@@ -116,7 +116,7 @@
                default  : return 'Keluar';
             }
     }
-  },{"data": "nm_barang"},{"data": "jumlah","className" : "text-center",},{"data": "nm_unit"},
+  },{"data": "nm_barang"},{"data": "jumlah","className" : "text-right",},{"data": "nm_unit"},
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();
@@ -124,7 +124,16 @@
                         var length = info.iLength;
                         var index = page * length + (iDisplayIndex + 1);
                         $('td:eq(0)', row).html(index);
+                        var unit = data['kd_unit'];
+                    if ( unit == 0 )
+                    {
+                        $('td', row).css('background-color', '#E6E6E6');
                     }
+                    else 
+                    {
+                        $('td', row).css('background-color', '#EFF8FB');
+                    }
+                    }// row color based on colomn value
                 });
             });
       $(document).ready(function() {

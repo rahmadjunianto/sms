@@ -92,13 +92,14 @@ class tr_barang_keluar extends CI_Controller {
             for($i=2; $i<=$baris; $i++){
 
                 // echo $data->val($i,2);
-                    
+                $kd_barang=$data->val($i,2);
+                $row=$this->db->query("SELECT harga FROM ref_barang WHERE kd_barang='$kd_barang'")->row();
                     $this->db->set('kd_barang',$data->val($i,2));
                     $this->db->set('tanggal',substr($data->val($i, 3),6,4)."-".substr($data->val($i, 3),0,2)."-".substr($data->val($i, 3),3,2));
                     $this->db->set('jumlah',$data->val($i, 4));
-                    $this->db->set('harga',$data->val($i, 5));
-                    $this->db->set('nm_barang',$data->val($i, 6));
-                    $this->db->set('kd_unit',$data->val($i, 7));
+                    $this->db->set('harga',$row->harga);
+                    $this->db->set('nm_barang',$data->val($i, 5));
+                    $this->db->set('kd_unit',$data->val($i, 6));
                     $this->db->set('kd_pengguna',$this->session->userdata('ku'));
                     $this->db->insert('tr_barang_keluar_importtemp');
 
