@@ -94,13 +94,13 @@ GROUP BY kd_barang) keluar', 'a.kd_barang=keluar.kd_barang','left');
         $kategori=$this->session->userdata('kategori');
         if($kategori!="all")
         {
-        return $this->db->query("SELECT kd_barang,nm_barang, satuan, nm_kategori,stock,harga, stock*harga AS nominal
+        return $this->db->query("SELECT stock_min,stock_max,kd_barang,nm_barang, satuan, nm_kategori,stock,harga, stock*harga AS nominal
 FROM ref_barang a 
 JOIN ref_kategori b ON a.kd_kategori=b.kd_kategori where a.kd_kategori=$kategori
 ORDER BY nm_barang asc")->result();}
         else {
 
-        return $this->db->query("SELECT kd_barang,nm_barang, satuan, nm_kategori,stock,harga, stock*harga AS nominal
+        return $this->db->query("SELECT stock_min,stock_max,kd_barang,nm_barang, satuan, nm_kategori,stock,harga, stock*harga AS nominal
 FROM ref_barang a 
 JOIN ref_kategori b ON a.kd_kategori=b.kd_kategori
 ORDER BY nm_barang asc")->result();

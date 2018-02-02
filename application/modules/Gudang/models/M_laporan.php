@@ -241,7 +241,7 @@ ORDER BY tanggal asc
 ")->result();
     }
     function Listbtt($now,$past){
-        return $this->db->query("SELECT a.kd_barang,a.nm_barang,a.stock,jml_k FROM (SELECT a.kd_barang,a.nm_barang,CONCAT(a.stock,' ',a.satuan) AS stock,IFNULL(SUM(b.jumlah),0) AS jml_k FROM ref_barang a
+        return $this->db->query("SELECT a.kd_barang,a.nm_barang,a.stock,jml_k FROM (SELECT a.kd_barang,CONCAT(a.nm_barang,' (',a.satuan,')') AS nm_barang,CONCAT(a.stock,' ',a.satuan) AS stock,IFNULL(SUM(b.jumlah),0) AS jml_k FROM ref_barang a
 LEFT JOIN
 (SELECT kd_barang,nm_barang,jumlah FROM tr_barang_keluar  WHERE tanggal BETWEEN '$past' AND '$now' GROUP BY kd_barang) b
 ON a.kd_barang=b.kd_barang GROUP BY a.kd_barang)a WHERE jml_k=0")->result();

@@ -122,13 +122,41 @@ class laporan extends CI_Controller {
             $rk ="";
             $now="";
             $past="";
-        }         
+        }
+        $sess=array(
+                'now'=>$now,
+                'past'=>$past
+                );
+        $this->session->set_userdata($sess);          
         $data = array(
             'btt'      =>$this->M_laporan->Listbtt($now,$past), 
         );
         $data['tahun']=$tahun;
         $data['rk'] =$rk;
         $this->template->load('welcome/halaman','gudang/laporan/lap_btt_list',$data);
+    } 
+    public function lap_btt_excel(){
+        $now=$this->session->userdata('now');
+        $past=$this->session->userdata('past');
+        $data['btt'] =$this->M_laporan->Listbtt($now,$past);
+        //$barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang='$barang'")->row();
+        //$data['nm_barang']=$barang->nm_barang." (".$barang->satuan.")"; 
+        $this->load->view('gudang/laporan/lap_btt_excel',$data);
+    }
+    public function detail_btt($kd_barang)
+    {   
+        $barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang='$kd_barang'")->row();
+        $nm_barang=$barang->nm_barang." (".$barang->satuan.")";
+        $data['kd_barang']=$kd_barang;
+        $data['nm_barang']=$nm_barang;
+        $data['rb'] =$this->M_laporan->Listrb($kd_barang);
+        $this->template->load('welcome/halaman','gudang/laporan/detail_btt',$data);
+    } 
+    public function lap_detail_btt_excel($kd_barang){
+        $data['rb'] =$this->M_laporan->Listrb($kd_barang); 
+        $barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang='$kd_barang'")->row();
+        $data['nm_barang']=$barang->nm_barang." (".$barang->satuan.")"; 
+        $this->load->view('gudang/laporan/lap_rb_excel',$data);
     }
     public function lap_rb()
     {
@@ -150,6 +178,13 @@ class laporan extends CI_Controller {
         $data['kd_barang']=$barang;
         $data['rb'] =$this->M_laporan->Listrb($barang);
         $this->template->load('welcome/halaman','gudang/laporan/lap_rb',$data);
+    } 
+    public function lap_rb_excel(){
+        $barang=$this->session->userdata('barang');
+        $data['rb'] =$this->M_laporan->Listrb($barang); 
+        $barang=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang='$barang'")->row();
+        $data['nm_barang']=$barang->nm_barang." (".$barang->satuan.")"; 
+        $this->load->view('gudang/laporan/lap_rb_excel',$data);
     }
     public function harga_stock()
     {

@@ -6,11 +6,11 @@
                   
             <div class="pull-right">             
                 <div class="btn-group">
-                <?php echo anchor(site_url('gudang/laporan/laporan_per_kategori_excel'), '<i class="fa fa-file-excel-o"></i>  ', 'class="btn btn-success btn-sm"'); 
+                <?php echo anchor(site_url('gudang/laporan/lap_btt_excel'), '<i class="fa fa-file-excel-o"></i>  ', 'class="btn btn-success btn-sm"'); 
                 ?>
                 </div>                
             </div><?php } ?>  
-                    <h2>Laporan Barang Tidak Terpakai <?php echo $this->session->userdata('now').$this->session->userdata('past');; ?></h2>                    
+                    <h2>Laporan Barang Tidak Terpakai</h2>                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -33,14 +33,19 @@
                         <tr>
                           <th style="text-align: center ; " width="5%">No</th>
                           <th style="text-align: center ; " width="80%">Nama Barang</th>
+                          <th style="text-align: center ; " width="80%">Tanggal Terakhir</th>
                           <th style="text-align: center ; " width="10%">Stock</th>
+                          <th style="text-align: center ; " width="10%">Aksi</th>
                         </tr>
                       </thead>
-<?php if (isset($btt)) $no=1; { foreach ($btt as $btt) { ?>
+<?php if (isset($btt)) $no=1; { foreach ($btt as $btt) {
+$barang=$this->db->query("SELECT kd_barang, nm_barang, MAX(tanggal) AS tanggal FROM tr_barang_keluar WHERE kd_barang='$btt->kd_barang' GROUP BY kd_barang")->row(); ?>
 <tr>
   <td><?php echo $no++; ?></td>
   <td><?php echo $btt->nm_barang; ?></td>
+  <td><?php echo $barang->tanggal; ?></td>
   <td><?php echo $btt->stock; ?></td>
+  <td align="center"><?php echo '<div class="btn-group">'.anchor(site_url('gudang/laporan/detail_btt/'.$btt->kd_barang.''),'<i class="fa fa-binoculars"></i>','class="btn btn-xs btn-success"data-toggle="tooltip" data-placement="bottom" title="Detail" ').'</div>'; ?></td>
 </tr>
 <?php }} ?>
 

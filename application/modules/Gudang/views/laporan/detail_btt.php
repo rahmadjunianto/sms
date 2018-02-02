@@ -2,31 +2,20 @@
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
-                  <div class="x_title">  <?php if ( $rk=="tampil") { ?>
-                  
-            <div class="pull-right">             
+                  <div class="x_title">   
+                    <h2> Riwayat Barang <?php echo $nm_barang; ?></h2>             <div class="pull-right">             
                 <div class="btn-group">
-                <?php echo anchor(site_url('gudang/laporan/lap_rb_excel'), '<i class="fa fa-file-excel-o"></i>  ', 'class="btn btn-success btn-sm"'); 
+                <?php echo anchor(site_url('gudang/laporan/lap_detail_btt_excel/'.$kd_barang.''), '<i class="fa fa-file-excel-o"></i>  ', 'class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Cetak Excel"'); 
                 ?>
-                </div>                
-            </div><?php } ?>  
-                    <h2>Laporan Riwayat Barang </h2>                    
+                </div>    
+                <div class="btn-group">
+                <?php echo anchor(site_url('gudang/laporan/lap_btt'), '<i class="fa fa-chevron-left"></i>  ', 'class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom" title="Kembali"'); 
+                ?> 
+                </div>                           
+            </div>                   
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-        <form id="myform" data-parsley-validate   action=""<?php echo base_url().'gudang/laporan/lap_per_bulan'?>" method="post">
-                <div class="row">
-                  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                          <select   class="barang form-control input-sm" name="barang" required="" >
-                    <option></option>
-                    <?php foreach($barang as $barang){?>
-                    <option <?php if($barang->kd_barang==$kd_barang){echo "selected";}?> value="<?php echo $barang->kd_barang?>"><?php echo $barang->nm_barang." (".$barang->satuan.")" ?></option>
-                    <?php }?>
-                          </select>                   
-                  </div>     
-                <div class="col-md-2 col-sm-12 col-xs-12"> <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan</button></div>   </div>                                                      
-
-              </form><?php if($rk=="tampil"){?>
                     <table id="example2" class=" table  table-bordered">
                       <thead>
                         <tr>
@@ -48,7 +37,7 @@
 <?php } }?>
 
                       
-                    </table><?php } ?>
+                    </table>
                   </div>
                 </div>
               </div>

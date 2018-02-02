@@ -34,8 +34,8 @@
                     <table id="example2" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th rowspan="2" class="text-center" width="5%">No</th>
-                          <th rowspan="2" class="text-center" width="15%">Nama barang</th>
+                          <th rowspan="2" class="text-center" width="5%" style="vertical-align: middle !important;">No</th>
+                          <th rowspan="2" class="text-center" width="15%" style="vertical-align: middle !important;">Nama barang</th>
                           <th colspan="2" class="text-center" width="20%"> Awal</th>
                           <th colspan="2" class="text-center" width="20%">Masuk</th>
                           <th colspan="2" class="text-center" width="20%">Keluar</th>
