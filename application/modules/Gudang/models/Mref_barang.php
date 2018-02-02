@@ -17,7 +17,7 @@ class Mref_barang extends CI_Model
 
     // datatables
     function json_barang() {
-        $this->datatables->select('nm_kategori,kd_barang,nm_barang,satuan,harga');
+        $this->datatables->select('nm_kategori,kd_barang,nm_barang,satuan,harga,stock_min,stock_max');
         $this->datatables->from('ref_barang a');
         $this->datatables->join('ref_kategori b', 'a.kd_kategori=b.kd_kategori');
         $this->db->order_by("a.nm_barang", "asc");
@@ -28,14 +28,14 @@ class Mref_barang extends CI_Model
         $kategori=$this->session->userdata('kategori');
         if($kategori!="all")
         {
-        $this->datatables->select('kd_barang,nm_barang,nm_kategori,satuan,harga,stock, (harga* stock) nominal');
+        $this->datatables->select('kd_barang,nm_barang,nm_kategori,satuan,harga, CONCAT(stock," ",satuan ) as stock_b,stock, (harga* stock) nominal,stock_min,stock_max');
         $this->datatables->from('ref_barang a');
         $this->datatables->join('ref_kategori b', 'a.kd_kategori=b.kd_kategori');
         $this->db->order_by("a.nm_barang", "asc");
         $this->datatables->where("a.kd_kategori=$kategori");
         return $this->datatables->generate();}
         else {
-        $this->datatables->select('kd_barang,nm_barang,nm_kategori,satuan,harga,stock, (harga* stock) nominal');
+        $this->datatables->select('kd_barang,nm_barang,nm_kategori,satuan,harga,CONCAT(stock," ",satuan ) as stock_b,stock, (harga* stock) nominal,stock_min,stock_max');
         $this->datatables->from('ref_barang a');
         $this->datatables->join('ref_kategori b', 'a.kd_kategori=b.kd_kategori');
         $this->db->order_by("a.nm_barang", "asc");

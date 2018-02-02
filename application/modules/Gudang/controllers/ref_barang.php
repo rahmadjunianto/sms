@@ -85,6 +85,8 @@ class ref_barang extends CI_Controller {
             'kd_barang' => set_value('kd_barang'),
             'nm_barang' => set_value('nm_barang'),
             'satuan'=> set_value('satuan'),
+            'stock_min'=> set_value('stock_min'),
+            'stock_max'=> set_value('stock_max'),
             'kd_kategori'=> set_value('kd_kategori'),
             'kategori'=>$this->Mref_barang->ListKategori()
 
@@ -97,6 +99,8 @@ class ref_barang extends CI_Controller {
         $data = array(
 		'nm_barang' => $this->input->post('nm_barang',TRUE),
 		'satuan' => $this->input->post('satuan',TRUE),
+        'stock_max' => $this->input->post('stock_max',TRUE),
+        'stock_min' => $this->input->post('stock_min',TRUE),
 		'kd_kategori' => $this->input->post('kategori',TRUE),
         'harga' => 0,
         'stock' => 0,
@@ -141,6 +145,8 @@ class ref_barang extends CI_Controller {
             'kd_kategori' => set_value('kd_kategori',$row->kd_kategori),
             'kd_barang' => set_value('kd_barang',$row->kd_barang),
             'nm_barang'=> set_value('nm_barang',$row->nm_barang),
+            'stock_min'=> set_value('stock_min',$row->stock_min),
+            'stock_max'=> set_value('stock_max',$row->stock_max),
             'satuan'=> set_value('satuan',$row->satuan),'kategori'=>$this->Mref_barang->ListKategori()
 	    );
            $this->template->load('Welcome/halaman','ref_barang/ref_barang_form', $data);
@@ -155,6 +161,8 @@ class ref_barang extends CI_Controller {
 				'nm_barang' => $this->input->post('nm_barang',TRUE),
 		'kd_kategori' => $this->input->post('kategori',TRUE),
 		'satuan' => $this->input->post('satuan',TRUE),
+        'stock_max' => $this->input->post('stock_max',TRUE),
+        'stock_min' => $this->input->post('stock_min',TRUE),
 	    );
 
             $this->Mref_barang->update($this->input->post('kd_barang', TRUE), $data);

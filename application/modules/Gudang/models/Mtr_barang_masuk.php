@@ -18,24 +18,28 @@ class Mtr_barang_masuk extends CI_Model
     // datatables
     function json_barang() {
         $date=$this->session->userdata('date');
-        $this->datatables->select("no_faktur,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah");
-        $this->datatables->from('tr_barang_masuk ');;$this->db->order_by("kd_barang_masuk", "desc");
+        $this->datatables->select("no_faktur,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,nama_supplier ");
+        $this->datatables->from('tr_barang_masuk a');
+        $this->datatables->join('ref_supplier_gudang b', 'a.kd_supplier=b.kode_supplier');
+        $this->db->order_by("kd_barang_masuk", "desc");
         $this->datatables->where("tanggal='$date'");
-        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/tr_barang_masuk/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/tr_barang_masuk/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger"  id="delete" data-id="$1" href="javascript:void(0)"').'</div>', 'kd_barang_masuk');
+        $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/tr_barang_masuk/update/$1'),'<i class="fa fa-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>','class="btn btn-xs btn-success " ').anchor(site_url('gudang/tr_barang_masuk/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger"  id="delete" data-id="$1" href="javascript:void(0)"').'</div>', 'kd_barang_masuk');
         return $this->datatables->generate();
     }
     function json_sukses() {
         $ku=$this->session->userdata('ku');
-        $this->datatables->select("no_faktur,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah");
-        $this->datatables->from('tr_barang_masuk_log ');;$this->db->order_by("tanggal", "desc");
+        $this->datatables->select("no_faktur,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,b.nama_supplier");
+        $this->datatables->from('tr_barang_masuk_log a');;$this->db->order_by("tanggal", "desc");        
+        $this->datatables->join('ref_supplier_gudang b', 'a.kd_supplier=b.kode_supplier');
         $this->datatables->where("status='sukses' and kd_pengguna=$ku");
         $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/tr_barang_masuk/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/tr_barang_masuk/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_barang_masuk');
         return $this->datatables->generate();
     }
     function json_gagal() {
         $ku=$this->session->userdata('ku');
-        $this->datatables->select("no_faktur,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah");
-        $this->datatables->from('tr_barang_masuk_log ');;$this->db->order_by("tanggal", "desc");
+        $this->datatables->select("no_faktur,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,b.nama_supplier");
+        $this->datatables->from('tr_barang_masuk_log a');;$this->db->order_by("tanggal", "desc");        
+        $this->datatables->join('ref_supplier_gudang b', 'a.kd_supplier=b.kode_supplier');
         $this->datatables->where("status='gagal' and kd_pengguna=$ku");
         $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/tr_barang_masuk/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/tr_barang_masuk/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_barang_masuk');
         return $this->datatables->generate();
@@ -73,6 +77,9 @@ class Mtr_barang_masuk extends CI_Model
 
     function ListBarang(){
         return $this->db->query("SELECT * from ref_barang ORDER BY nm_barang ASC")->result();
+    }
+    function ListSupplier(){
+        return $this->db->query("SELECT * from ref_supplier_gudang ORDER BY nama_supplier ASC")->result();
     }
 
 }

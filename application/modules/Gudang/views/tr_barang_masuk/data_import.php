@@ -16,7 +16,8 @@
                           <th width="5%">No</th>
                           <th width="15%">Tanggal</th>
                           <th width="15%">No Faktur</th>
-                          <th width="15%">Nama barang</th>
+                          <th width="15%">Nama Supplier</th>
+                          <th width="15%">Nama Barang</th>
                           <th width="15%">Jumlah</th>
                         </tr>
                       </thead>
@@ -45,7 +46,8 @@
                           <th width="5%">No</th>
                           <th width="15%">Tanggal</th>
                           <th width="15%">No Faktur</th>
-                          <th width="15%">Nama barang</th>
+                          <th width="15%">Nama Supplier</th>
+                          <th width="15%">Nama Barang</th>
                           <th width="15%">Jumlah</th>
                         </tr>
                       </thead>
@@ -112,7 +114,7 @@
                             "data": "kd_barang_masuk",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nm_barang"},{"data": "jumlah"}
+                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nama_supplier"},{"data": "nm_barang"},{"data": "jumlah"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();
@@ -179,7 +181,7 @@
                             "data": "kd_barang_masuk",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nm_barang"},{"data": "jumlah"}
+                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nama_supplier"},{"data": "nm_barang"},{"data": "jumlah"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();

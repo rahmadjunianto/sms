@@ -5,6 +5,8 @@
                           <th class="text-center" width="15%">Nama Barang</th>
                           <th class="text-center" width="10%">Satuan</th>
                           <th class="text-center" width="10%">Kategori</th>
+                          <th class="text-center" width="10%">Stock Minimum</th>
+                          <th class="text-center" width="10%">Stock Maksimum</th>
                           <th class="text-center" width="10%">Harga</th>
                           <th class="text-center" width="7%">Aksi</th>
                         </tr>
@@ -65,7 +67,7 @@
                             "data": "kd_barang",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "harga",
+                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "stock_min","className" : "text-right"},{"data": "stock_max","className" : "text-right"},{"data": "harga",
                           "className" : "text-right",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),},
                         {

@@ -118,6 +118,7 @@ class tr_barang_masuk extends CI_Controller {
                     $this->db->set('kd_barang',$data->val($i,4));
                     $this->db->set('nm_barang',$data->val($i, 5));
                     $this->db->set('jumlah',$data->val($i, 6));
+                    $this->db->set('kd_supplier',$data->val($i, 7));
                     $this->db->set('kd_pengguna',$this->session->userdata('ku'));
                     $this->db->insert('tr_barang_masuk_importtemp');
 
@@ -137,12 +138,12 @@ class tr_barang_masuk extends CI_Controller {
                 $t = $this->db->query("SELECT COUNT(no_faktur) no_faktur FROM tr_barang_masuk WHERE no_faktur=$temp->no_faktur AND kd_barang=$temp->kd_barang")->row();
                 if($t->no_faktur==0){
 
-                    $this->db->query("INSERT INTO tr_barang_masuk (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang')");
-                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku')");
+                    $this->db->query("INSERT INTO tr_barang_masuk (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,kd_supplier) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','$temp->kd_supplier')");
+                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku','$temp->kd_supplier')");
                         $berhasil++;
                 }
                 else {
-                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','gagal','$ku')");
+                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','gagal','$ku','$temp->kd_supplier')");
                         $gagal++;                    
                 }
             }
@@ -197,6 +198,7 @@ class tr_barang_masuk extends CI_Controller {
                     $this->db->set('nm_barang',$data->val($i, 5));
                     $this->db->set('jumlah',$data->val($i, 6));
                     $this->db->set('harga',$data->val($i, 7));
+                    $this->db->set('kd_supplier',$data->val($i, 8));
                     $this->db->set('kd_pengguna',$this->session->userdata('ku'));
                     $this->db->insert('tr_barang_masuk_importtemp');
 
@@ -230,11 +232,11 @@ class tr_barang_masuk extends CI_Controller {
         $this->db->where('kd_barang', $temp->kd_barang);
         $this->db->update('ref_barang', $update);        
                     $this->db->query("UPDATE tr_barang_masuk SET harga = '$temp->harga' WHERE no_faktur= '$temp->no_faktur' and kd_barang= '$temp->kd_barang'");
-                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku')");
+                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku','$temp->kd_supplier')");
                         $berhasil++;}
                 else {
 
-                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','gagal','$ku')");
+                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','gagal','$ku','$temp->kd_supplier')");
                         $gagal++;
 
                 }
@@ -261,13 +263,15 @@ class tr_barang_masuk extends CI_Controller {
             'button'     => 'Tambah barang Masuk',
             'action'     => site_url('gudang/tr_barang_masuk/create_action'),
             'kd_barang' => set_value('kd_barang'),
+            'kd_supplier' => set_value('kd_supplier'),
             'kd_barang_masuk' => set_value('kd_barang_masuk'),
             'jumlah' => set_value('jumlah'),
             'harga'=> set_value('harga'),
             'no_faktur'=> set_value('no_faktur'),
             'nama_barang'=> set_value('nama_barang'),
             'date'=> date("d/m/Y"),
-            'barang'=>$this->Mtr_barang_masuk->ListBarang()
+            'barang'=>$this->Mtr_barang_masuk->ListBarang(),
+            'supplier'=>$this->Mtr_barang_masuk->ListSupplier()
 
 	);
 
@@ -285,6 +289,7 @@ class tr_barang_masuk extends CI_Controller {
         'harga' => $this->input->post('harga',TRUE),
         'no_faktur' => $this->input->post('no_faktur',TRUE),
         'nm_barang' => $this->input->post('nm_barang',TRUE),
+        'kd_supplier' => $this->input->post('supplier',TRUE),
 	    );
         $row=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$kd_barang")->row();
         if($row)
@@ -352,11 +357,14 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
                 'action'     => site_url('gudang/tr_barang_masuk/update_action'),
             'kd_barang_masuk' => set_value('kd_barang_masuk',$row->kd_barang_masuk),
             'kd_barang' => set_value('kd_barang',$row->kd_barang),
+            'kd_supplier' => set_value('kd_supplier',$row->kd_supplier),
             'jumlah' => set_value('jumlah',$row->jumlah),
             'no_faktur' => set_value('no_faktur',$row->no_faktur),
             'nama_barang'=> set_value('nm_barang',$row->nm_barang),
             'date'=> set_value('tanggal',$tgl),
-            'harga'=> set_value('harga',$row->harga),'barang'=>$this->Mtr_barang_masuk->ListBarang()
+            'harga'=> set_value('harga',$row->harga),
+            'barang'=>$this->Mtr_barang_masuk->ListBarang(),
+            'supplier'=>$this->Mtr_barang_masuk->ListSupplier()
 	    );
            $this->template->load('Welcome/halaman','tr_barang_masuk/tr_barang_masuk_form', $data);
         } else {
@@ -397,6 +405,7 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
         'no_faktur' => $this->input->post('no_faktur',TRUE),
         'tanggal' => substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),
         'kd_barang' => $this->input->post('barang',TRUE),
+        'kd_supplier' => $this->input->post('supplier',TRUE),
 	    );
 
             $this->Mtr_barang_masuk->update($this->input->post('kd_barang_masuk', TRUE), $data);

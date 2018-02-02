@@ -19,9 +19,8 @@
                   <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                           <select   class="barang form-control input-sm" name="barang" required="" >
                     <option></option>
-                    <option <?php if("all"==$kd_barang){echo "selected";}?> value="all">Semua barang</option>
                     <?php foreach($barang as $barang){?>
-                    <option <?php if($barang->kd_barang==$kd_barang){echo "selected";}?> value="<?php echo $barang->kd_barang?>"><?php echo $barang->nm_barang ?></option>
+                    <option <?php if($barang->kd_barang==$kd_barang){echo "selected";}?> value="<?php echo $barang->kd_barang?>"><?php echo $barang->nm_barang." (".$barang->satuan.")" ?></option>
                     <?php }?>
                           </select>                   
                   </div>     
@@ -34,12 +33,19 @@
                           <th style="text-align: center ; " width="5%">No</th>
                           <th style="text-align: center ; " width="10%">Tanggal</th>
                           <th style="text-align: center ; " width="10%">Activity</th>
-                          <th style="text-align: center ; " width="20%">Nama Barang</th>
+                          <th style="text-align: center ; " width="10%">Unit/Supplier</th>
                           <th style="text-align: center ; " width="10%">Jumlah</th>
-                          <th style="text-align: center ; " width="10%">Unit</th>
                         </tr>
                       </thead>
-
+<?php if (isset($rb)) $no=1; { foreach ($rb as $rb) { ?>
+<tr>
+  <td align="center" <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?>><?php echo $no++; ?></td>
+  <td <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?> ><?php echo $rb->tgl; ?></td>
+  <td <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?> ><?php if ($rb->kd_unit==0) {echo "Masuk";  } else { echo "Keluar";} ?></td>
+  <td <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?> ><?php echo $rb->nm_unit; ?></td>
+  <td <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?>  align="right"><?php echo $rb->jumlah; ?></td>
+</tr>
+<?php } }?>
 
                       
                     </table><?php } ?>
@@ -50,10 +56,13 @@
 
 
             </div>
-
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#example2').DataTable();
+} );</script>
 
        <script type="text/javascript">
-
+/*
             $(document).ready(function() {
                 $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
                 {
@@ -116,7 +125,7 @@
                default  : return 'Keluar';
             }
     }
-  },{"data": "nm_barang"},{"data": "jumlah","className" : "text-right",},{"data": "nm_unit"},
+  },{"data": "nm_unit"},{"data": "jumlah","className" : "text-right",},
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();
@@ -135,11 +144,11 @@
                     }
                     }// row color based on colomn value
                 });
-            });
+            });*/
       $(document).ready(function() {
         $(".grader").select2({
           placeholder: "Grader",
-          allowClear: true,    dropdownAutoWidth : true,
+          allowClear: true,    dropdownAutoWidth : true,width: '200px'
         });
         $(".barang").select2({
           placeholder: "Barang",

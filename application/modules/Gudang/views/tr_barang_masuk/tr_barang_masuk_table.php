@@ -5,6 +5,7 @@
                           <th class="text-center" width="5%">No</th>
                           <th class="text-center" width="15%">Tanggal</th>
                           <th class="text-center" width="15%">No Faktur</th>
+                          <th class="text-center" width="15%">Nama Supplier</th>
                           <th class="text-center" width="15%">Nama Barang</th>
                           <th class="text-center" width="10%">Jumlah</th>
                           <th class="text-center" width="10%">Harga</th>
@@ -66,7 +67,7 @@
                             "data": "kd_barang_masuk",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nm_barang"},{"data": "jumlah","className" : "text-right",},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
+                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nama_supplier"},{"data": "nm_barang"},{"data": "jumlah","className" : "text-right",},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
                         {
                             "data" : "action",
                             "orderable": false,

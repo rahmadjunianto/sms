@@ -31,16 +31,14 @@
                         <tr>
                           <th class="text-center" width="5%">No</th>
                           <th class="text-center" width="15%">Nama Barang</th>
-                          <th class="text-center" width="10%">Satuan</th>
                           <th class="text-center" width="10%">Kategori</th>
                           <th class="text-center" width="10%">Stock</th>
+                          <th class="text-center" width="10%">Stock Minimum</th>
+                          <th class="text-center" width="10%">Stock Maksimum</th>
                           <th class="text-center" width="10%">Harga</th>
                           <th class="text-center" width="7%">Nominal</th>
                         </tr>
                       </thead>
-
-
-                      
                     </table>
                   </div>
                 </div>
@@ -106,7 +104,9 @@
                             "data": "kd_barang",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "stock",
+                        },{"data": "nm_barang"},{"data": "nm_kategori"},{"data": "stock_b",
+                          "className" : "text-right"},{"data": "stock_min",
+                          "className" : "text-right"},{"data": "stock_max",
                           "className" : "text-right"},{"data": "harga",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),
                           "className" : "text-right"},
@@ -122,7 +122,19 @@
                         var length = info.iLength;
                         var index = page * length + (iDisplayIndex + 1);
                         $('td:eq(0)', row).html(index);
+                        var stock = parseFloat(data['stock']);
+                        var stock_min= parseFloat(data['stock_min']);
+                        
+                    if ( stock < stock_min )
+                    {
+                        $('td', row).css('background-color', '#FC8168');
                     }
+                    else 
+                    {
+                        $('td', row).css('background-color', '#EFF8FB');
+                    }
+                    }// row color based on colomn value
+                    
                 });
             });
       $(document).ready(function() {

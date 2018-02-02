@@ -35,6 +35,20 @@
                           <input type="text" id="last-name" name="satuan" required="required" placeholder="Satuan" class="form-control col-md-7 col-xs-12" value="<?php echo $satuan; ?>">                     
                         </div>
                       </div> 
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Stock Minimum
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="last-name" name="stock_min" required="required" placeholder="Stock Minimum" class="form-control col-md-7 col-xs-12" value="<?php echo $stock_min; ?>">                     
+                        </div>
+                      </div> 
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Stock Maksimum
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="last-name" name="stock_max" required="required" placeholder="Stock Maksimum" class="form-control col-md-7 col-xs-12" value="<?php echo $stock_max; ?>">                     
+                        </div>
+                      </div> 
                                                                                                
                       <div class="ln_solid"></div>
                       <div class="form-group">

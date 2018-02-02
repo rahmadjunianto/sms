@@ -18,7 +18,8 @@
                           <th width="5%">No</th>
                           <th width="15%">Tanggal</th>
                           <th width="15%">No Faktur</th>
-                          <th width="15%">Nama barang</th>
+                          <th width="15%">Nama Supplier</th>
+                          <th width="15%">Nama Barang</th>
                           <th width="15%">Jumlah</th>
                           <th width="15%">Harga</th>
                         </tr>
@@ -49,7 +50,8 @@
                           <th width="5%">No</th>
                           <th width="15%">Tanggal</th>
                           <th width="15%">No Faktur</th>
-                          <th width="15%">Nama barang</th>
+                          <th width="15%">Nama Supplier</th>
+                          <th width="15%">Nama Barang</th>
                           <th width="15%">Jumlah</th>
                           <th width="15%">Harga</th>
                         </tr>
@@ -117,7 +119,7 @@
                             "data": "kd_barang_masuk",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nm_barang"},{"data": "jumlah"},{"data": "harga"}
+                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nama_supplier"},{"data": "nm_barang"},{"data": "jumlah"},{"data": "harga"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();
@@ -183,7 +185,7 @@
                             "data": "kd_barang_masuk",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nm_barang"},{"data": "jumlah"},{"data": "harga"}
+                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nama_supplier"},{"data": "nm_barang"},{"data": "jumlah"},{"data": "harga"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();

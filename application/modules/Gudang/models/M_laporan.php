@@ -27,13 +27,8 @@ class M_laporan extends CI_Model
         $kd_barang=$this->session->userdata("barang");
         if($kd_barang!="all"){
 
-        $this->datatables->select("tanggal,nm_barang,jumlah,a.kd_unit,nm_unit");
-        $this->datatables->from("(SELECT tanggal, kd_barang,nm_barang,SUM(jumlah) AS jumlah,IFNULL(NULL, 0) AS kd_unit,NULL AS nm_unit FROM tr_barang_masuk WHERE kd_barang='$kd_barang' GROUP BY tanggal 
-UNION 
-SELECT tanggal,kd_barang,nm_barang,SUM(jumlah) AS jumlah,a.kd_unit,b.nm_unit FROM tr_barang_keluar a
-JOIN ref_unit b ON a.kd_unit=b.kd_unit 
-WHERE kd_barang='$kd_barang' GROUP BY tanggal,kd_unit 
-ORDER BY tanggal ASC) a");
+        $this->datatables->select("DATE_FORMAT(tanggal, '%d/%m/%Y') as tanggal,jumlah,a.kd_unit,nm_unit");
+        $this->datatables->from("(SELECT tanggal, kd_barang,SUM(jumlah) AS jumlah,IFNULL(NULL, 0) AS kd_unit,nama_supplier AS nm_unit FROM tr_barang_masuk a JOIN ref_supplier_gudang b ON a.kd_supplier=b.kode_supplier WHERE kd_barang='$kd_barang' GROUP BY tanggal, kd_barang UNION SELECT tanggal,kd_barang,SUM(jumlah) AS jumlah,a.kd_unit,b.nm_unit FROM tr_barang_keluar a JOIN ref_unit b ON a.kd_unit=b.kd_unit  WHERE kd_barang='$kd_barang' GROUP BY tanggal,kd_unit ORDER BY tanggal ASC) a");
         return $this->datatables->generate();
         }
         else {
@@ -234,6 +229,22 @@ GROUP BY kd_barang,nm_barang,harga) b ON a.kd_barang=b.kd_barang JOIN ref_katego
     }
     function Listbarang(){
         return $this->db->query("SELECT * from ref_barang ORDER BY nm_barang ASC")->result();
+    }
+    function Listrb($kd_barang){
+        return $this->db->query("SELECT DATE_FORMAT(tanggal, '%d/%m/%Y')AS tgl, tanggal, kd_barang,nm_barang,SUM(jumlah) AS jumlah,IFNULL(NULL, 0) AS kd_unit,nama_supplier AS nm_unit FROM tr_barang_masuk a
+JOIN ref_supplier_gudang b ON a.kd_supplier=b.kode_supplier WHERE kd_barang='$kd_barang'
+GROUP BY tanggal,kd_barang,nama_supplier 
+UNION 
+SELECT DATE_FORMAT(tanggal, '%d/%m/%Y') AS tgl, tanggal,kd_barang,nm_barang,SUM(jumlah) AS jumlah,a.kd_unit,b.nm_unit FROM tr_barang_keluar a
+JOIN ref_unit b ON a.kd_unit=b.kd_unit  WHERE kd_barang='$kd_barang' GROUP BY tanggal,kd_barang,nm_barang,kd_unit 
+ORDER BY tanggal asc
+")->result();
+    }
+    function Listbtt($now,$past){
+        return $this->db->query("SELECT a.kd_barang,a.nm_barang,a.stock,jml_k FROM (SELECT a.kd_barang,a.nm_barang,CONCAT(a.stock,' ',a.satuan) AS stock,IFNULL(SUM(b.jumlah),0) AS jml_k FROM ref_barang a
+LEFT JOIN
+(SELECT kd_barang,nm_barang,jumlah FROM tr_barang_keluar  WHERE tanggal BETWEEN '$past' AND '$now' GROUP BY kd_barang) b
+ON a.kd_barang=b.kd_barang GROUP BY a.kd_barang)a WHERE jml_k=0")->result();
     }
 
 }
