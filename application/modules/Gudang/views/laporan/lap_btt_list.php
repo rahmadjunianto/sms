@@ -33,13 +33,13 @@
                         <tr>
                           <th style="text-align: center ; " width="5%">No</th>
                           <th style="text-align: center ; " width="80%">Nama Barang</th>
-                          <th style="text-align: center ; " width="80%">Tanggal Terakhir</th>
+                          <th style="text-align: center ; " width="10%">Tanggal Terakhir</th>
                           <th style="text-align: center ; " width="10%">Stock</th>
                           <th style="text-align: center ; " width="10%">Aksi</th>
                         </tr>
                       </thead>
 <?php if (isset($btt)) $no=1; { foreach ($btt as $btt) {
-$barang=$this->db->query("SELECT kd_barang, nm_barang, MAX(tanggal) AS tanggal FROM tr_barang_keluar WHERE kd_barang='$btt->kd_barang' GROUP BY kd_barang")->row(); ?>
+$barang=$this->db->query("SELECT kd_barang, nm_barang, MAX(tanggal) AS tanggal FROM tr_barang_keluar WHERE kd_barang='$btt->kd_barang' GROUP BY kd_barang")->row(); if($barang!=null) {?>
 <tr>
   <td><?php echo $no++; ?></td>
   <td><?php echo $btt->nm_barang; ?></td>
@@ -47,7 +47,7 @@ $barang=$this->db->query("SELECT kd_barang, nm_barang, MAX(tanggal) AS tanggal F
   <td><?php echo $btt->stock; ?></td>
   <td align="center"><?php echo '<div class="btn-group">'.anchor(site_url('gudang/laporan/detail_btt/'.$btt->kd_barang.''),'<i class="fa fa-binoculars"></i>','class="btn btn-xs btn-success"data-toggle="tooltip" data-placement="bottom" title="Detail" ').'</div>'; ?></td>
 </tr>
-<?php }} ?>
+<?php }} }?>
 
                       
                     </table><?php } ?>

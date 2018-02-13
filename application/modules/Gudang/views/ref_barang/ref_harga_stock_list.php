@@ -11,9 +11,11 @@
                       <thead>
                         <tr>
                           <th class="text-center" width="5%">No</th>
+                          <th class="text-center" width="10%">Kode Barang</th>
                           <th class="text-center" width="30%">Nama Barang</th>
-                          <th class="text-center" width="15%">Satuan</th>
-                          <th class="text-center" width="15%">Kategori</th>
+                          <th class="text-center" width="40%">Spesifikasi</th>
+                          <th class="text-center" width="10%">Sat</th>
+                          <th class="text-center" width="10%">Kat</th>
                           <th class="text-center" width="10%">Stock</th>
                         </tr>
                       </thead>
@@ -85,7 +87,7 @@
                             "data": "kd_barang",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "stock",
+                        },{"data": "kd_barang"},{"data": "nm_barang"},{"data": "spesifikasi"},{"data": "satuan"},{"data": "inisial"},{"data": "stock",
                             "className" : "text-right",}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {

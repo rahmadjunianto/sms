@@ -14,7 +14,7 @@
                           <select class="select2_single form-control" name="kategori"  id="kategori">
                     <option></option>
                     <?php foreach($kategori as $kategori){?>
-                    <option <?php if($kd_kategori==$kategori->kd_kategori){echo "selected";}?> value="<?php echo $kategori->kd_kategori?>"><?php echo $kategori->nm_kategori?></option>
+                    <option <?php if($kd_kategori==$kategori->kd_kategori){echo "selected";}?> value="<?php echo $kategori->kd_kategori?>"><?php echo $kategori->nm_kategori." (".$kategori->inisial.")"?></option>
                     <?php }?>
                           </select>                
                         </div>
@@ -28,6 +28,13 @@
 <input type="hidden" name="kd_barang" value="<?php echo $kd_barang; ?>" />                           
                         </div>
                       </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Spesifikasi
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="last-name" name="spesifikasi" placeholder="Spesifikasi" class="form-control col-md-7 col-xs-12" value="<?php echo $spesifikasi; ?>">                     
+                        </div>
+                      </div> 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Satuan
                         </label>

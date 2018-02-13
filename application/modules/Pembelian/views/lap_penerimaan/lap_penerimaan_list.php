@@ -6,11 +6,11 @@
                   
             <div class="pull-right">             
                 <div class="btn-group">
-                <?php echo anchor(site_url('gudang/laporan/laporan_per_bulan_excel'), '<i class="fa fa-file-excel-o"></i>  ', 'class="btn btn-success btn-sm"'); 
+                <?php echo anchor(site_url('pembelian/lap_penerimaan/list_excel'), '<i class="fa fa-file-excel-o"></i>  ', 'class="btn btn-success btn-sm"'); 
                 ?>
                 </div>                
             </div><?php } ?>  
-                    <h2>Laporan Penerimaa <?php echo $this->session->userdata('date'); ?>
+                    <h2>Laporan Penerimaan <?php echo $this->session->userdata('bulan'); ?>
                      </h2>                    
                     <div class="clearfix"></div>
                   </div>
@@ -31,10 +31,8 @@
                     <table id="example2" class=" table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th style="text-align: center ;vertical-align: middle !important;
-} " width="4%" rowspan="2">No</th>
-                          <th style="text-align: center ;vertical-align: middle !important;
-} " width="10%" rowspan="2">Tangal Masuk Pabrik</th>
+                          <th style="text-align: center ;vertical-align: middle !important;} " width="4%" rowspan="2">No</th>
+                          <th style="text-align: center ;vertical-align: middle !important;} " width="10%" rowspan="2">Tangal Masuk Pabrik</th>
                           <th style="text-align: center ;vertical-align: middle !important;
 } " width="8%" rowspan="2">Tanggal BAP</th>
                           <th style="text-align: center ;vertical-align: middle !important;
@@ -122,7 +120,7 @@
                             "data": "id_dukb",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "tanggal"},{"data": "kd_siklus"},{"data": "jenis_kayu"},{"data": "plat_nomor"},{"data": "plat_nomor"},{"data": "kabupaten"},{"data": "kecamatan"},{"data": "nama_supplier"}
+                        },{"data": "tanggal"},{"data": "tanggal"},{"data": "kd_siklus"},{"data": "jenis_kayu"},{"data": "plat_nomor"},{"data": "kd_asal"},{"data": "kabupaten"},{"data": "kecamatan"},{"data": "nama_supplier"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();

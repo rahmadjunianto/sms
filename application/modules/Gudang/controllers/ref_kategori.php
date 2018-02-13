@@ -51,15 +51,19 @@ class ref_kategori extends CI_Controller {
             'action'     => site_url('gudang/ref_kategori/create_action'),
             'kd_kategori' => set_value('kd_kategori'),
             'nm_kategori' => set_value('nm_kategori'),
+            'inisial' => set_value('inisial'),
 
 	);
         $this->template->load('Welcome/halaman','ref_kategori/ref_kategori_form', $data);
     }
     public function create_action() 
     {
-
+        $row=$this->db->query("SELECT MAX(kd_kategori) AS kd_kategori FROM ref_kategori")->row();
+        $kd_kategori=$row->kd_kategori+10;
         $data = array(
 		'nm_kategori' => $this->input->post('nm_kategori',TRUE),
+        'kd_kategori' => $kd_kategori,
+        'inisial' => $this->input->post('inisial',TRUE),
 	    );
 
             $this->Mref_kategori->insert($data);
@@ -100,6 +104,7 @@ class ref_kategori extends CI_Controller {
                 'action'     => site_url('gudang/ref_kategori/update_action'),
             'kd_kategori' => set_value('kd_kategori',$row->kd_kategori),
             'nm_kategori' => set_value('nm_kategori',$row->nm_kategori),
+            'inisial' => set_value('inisial',$row->inisial),
 	    );
            $this->template->load('Welcome/halaman','ref_kategori/ref_kategori_form', $data);
         } else {
@@ -111,6 +116,7 @@ class ref_kategori extends CI_Controller {
     {
             $data = array(
 				'nm_kategori' => $this->input->post('nm_kategori',TRUE),
+                'inisial' => $this->input->post('inisial',TRUE),
 	    );
 
             $this->Mref_kategori->update($this->input->post('kd_kategori', TRUE), $data);

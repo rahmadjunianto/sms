@@ -41,17 +41,17 @@ header("Expires: 0");
                           <th style="text-align: center ; border: 1px solid black !important; " width="5%">No</th>
                           <th style="text-align: center ; border: 1px solid black !important; " width="10%">Tanggal</th>
                           <th style="text-align: center ; border: 1px solid black !important; " width="10%">Activity</th>
-                          <th style="text-align: center ; border: 1px solid black !important; " width="10%">Unit/Supplier</th>
+                          <th style="text-align: center ; border: 1px solid black !important; " width="10%">Divisi/Supplier</th>
                           <th style="text-align: center ; border: 1px solid black !important; " width="10%">Jumlah</th>
                         </tr>
                       </thead>
 <?php if (isset($rb)) $no=1; { foreach ($rb as $rb) { ?>
 <tr>
-  <td align="center" <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 ;border: 1px solid black !important;';";  } else {echo "style='background-color: #EFF8FB ;border: 1px solid black !important;';";} ?>><?php echo $no++; ?></td>
-  <td align="left" <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 ;border: 1px solid black !important;';";  } else {echo "style='background-color: #EFF8FB ;border: 1px solid black !important;';";} ?> ><?php echo $rb->tgl; ?></td>
-  <td align="center" <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 ;border: 1px solid black !important;';";  } else {echo "style='background-color: #EFF8FB ;border: 1px solid black !important;';";} ?> ><?php if ($rb->kd_unit==0) {echo "Masuk";  } else { echo "Keluar";} ?></td>
-  <td align="left" <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 ;border: 1px solid black !important;';";  } else {echo "style='background-color: #EFF8FB ;border: 1px solid black !important;';";} ?> ><?php echo $rb->nm_unit; ?></td>
-  <td align="center" <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 ;border: 1px solid black !important;';";  } else {echo "style='background-color: #EFF8FB ;border: 1px solid black !important;';";} ?>  align="right"><?php echo $rb->jumlah; ?></td>
+  <td align="center" <?php if ($rb->kd_divisi==0) {echo "style='background-color: #E6E6E6 ;border: 1px solid black !important;';";  } else {echo "style='background-color: #EFF8FB ;border: 1px solid black !important;';";} ?>><?php echo $no++; ?></td>
+  <td align="left" <?php if ($rb->kd_divisi==0) {echo "style='background-color: #E6E6E6 ;border: 1px solid black !important;';";  } else {echo "style='background-color: #EFF8FB ;border: 1px solid black !important;';";} ?> ><?php echo $rb->tgl; ?></td>
+  <td align="center" <?php if ($rb->kd_divisi==0) {echo "style='background-color: #E6E6E6 ;border: 1px solid black !important;';";  } else {echo "style='background-color: #EFF8FB ;border: 1px solid black !important;';";} ?> ><?php if ($rb->kd_divisi==0) {echo "Masuk";  } else { echo "Keluar";} ?></td>
+  <td align="left" <?php if ($rb->kd_divisi==0) {echo "style='background-color: #E6E6E6 ;border: 1px solid black !important;';";  } else {echo "style='background-color: #EFF8FB ;border: 1px solid black !important;';";} ?> ><?php echo $rb->nm_divisi; ?></td>
+  <td align="center" <?php if ($rb->kd_divisi==0) {echo "style='background-color: #E6E6E6 ;border: 1px solid black !important;';";  } else {echo "style='background-color: #EFF8FB ;border: 1px solid black !important;';";} ?>  align="right"><?php echo $rb->jumlah; ?></td>
 </tr>
 <?php } }?>
                     </table>

@@ -15,9 +15,11 @@ class ref_barang extends CI_Controller {
 	{
 		$this->template->load('welcome/halaman','gudang/ref_barang/Ref_barang_list');
 	}  
-    public function stock_gudang_excel(){
-        $data['rk'] =$this->Mref_barang->listBarang();   
-        $this->load->view('gudang/ref_barang/ref_stock_barang_gudang_excel',$data);
+    public function stock_gudang_excel($bulan,$tahun,$kd_kategori){
+        $data['kd_kategori']=$kd_kategori;
+        $data['bulan']=$bulan;
+        $data['tahun']=$tahun;
+               $this->load->view('gudang/ref_barang/ref_stock_barang_gudang_excel',$data);
     }
     public function harga_stock()
     {
@@ -25,19 +27,29 @@ class ref_barang extends CI_Controller {
     }
     public function stock_barang_gudang()
     {
-        if(isset($_POST['kategori'])){
+        if(isset($_POST['date'])&&isset($_POST['kategori'])){
             $kategori     =$_POST['kategori'];
+            $date     =$_POST['date'];
+            $rk="tampil";
         }else{
+            $date=DATE('m/Y');
             $kategori='all';
+            $rk="tampil"; 
         }
         $sess=array(
-            'kategori'=>$kategori,                
+            'kategori'=>$kategori,  
+         'bulan' => substr($date,0,2),
+        'tahun' => substr($date,3,4),                
                 );
         $this->session->set_userdata($sess);         
         $data = array(
             'kategori'      =>$this->Mref_barang->ListKategori(), 
         );
         $data['kd_kategori']=$kategori;
+        $data['date']=$date;
+        $data['rk']=$rk;
+        $data['bulan']=substr($date,0,2);
+        $data['tahun']=substr($date,3,4);
         $this->template->load('welcome/halaman','gudang/ref_barang/ref_stock_barang_gudang_list',$data);
     }     
     public function json() {
@@ -85,6 +97,7 @@ class ref_barang extends CI_Controller {
             'kd_barang' => set_value('kd_barang'),
             'nm_barang' => set_value('nm_barang'),
             'satuan'=> set_value('satuan'),
+            'spesifikasi'=> set_value('spesifikasi'),
             'stock_min'=> set_value('stock_min'),
             'stock_max'=> set_value('stock_max'),
             'kd_kategori'=> set_value('kd_kategori'),
@@ -95,8 +108,20 @@ class ref_barang extends CI_Controller {
     }
     public function create_action() 
     {
-
+        $kd_barang="";
+        $kd_kategori=$this->input->post('kategori',TRUE);
+        $row=$this->db->query("SELECT MAX(kd_barang) AS kd_barang FROM ref_barang WHERE kd_kategori=$kd_kategori")->row();
+        if ($row->kd_barang!=null)
+        {
+        $kd_barang=$row->kd_barang+1;
+        }
+        else
+        {
+        $kd_barang=$kd_kategori."1001";
+        }
         $data = array(
+        'kd_barang' => $kd_barang,
+        'spesifikasi' => $this->input->post('spesifikasi',TRUE),
 		'nm_barang' => $this->input->post('nm_barang',TRUE),
 		'satuan' => $this->input->post('satuan',TRUE),
         'stock_max' => $this->input->post('stock_max',TRUE),
@@ -143,6 +168,7 @@ class ref_barang extends CI_Controller {
                 'button'     => 'Update Referensi barang',
                 'action'     => site_url('gudang/ref_barang/update_action'),
             'kd_kategori' => set_value('kd_kategori',$row->kd_kategori),
+            'spesifikasi' => set_value('spesifikasi',$row->spesifikasi),
             'kd_barang' => set_value('kd_barang',$row->kd_barang),
             'nm_barang'=> set_value('nm_barang',$row->nm_barang),
             'stock_min'=> set_value('stock_min',$row->stock_min),
@@ -160,7 +186,8 @@ class ref_barang extends CI_Controller {
             $data = array(
 				'nm_barang' => $this->input->post('nm_barang',TRUE),
 		'kd_kategori' => $this->input->post('kategori',TRUE),
-		'satuan' => $this->input->post('satuan',TRUE),
+        'satuan' => $this->input->post('satuan',TRUE),
+		'spesifikasi' => $this->input->post('spesifikasi',TRUE),
         'stock_max' => $this->input->post('stock_max',TRUE),
         'stock_min' => $this->input->post('stock_min',TRUE),
 	    );

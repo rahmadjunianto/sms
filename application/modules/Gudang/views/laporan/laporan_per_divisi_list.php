@@ -19,16 +19,16 @@
                 <div class="row">
 
                   <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                          <select   class="unit form-control input-sm" name="unit" required="" >
+                          <select   class="divisi form-control input-sm" name="divisi" required="" >
                     <option></option>
-                    <option <?php if("all"==$kd_unit){echo "selected";}?> value="all">Semua Unit</option>
-                    <?php foreach($unit as $unit){?>
-                    <option <?php if($unit->kd_unit==$kd_unit){echo "selected";}?> value="<?php echo $unit->kd_unit?>"><?php echo $unit->nm_unit ?></option>
+                    <option <?php if("all"==$kd_divisi){echo "selected";}?> value="all">Semua divisi</option>
+                    <?php foreach($divisi as $divisi){?>
+                    <option <?php if($divisi->kd_divisi==$kd_divisi){echo "selected";}?> value="<?php echo $divisi->kd_divisi?>"><?php echo $divisi->nm_divisi ?></option>
                     <?php }?>
                           </select>                   
                   </div>
 
-                  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                  <div class="col-md-3 col-sm-12 col-xs-12 form-group">
                           <select   class="kategori form-control input-sm" name="kategori" required="" >
                     <option></option>
                     <option <?php if("all"==$kd_kategori){echo "selected";}?> value="all">Semua Kategori</option>
@@ -61,6 +61,7 @@
                         <tr>
                           <th style="text-align: center ; " width="5%">No</th>
                           <th style="text-align: center ; " width="15%">Nama Barang</th>
+                          <th style="text-align: center ; " width="15%">Spesifikasi</th>
                           <th style="text-align: center ; " width="10%">Satuan</th>
                           <th style="text-align: center ; " width="10%">Kategori</th>
                           <th style="text-align: center ; " width="10%">Jumlah</th>
@@ -136,7 +137,7 @@
                             "data": "kd_barang",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "jumlah",
+                        },{"data": "nm_barang"},{"data": "spesifikasi"},{"data": "satuan"},{"data": "inisial"},{"data": "jumlah",
                           "className" : "text-right"},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right"},{"data": "total","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
@@ -151,10 +152,10 @@
       $(document).ready(function() {
         $(".kategori").select2({
           placeholder: "Kategori",
-          allowClear: true,    dropdownAutoWidth : true,
+          allowClear: true,    dropdownAutoWidth : true,width: '240px'
         });
-        $(".unit").select2({
-          placeholder: "Unit",
+        $(".divisi").select2({
+          placeholder: "divisi",
           allowClear: true,    dropdownAutoWidth : true,height: '100%',
         });        
         $(".select2_group").select2({});

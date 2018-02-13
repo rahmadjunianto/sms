@@ -112,13 +112,16 @@ class tr_barang_masuk extends CI_Controller {
             for($i=2; $i<=$baris; $i++){
 
                 // echo $data->val($i,2);
-                    
+                    $nm=str_replace("'","`",$data->val($i, 7));
                     $this->db->set('tanggal',substr($data->val($i, 2),6,4)."-".substr($data->val($i, 2),0,2)."-".substr($data->val($i, 2),3,2));
-                    $this->db->set('no_faktur',$data->val($i, 3));
-                    $this->db->set('kd_barang',$data->val($i,4));
-                    $this->db->set('nm_barang',$data->val($i, 5));
-                    $this->db->set('jumlah',$data->val($i, 6));
-                    $this->db->set('kd_supplier',$data->val($i, 7));
+                    $this->db->set('no_ttb',$data->val($i, 3));
+                    $this->db->set('no_spp',$data->val($i, 4));
+                    $this->db->set('purchase',$data->val($i, 5));
+                    $this->db->set('kd_barang',$data->val($i,6));
+                    $this->db->set('nm_barang',$nm);
+                    $this->db->set('spesifikasi',$data->val($i, 8));
+                    $this->db->set('jumlah',$data->val($i, 9));
+                    $this->db->set('kd_supplier',$data->val($i, 10));
                     $this->db->set('kd_pengguna',$this->session->userdata('ku'));
                     $this->db->insert('tr_barang_masuk_importtemp');
 
@@ -132,18 +135,19 @@ class tr_barang_masuk extends CI_Controller {
     function prosesinsertimport($ku){
         if(!empty($ku)){
             $berhasil=0;
+            $gagal=0;
             $ku=$this->session->userdata('ku');
             $temp = $this->db->query("select * from tr_barang_masuk_importtemp WHERE kd_pengguna=$ku")->result();
             foreach ($temp as $temp) {
-                $t = $this->db->query("SELECT COUNT(no_faktur) no_faktur FROM tr_barang_masuk WHERE no_faktur=$temp->no_faktur AND kd_barang=$temp->kd_barang")->row();
-                if($t->no_faktur==0){
+                $t = $this->db->query("SELECT COUNT(no_ttb) no_ttb FROM tr_barang_masuk WHERE no_ttb=$temp->no_ttb AND kd_barang=$temp->kd_barang")->row();
+                if($t->no_ttb==0){
 
-                    $this->db->query("INSERT INTO tr_barang_masuk (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,kd_supplier) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','$temp->kd_supplier')");
-                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku','$temp->kd_supplier')");
+                    $this->db->query("INSERT INTO tr_barang_masuk (no_ttb,kd_barang,tanggal,jumlah,harga,nm_barang,kd_supplier,no_spp,purchase) VALUES ('$temp->no_ttb','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','$temp->kd_supplier','$temp->no_spp','$temp->purchase')");
+                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_ttb,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier,no_spp,purchase) VALUES ('$temp->no_ttb','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku','$temp->kd_supplier','$temp->no_spp','$temp->purchase')");
                         $berhasil++;
                 }
                 else {
-                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','gagal','$ku','$temp->kd_supplier')");
+                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_ttb,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier,no_spp,purchase) VALUES ('$temp->no_ttb','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','gagal','$ku','$temp->kd_supplier','$temp->no_spp','$temp->purchase')");
                         $gagal++;                    
                 }
             }
@@ -192,16 +196,19 @@ class tr_barang_masuk extends CI_Controller {
 
                 // echo $data->val($i,2);
                     
+                    $nm=str_replace("'","`",$data->val($i, 7));
                     $this->db->set('tanggal',substr($data->val($i, 2),6,4)."-".substr($data->val($i, 2),0,2)."-".substr($data->val($i, 2),3,2));
-                    $this->db->set('no_faktur',$data->val($i, 3));
-                    $this->db->set('kd_barang',$data->val($i,4));
-                    $this->db->set('nm_barang',$data->val($i, 5));
-                    $this->db->set('jumlah',$data->val($i, 6));
-                    $this->db->set('harga',$data->val($i, 7));
-                    $this->db->set('kd_supplier',$data->val($i, 8));
+                    $this->db->set('no_ttb',$data->val($i, 3));
+                    $this->db->set('no_spp',$data->val($i, 4));
+                    $this->db->set('purchase',$data->val($i, 5));
+                    $this->db->set('kd_barang',$data->val($i,6));
+                    $this->db->set('nm_barang',$nm);
+                    $this->db->set('spesifikasi',$data->val($i, 8));
+                    $this->db->set('jumlah',$data->val($i, 9));
+                    $this->db->set('kd_supplier',$data->val($i, 10));
+                    $this->db->set('harga',$data->val($i, 11));
                     $this->db->set('kd_pengguna',$this->session->userdata('ku'));
                     $this->db->insert('tr_barang_masuk_importtemp');
-
             }
 
             $arr['record']=$baris-1;
@@ -216,8 +223,8 @@ class tr_barang_masuk extends CI_Controller {
             $ku=$this->session->userdata('ku');
             $temp = $this->db->query("select * from tr_barang_masuk_importtemp WHERE kd_pengguna=$ku")->result();
             foreach ($temp as $temp) {
-        $t = $this->db->query("SELECT COUNT(no_faktur) no_faktur FROM tr_barang_masuk WHERE no_faktur=$temp->no_faktur AND kd_barang=$temp->kd_barang AND harga=0")->row();
-                if($t->no_faktur==1){
+        $t = $this->db->query("SELECT COUNT(no_ttb) no_ttb FROM tr_barang_masuk WHERE no_ttb=$temp->no_ttb AND kd_barang=$temp->kd_barang AND harga=0")->row();
+                if($t->no_ttb==1){
         $jumlah_masuk   = $temp->jumlah;
         $harga_masuk    = $temp->harga;                
         $row=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$temp->kd_barang")->row();
@@ -231,12 +238,12 @@ class tr_barang_masuk extends CI_Controller {
         $update = array('harga' => $harga_rata ,'stock'=>$stock_baru );
         $this->db->where('kd_barang', $temp->kd_barang);
         $this->db->update('ref_barang', $update);        
-                    $this->db->query("UPDATE tr_barang_masuk SET harga = '$temp->harga' WHERE no_faktur= '$temp->no_faktur' and kd_barang= '$temp->kd_barang'");
-                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku','$temp->kd_supplier')");
+                    $this->db->query("UPDATE tr_barang_masuk SET harga = '$temp->harga' WHERE no_ttb= '$temp->no_ttb' and kd_barang= '$temp->kd_barang'");
+                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_ttb,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier,no_spp,purchase) VALUES ('$temp->no_ttb','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku','$temp->kd_supplier','$temp->no_spp','$temp->purchase')");
                         $berhasil++;}
                 else {
 
-                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_faktur,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier) VALUES ('$temp->no_faktur','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','gagal','$ku','$temp->kd_supplier')");
+                    $this->db->query("INSERT INTO tr_barang_masuk_log (no_ttb,kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_supplier,no_spp,purchase) VALUES ('$temp->no_ttb','$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','gagal','$ku','$temp->kd_supplier','$temp->no_spp','$temp->purchase')");
                         $gagal++;
 
                 }
@@ -267,7 +274,9 @@ class tr_barang_masuk extends CI_Controller {
             'kd_barang_masuk' => set_value('kd_barang_masuk'),
             'jumlah' => set_value('jumlah'),
             'harga'=> set_value('harga'),
-            'no_faktur'=> set_value('no_faktur'),
+            'no_ttb'=> set_value('no_ttb'),
+            'no_spp'=> set_value('no_spp'),
+            'purchase'=> set_value('purchase'),
             'nama_barang'=> set_value('nama_barang'),
             'date'=> date("d/m/Y"),
             'barang'=>$this->Mtr_barang_masuk->ListBarang(),
@@ -287,7 +296,9 @@ class tr_barang_masuk extends CI_Controller {
 		'tanggal' => substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),
 		'jumlah' => $this->input->post('jumlah',TRUE),
         'harga' => $this->input->post('harga',TRUE),
-        'no_faktur' => $this->input->post('no_faktur',TRUE),
+        'no_ttb' => $this->input->post('no_ttb',TRUE),
+        'no_spp' => $this->input->post('no_spp',TRUE),
+        'purchase' => $this->input->post('purchase',TRUE),
         'nm_barang' => $this->input->post('nm_barang',TRUE),
         'kd_supplier' => $this->input->post('supplier',TRUE),
 	    );
@@ -359,7 +370,9 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
             'kd_barang' => set_value('kd_barang',$row->kd_barang),
             'kd_supplier' => set_value('kd_supplier',$row->kd_supplier),
             'jumlah' => set_value('jumlah',$row->jumlah),
-            'no_faktur' => set_value('no_faktur',$row->no_faktur),
+            'no_ttb' => set_value('no_ttb',$row->no_ttb),
+            'no_spp' => set_value('no_spp',$row->no_spp),
+            'purchase' => set_value('purchase',$row->purchase),
             'nama_barang'=> set_value('nm_barang',$row->nm_barang),
             'date'=> set_value('tanggal',$tgl),
             'harga'=> set_value('harga',$row->harga),
@@ -402,7 +415,9 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
 		'nm_barang' => $this->input->post('nm_barang',TRUE),
 		'harga' => $this->input->post('harga',TRUE),
 		'jumlah' => $this->input->post('jumlah',TRUE),
-        'no_faktur' => $this->input->post('no_faktur',TRUE),
+        'no_ttb' => $this->input->post('no_ttb',TRUE),
+        'no_spp' => $this->input->post('no_spp',TRUE),
+        'purchase' => $this->input->post('purchase',TRUE),
         'tanggal' => substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),
         'kd_barang' => $this->input->post('barang',TRUE),
         'kd_supplier' => $this->input->post('supplier',TRUE),

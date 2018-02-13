@@ -1,13 +1,20 @@
 
-                    <table id="example2" class="table table-striped table-bordered">
+                    <table id="example2" class="table table-striped table-bordered" style="font-size: 10px">
                       <thead>
                         <tr>
                           <th class="text-center"  width="5%">No</th>
-                          <th class="text-center"  width="15%">Tanggal</th>
-                          <th class="text-center"  width="10%">Unit</th>
-                          <th class="text-center"  width="15%">Nama Barang</th>
-                          <th class="text-center"  width="10%">Jumlah</th>
-                          <th class="text-center"  width="10%">Harga</th>
+                          <th class="text-center"  width="5%">Tanggal</th>
+                          <th class="text-center"  width="5%">Kat</th>
+                          <th class="text-center"  width="10%">Nama Barang</th>
+                          <th class="text-center"  width="10%">Spesifikasi</th>
+                          <th class="text-center"  width="8%">Divisi</th>
+                          <th class="text-center"  width="3%">Qty</th>
+                          <th class="text-center"  width="3%">Sat</th>
+                          <th class="text-center"  width="5%">Harga</th>
+                          <th class="text-center"  width="5%">Total Harga</th>
+                          <th class="text-center"  width="5%">Alokasi P</th>
+                          <th class="text-center"  width="5%">Alokasi B</th>
+                          <th class="text-center"  width="5%">Penerima</th>
                           <th class="text-center"  width="7%">Aksi</th>
                         </tr>
                       </thead>
@@ -67,7 +74,7 @@
                             "data": "kd_barang_keluar",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "nm_unit"},{"data": "nm_barang"},{"data": "jumlah","className" : "text-right",},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},
+                        },{"data": "tanggal"},{"data": "inisial"},{"data": "nm_barang"},{"data": "spesifikasi"},{"data": "nm_divisi"},{"data": "jumlah","className" : "text-right",},{"data": "satuan"},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},{"data": "tot","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right",},{"data": "nm_alok_p"},{"data": "nm_alok_b"},{"data": "penerima"},
                         {
                             "data" : "action",
                             "orderable": false,

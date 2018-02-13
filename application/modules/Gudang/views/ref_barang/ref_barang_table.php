@@ -2,12 +2,14 @@
                       <thead>
                         <tr>
                           <th class="text-center" width="5%">No</th>
-                          <th class="text-center" width="15%">Nama Barang</th>
-                          <th class="text-center" width="10%">Satuan</th>
-                          <th class="text-center" width="10%">Kategori</th>
+                          <th class="text-center" width="5%">Kode Barang</th>
+                          <th class="text-center" width="20%">Nama Barang</th>
+                          <th class="text-center" width="25%">Spesifikasi</th>
+                          <th class="text-center" width="5%">Sat</th>
+                          <th class="text-center" width="5%">Kat</th>
                           <th class="text-center" width="10%">Stock Minimum</th>
                           <th class="text-center" width="10%">Stock Maksimum</th>
-                          <th class="text-center" width="10%">Harga</th>
+                          <th class="text-center" width="5%">Harga</th>
                           <th class="text-center" width="7%">Aksi</th>
                         </tr>
                       </thead>
@@ -67,7 +69,7 @@
                             "data": "kd_barang",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "stock_min","className" : "text-right"},{"data": "stock_max","className" : "text-right"},{"data": "harga",
+                        },{"data": "kd_barang"},{"data": "nm_barang"},{"data": "spesifikasi"},{"data": "satuan"},{"data": "inisial"},{"data": "stock_min","className" : "text-right"},{"data": "stock_max","className" : "text-right"},{"data": "harga",
                           "className" : "text-right",
                           "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),},
                         {

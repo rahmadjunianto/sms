@@ -18,7 +18,7 @@ class Mtr_barang_masuk extends CI_Model
     // datatables
     function json_barang() {
         $date=$this->session->userdata('date');
-        $this->datatables->select("no_faktur,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,nama_supplier ");
+        $this->datatables->select("no_ttb,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,nama_supplier,no_spp, purchase ");
         $this->datatables->from('tr_barang_masuk a');
         $this->datatables->join('ref_supplier_gudang b', 'a.kd_supplier=b.kode_supplier');
         $this->db->order_by("kd_barang_masuk", "desc");
@@ -28,7 +28,7 @@ class Mtr_barang_masuk extends CI_Model
     }
     function json_sukses() {
         $ku=$this->session->userdata('ku');
-        $this->datatables->select("no_faktur,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,b.nama_supplier");
+        $this->datatables->select("no_ttb,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,b.nama_supplier,no_spp,purchase");
         $this->datatables->from('tr_barang_masuk_log a');;$this->db->order_by("tanggal", "desc");        
         $this->datatables->join('ref_supplier_gudang b', 'a.kd_supplier=b.kode_supplier');
         $this->datatables->where("status='sukses' and kd_pengguna=$ku");
@@ -37,7 +37,7 @@ class Mtr_barang_masuk extends CI_Model
     }
     function json_gagal() {
         $ku=$this->session->userdata('ku');
-        $this->datatables->select("no_faktur,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,b.nama_supplier");
+        $this->datatables->select("no_ttb,kd_barang_masuk,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,b.nama_supplier,no_spp,purchase");
         $this->datatables->from('tr_barang_masuk_log a');;$this->db->order_by("tanggal", "desc");        
         $this->datatables->join('ref_supplier_gudang b', 'a.kd_supplier=b.kode_supplier');
         $this->datatables->where("status='gagal' and kd_pengguna=$ku");

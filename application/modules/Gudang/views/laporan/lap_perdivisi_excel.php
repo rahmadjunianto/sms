@@ -42,7 +42,8 @@ header("Expires: 0");
  <br>                   
                     <table id="example2" border="1" width="100%" class="table table-striped table-bordered" style="font-size: 12px">
                           <th align="center" width="5%">No</th>
-                          <th width="8%">Nama Barangl</th>
+                          <th width="8%">Nama Barang</th>
+                          <th width="15%">Spesifikasi</th>
                           <th width="13%">Satuan</th>
                           <th width="12%">Nama Kategori</th>
                           <th width="15%">Jumlah</th>
@@ -53,8 +54,9 @@ header("Expires: 0");
                         <tr>
                           <td align="center" widtd="5%"><?php echo $no++; ?></td>
                           <td widtd="8%"><?php echo $rk->nm_barang; ?></td>
+                          <td widtd="15%"><?php echo $rk->spesifikasi; ?></td>
                           <td widtd="13%"><?php echo $rk->satuan; ?></td>
-                          <td widtd="12%"><?php echo $rk->nm_kategori; ?></td>
+                          <td widtd="12%"><?php echo $rk->inisial; ?></td>
                           <td widtd="15%"><?php echo $rk->jumlah; ?></td>
                           <td widtd="10%"><?php echo $rk->harga; ?></td>
                           <td widtd="10%"><?php echo $rk->total; ?></td>

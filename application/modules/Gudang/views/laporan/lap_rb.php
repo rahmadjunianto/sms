@@ -16,11 +16,11 @@
                   <div class="x_content">
         <form id="myform" data-parsley-validate   action=""<?php echo base_url().'gudang/laporan/lap_per_bulan'?>" method="post">
                 <div class="row">
-                  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                  <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                           <select   class="barang form-control input-sm" name="barang" required="" >
                     <option></option>
                     <?php foreach($barang as $barang){?>
-                    <option <?php if($barang->kd_barang==$kd_barang){echo "selected";}?> value="<?php echo $barang->kd_barang?>"><?php echo $barang->nm_barang." (".$barang->satuan.")" ?></option>
+                    <option <?php if($barang->kd_barang==$kd_barang){echo "selected";}?> value="<?php echo $barang->kd_barang?>"><?php echo $barang->nm_barang." ( ".$barang->spesifikasi." ) "." (".$barang->satuan.")" ?></option>
                     <?php }?>
                           </select>                   
                   </div>     
@@ -33,17 +33,17 @@
                           <th style="text-align: center ; " width="5%">No</th>
                           <th style="text-align: center ; " width="10%">Tanggal</th>
                           <th style="text-align: center ; " width="10%">Activity</th>
-                          <th style="text-align: center ; " width="10%">Unit/Supplier</th>
+                          <th style="text-align: center ; " width="10%">Divisi/Supplier</th>
                           <th style="text-align: center ; " width="10%">Jumlah</th>
                         </tr>
                       </thead>
 <?php if (isset($rb)) $no=1; { foreach ($rb as $rb) { ?>
 <tr>
-  <td align="center" <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?>><?php echo $no++; ?></td>
-  <td <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?> ><?php echo $rb->tgl; ?></td>
-  <td <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?> ><?php if ($rb->kd_unit==0) {echo "Masuk";  } else { echo "Keluar";} ?></td>
-  <td <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?> ><?php echo $rb->nm_unit; ?></td>
-  <td <?php if ($rb->kd_unit==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?>  align="right"><?php echo $rb->jumlah; ?></td>
+  <td align="center" <?php if ($rb->kd_divisi==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?>><?php echo $no++; ?></td>
+  <td <?php if ($rb->kd_divisi==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?> ><?php echo $rb->tgl; ?></td>
+  <td <?php if ($rb->kd_divisi==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?> ><?php if ($rb->kd_divisi==0) {echo "Masuk";  } else { echo "Keluar";} ?></td>
+  <td <?php if ($rb->kd_divisi==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?> ><?php echo $rb->nm_divisi; ?></td>
+  <td <?php if ($rb->kd_divisi==0) {echo "style='background-color: #E6E6E6 '";  } else {echo "style='background-color: #EFF8FB '";} ?>  align="right"><?php echo $rb->jumlah; ?></td>
 </tr>
 <?php } }?>
 
@@ -118,14 +118,14 @@ $(document).ready(function() {
                             "orderable": false,
                             "className" : "text-center",
                         },{"data": "tanggal"},         {
-    "data": "kd_unit",
+    "data": "kd_divisi",
     "render": function ( data, type, row, meta ) {
                   switch(data) {
                case '0' :  return "Masuk" ; break;
                default  : return 'Keluar';
             }
     }
-  },{"data": "nm_unit"},{"data": "jumlah","className" : "text-right",},
+  },{"data": "nm_divisi"},{"data": "jumlah","className" : "text-right",},
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();
@@ -133,8 +133,8 @@ $(document).ready(function() {
                         var length = info.iLength;
                         var index = page * length + (iDisplayIndex + 1);
                         $('td:eq(0)', row).html(index);
-                        var unit = data['kd_unit'];
-                    if ( unit == 0 )
+                        var divisi = data['kd_divisi'];
+                    if ( divisi == 0 )
                     {
                         $('td', row).css('background-color', '#E6E6E6');
                     }
@@ -152,7 +152,7 @@ $(document).ready(function() {
         });
         $(".barang").select2({
           placeholder: "Barang",
-          allowClear: true,    dropdownAutoWidth : true,height: '100%',
+          allowClear: true,    dropdownAutoWidth : true,height: '100%',width: '340px'
         });        
         $(".select2_group").select2({});
         $(".select2_multiple").select2({

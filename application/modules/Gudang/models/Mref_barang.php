@@ -17,10 +17,10 @@ class Mref_barang extends CI_Model
 
     // datatables
     function json_barang() {
-        $this->datatables->select('nm_kategori,kd_barang,nm_barang,satuan,harga,stock_min,stock_max');
+        $this->datatables->select('nm_kategori,kd_barang,nm_barang,satuan,harga,stock_min,stock_max,inisial,spesifikasi');
         $this->datatables->from('ref_barang a');
         $this->datatables->join('ref_kategori b', 'a.kd_kategori=b.kd_kategori');
-        $this->db->order_by("a.nm_barang", "asc");
+        $this->db->order_by("a.kd_barang", "asc");
         $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/ref_barang/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/ref_barang/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" id="delete" data-id="$1" href="javascript:void(0)"').'</div>', 'kd_barang');
         return $this->datatables->generate();
     }
@@ -31,20 +31,20 @@ class Mref_barang extends CI_Model
         $this->datatables->select('kd_barang,nm_barang,nm_kategori,satuan,harga, CONCAT(stock," ",satuan ) as stock_b,stock, (harga* stock) nominal,stock_min,stock_max');
         $this->datatables->from('ref_barang a');
         $this->datatables->join('ref_kategori b', 'a.kd_kategori=b.kd_kategori');
-        $this->db->order_by("a.nm_barang", "asc");
+        $this->db->order_by("a.kd_barang", "asc");
         $this->datatables->where("a.kd_kategori=$kategori");
         return $this->datatables->generate();}
         else {
         $this->datatables->select('kd_barang,nm_barang,nm_kategori,satuan,harga,CONCAT(stock," ",satuan ) as stock_b,stock, (harga* stock) nominal,stock_min,stock_max');
         $this->datatables->from('ref_barang a');
         $this->datatables->join('ref_kategori b', 'a.kd_kategori=b.kd_kategori');
-        $this->db->order_by("a.nm_barang", "asc");
+        $this->db->order_by("a.kd_barang", "asc");
         return $this->datatables->generate();}
         }
     
     function json_barang_stock() {
-        $this->datatables->select('a.kd_barang,a.nm_barang,IFNULL(jmasuk, 0) jmasuk,IFNULL(jkeluar, 0) jkeluar, (IFNULL(jmasuk, 0)-IFNULL(jkeluar, 0)) stock,nm_kategori,satuan');
-        $this->datatables->from('(SELECT kd_barang,nm_kategori,nm_barang,satuan
+        $this->datatables->select('a.spesifikasi,a.kd_barang,a.nm_barang,IFNULL(jmasuk, 0) as jmasuk,IFNULL(jkeluar, 0) as jkeluar, (IFNULL(jmasuk, 0)-IFNULL(jkeluar, 0)) as stock,inisial,satuan');
+        $this->datatables->from('(SELECT spesifikasi,kd_barang,nm_kategori,inisial,nm_barang,satuan
 FROM ref_barang a JOIN ref_kategori b ON a.kd_kategori=b.kd_kategori) a');
         $this->datatables->join('(SELECT kd_barang,SUM(jumlah) jmasuk
 FROM tr_barang_masuk
@@ -52,7 +52,7 @@ GROUP BY kd_barang ) masuk', 'a.kd_barang=masuk.kd_barang','left');
         $this->datatables->join('(SELECT kd_barang,SUM(jumlah) jkeluar
 FROM tr_barang_keluar
 GROUP BY kd_barang) keluar', 'a.kd_barang=keluar.kd_barang','left');
-        $this->db->order_by("a.nm_barang", "asc");
+        $this->db->order_by("a.kd_barang", "asc");
 
         return $this->datatables->generate();
     }

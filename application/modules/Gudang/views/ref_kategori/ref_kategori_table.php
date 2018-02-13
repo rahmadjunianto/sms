@@ -4,6 +4,7 @@
                         <tr>
                           <th class="text-center" width="5%">No</th>
                           <th class="text-center" width="50%">Nama Kategori</th>
+                          <th class="text-center" width="20%">Inisial</th>
                           <th class="text-center" width="7%">Aksi</th>
                         </tr>
                       </thead>
@@ -63,7 +64,7 @@
                             "data": "kd_kategori",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_kategori"},
+                        },{"data": "nm_kategori"},{"data": "inisial"},
                         {
                             "data" : "action",
                             "orderable": false,

@@ -16,11 +16,13 @@
                       <thead>
                         <tr>
                           <th width="5%">No</th>
-                          <th width="15%">Tanggal</th>
-                          <th width="15%">No Faktur</th>
+                          <th width="10%">Tanggal</th>
+                          <th width="10%">No TTB</th>
+                          <th width="10%">No SPP</th>
+                          <th width="10%">Purchase</th>
                           <th width="15%">Nama Supplier</th>
-                          <th width="15%">Nama Barang</th>
-                          <th width="15%">Jumlah</th>
+                          <th width="25%">Nama Barang</th>
+                          <th width="10%">Jumlah</th>
                           <th width="15%">Harga</th>
                         </tr>
                       </thead>
@@ -48,11 +50,13 @@
                       <thead>
                         <tr>
                           <th width="5%">No</th>
-                          <th width="15%">Tanggal</th>
-                          <th width="15%">No Faktur</th>
+                          <th width="10%">Tanggal</th>
+                          <th width="10%">No TTB</th>
+                          <th width="10%">No SPP</th>
+                          <th width="10%">Purchase</th>
                           <th width="15%">Nama Supplier</th>
-                          <th width="15%">Nama Barang</th>
-                          <th width="15%">Jumlah</th>
+                          <th width="25%">Nama Barang</th>
+                          <th width="10%">Jumlah</th>
                           <th width="15%">Harga</th>
                         </tr>
                       </thead>
@@ -119,7 +123,7 @@
                             "data": "kd_barang_masuk",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nama_supplier"},{"data": "nm_barang"},{"data": "jumlah"},{"data": "harga"}
+                        },{"data": "tanggal"},{"data": "no_ttb"},{"data": "no_spp"},{"data": "purchase"},{"data": "nama_supplier"},{"data": "nm_barang"},{"data": "jumlah", "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right" },{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();
@@ -185,7 +189,7 @@
                             "data": "kd_barang_masuk",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "tanggal"},{"data": "no_faktur"},{"data": "nama_supplier"},{"data": "nm_barang"},{"data": "jumlah"},{"data": "harga"}
+                        },{"data": "tanggal"},{"data": "no_ttb"},{"data": "no_spp"},{"data": "purchase"},{"data": "nama_supplier"},{"data": "nm_barang"},{"data": "jumlah", "render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right" },{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();

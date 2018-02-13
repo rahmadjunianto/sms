@@ -13,40 +13,40 @@ class laporan extends CI_Controller {
     }
 	public function lap_per_divisi()
 	{
-        if(isset($_POST['kategori'])&&isset($_POST['unit'])&&isset($_POST['date1'])&&isset($_POST['date2'])){
-            $unit      =$_POST['unit'];
+        if(isset($_POST['kategori'])&&isset($_POST['divisi'])&&isset($_POST['date1'])&&isset($_POST['date2'])){
+            $divisi      =$_POST['divisi'];
             $kategori      =$_POST['kategori'];
             $date1      =$_POST['date1'];
             $date2      =$_POST['date2'];
             $rk="tampil";
         }else{
-            $unit='all';
+            $divisi='all';
             $kategori='all';
             $date1=DATE('d/m/Y');
             $date2=DATE('d/m/Y');
             $rk ="tampil";
         }
         $sess=array(
-            'unit'=>$unit,
+            'divisi'=>$divisi,
             'kategori'=>$kategori,
             'date1' =>date("Y-m-d", strtotime(str_replace('/','-',$date1))),
             'date2' =>date("Y-m-d", strtotime(str_replace('/','-',$date2)))               
                 );
         $this->session->set_userdata($sess);         
         $data = array(
-            'unit'      =>$this->M_laporan->ListUnit(),
+            'divisi'      =>$this->M_laporan->Listdivisi(),
             'kategori'      =>$this->M_laporan->ListKategori(), 
         );
-        $data['kd_unit']=$unit;
+        $data['kd_divisi']=$divisi;
         $data['kd_kategori']=$kategori;
         $data['date1']=$date1;$data['date2']=$date2;$data['rk'] =$rk;
 		$this->template->load('welcome/halaman','gudang/laporan/laporan_per_divisi_list',$data);
 	}     public function laporan_per_divisi_excel(){
         $kategori=$this->session->userdata('kategori');
-        $unit=$this->session->userdata('unit');
+        $divisi=$this->session->userdata('divisi');
         $date1=$this->session->userdata('date1');
         $date2=$this->session->userdata('date2');
-        $data['rk'] =$this->M_laporan->getlap_divisi($kategori,$unit,$date1,$date2);   
+        $data['rk'] =$this->M_laporan->getlap_divisi($kategori,$divisi,$date1,$date2);   
         $this->load->view('gudang/laporan/lap_perdivisi_excel',$data);
     }
     public function lap_stock_jb()

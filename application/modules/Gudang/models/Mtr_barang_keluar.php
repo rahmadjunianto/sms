@@ -18,9 +18,13 @@ class Mtr_barang_keluar extends CI_Model
     // datatables
     function json_barang() {
         $date=$this->session->userdata('date');
-        $this->datatables->select("kd_barang_keluar,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,nm_unit");
+        $this->datatables->select("inisial,satuan,a.spesifikasi,a.kd_barang_keluar,a.nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,a.harga,a.jumlah,(a.harga*a.jumlah) as tot,nm_divisi,penerima,nm_alok_p,nm_alok_b");
         $this->datatables->from('tr_barang_keluar a');  
-        $this->datatables->join('ref_unit b', 'a.kd_unit=b.kd_unit');
+        $this->datatables->join('ref_divisi b', 'a.kd_divisi=b.kd_divisi');
+        $this->datatables->join('ref_barang c', 'a.kd_barang=c.kd_barang');
+        $this->datatables->join('ref_alok_p d', 'a.kd_alok_p=d.kd_alok_p');
+        $this->datatables->join('ref_alok_b e', 'a.kd_alok_b=e.kd_alok_b');
+        $this->datatables->join('ref_kategori f', 'c.kd_kategori=f.kd_kategori');
         $this->db->order_by("tanggal", "desc");
         $this->datatables->where("a.tanggal='$date'");
         $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/tr_barang_keluar/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/tr_barang_keluar/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" id="delete" data-id="$1" href="javascript:void(0)"').'</div>', 'kd_barang_keluar');
@@ -28,9 +32,13 @@ class Mtr_barang_keluar extends CI_Model
     }
  
     function json_sukses() {
-        $this->datatables->select("kd_barang_keluar,nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,harga,jumlah,nm_unit");
-        $this->datatables->from('tr_barang_keluar_log a');  
-        $this->datatables->join('ref_unit b', 'a.kd_unit=b.kd_unit');
+        $this->datatables->select("inisial,satuan,a.spesifikasi,a.kd_barang_keluar,a.nm_barang,DATE_FORMAT(tanggal, '%d-%m-%Y') as tanggal,a.harga,a.jumlah,(a.harga*a.jumlah) as tot,nm_divisi,penerima,nm_alok_p,nm_alok_b");
+        $this->datatables->from('tr_barang_keluar a');  
+        $this->datatables->join('ref_divisi b', 'a.kd_divisi=b.kd_divisi');
+        $this->datatables->join('ref_barang c', 'a.kd_barang=c.kd_barang');
+        $this->datatables->join('ref_alok_p d', 'a.kd_alok_p=d.kd_alok_p');
+        $this->datatables->join('ref_alok_b e', 'a.kd_alok_b=e.kd_alok_b');
+        $this->datatables->join('ref_kategori f', 'c.kd_kategori=f.kd_kategori');
         $this->db->order_by("tanggal", "desc");
         $this->datatables->add_column('action', '<div class="btn-group">'.anchor(site_url('gudang/tr_barang_keluar/update/$1'),'<i class="fa fa-edit"></i>','class="btn btn-xs btn-success"').anchor(site_url('gudang/tr_barang_keluar/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirm(\'Apakah anda yakin?\')"').'</div>', 'kd_barang_keluar');
         return $this->datatables->generate();
@@ -65,11 +73,8 @@ class Mtr_barang_keluar extends CI_Model
     }
 
 
-    function ListBarang(){
-        return $this->db->query("SELECT * from ref_barang ORDER BY nm_barang ASC")->result();
-    }
-    function ListUnit(){
-        return $this->db->query("SELECT * from ref_unit ORDER BY nm_unit ASC")->result();
+    function ListTabel($nm_tabel,$order){
+        return $this->db->query("SELECT * from $nm_tabel ORDER BY $order ASC")->result();
     }
 
 }

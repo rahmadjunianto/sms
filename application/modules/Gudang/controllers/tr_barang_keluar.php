@@ -11,6 +11,14 @@ class tr_barang_keluar extends CI_Controller {
         $this->load->library('form_validation');        
 		$this->load->library('datatables');
     }
+    function getsubdiv(){
+        $divisi=$_POST['divisi'];
+        
+        //$data['parent']=$parent;
+        $data['kc']=$this->db->query("SELECT * FROM ref_sub_div WHERE kd_divisi ='$divisi' order by kd_sub_div asc")->result();
+        // print_r($data);
+        $this->load->view('tr_barang_keluar/getsubdiv',$data);
+    }
 	public function index()
 	{
         if(isset($_POST['date'])){
@@ -92,14 +100,19 @@ class tr_barang_keluar extends CI_Controller {
             for($i=2; $i<=$baris; $i++){
 
                 // echo $data->val($i,2);
-                $kd_barang=$data->val($i,2);
+                $kd_barang=$data->val($i,3);
                 $row=$this->db->query("SELECT harga FROM ref_barang WHERE kd_barang='$kd_barang'")->row();
-                    $this->db->set('kd_barang',$data->val($i,2));
-                    $this->db->set('tanggal',substr($data->val($i, 3),6,4)."-".substr($data->val($i, 3),0,2)."-".substr($data->val($i, 3),3,2));
-                    $this->db->set('jumlah',$data->val($i, 4));
+                    $this->db->set('tanggal',substr($data->val($i, 2),6,4)."-".substr($data->val($i, 2),0,2)."-".substr($data->val($i, 2),3,2));
+                    $this->db->set('kd_barang',$data->val($i,3));
+                    $this->db->set('nm_barang',$data->val($i,4));
+                    $this->db->set('spesifikasi',$data->val($i,5));
+                    $this->db->set('jumlah',$data->val($i, 6));
                     $this->db->set('harga',$row->harga);
-                    $this->db->set('nm_barang',$data->val($i, 5));
-                    $this->db->set('kd_unit',$data->val($i, 6));
+                    $this->db->set('kd_divisi',$data->val($i, 7));
+                    $this->db->set('kd_sub_div',$data->val($i, 8));
+                    $this->db->set('kd_alok_p',$data->val($i, 9));
+                    $this->db->set('kd_alok_b',$data->val($i, 10));
+                    $this->db->set('penerima',$data->val($i, 11));
                     $this->db->set('kd_pengguna',$this->session->userdata('ku'));
                     $this->db->insert('tr_barang_keluar_importtemp');
 
@@ -130,8 +143,10 @@ class tr_barang_keluar extends CI_Controller {
         $update = array('stock'=>$stock_baru );
         $this->db->where('kd_barang', $temp->kd_barang);
         $this->db->update('ref_barang', $update); 
-                    $this->db->query("INSERT INTO tr_barang_keluar (kd_barang,tanggal,jumlah,harga,nm_barang,kd_unit) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','$temp->kd_unit')");
-                    $this->db->query("INSERT INTO tr_barang_keluar_log (kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_unit) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$temp->nm_barang','sukses','$ku','$temp->kd_unit')");
+                    $spek=str_replace("'","`",$temp->spesifikasi);
+                    $nm_barang = str_replace(array('(', ')',"'"), array('{', '}',"`"), $temp->nm_barang);
+                    $this->db->query("INSERT INTO tr_barang_keluar (kd_barang,tanggal,jumlah,harga,nm_barang,kd_divisi,kd_alok_p,kd_alok_b,penerima,spesifikasi,kd_sub_div) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$nm_barang','$temp->kd_divisi','$temp->kd_alok_p','$temp->kd_alok_b','$temp->penerima','$spek','$temp->kd_sub_div')");
+                    $this->db->query("INSERT INTO tr_barang_keluar_log (kd_barang,tanggal,jumlah,harga,nm_barang,status,kd_pengguna,kd_divisi,kd_alok_p,kd_alok_b,penerima,spesifikasi,kd_sub_div) VALUES ('$temp->kd_barang','$temp->tanggal','$temp->jumlah','$temp->harga','$nm_barang','sukses','$ku','$temp->kd_divisi','$temp->kd_alok_p','$temp->kd_alok_b','$temp->penerima','$spek','$temp->kd_sub_div')");
                         $berhasil++;
                 
             }
@@ -154,14 +169,20 @@ class tr_barang_keluar extends CI_Controller {
             'button'     => 'Tambah barang keluar',
             'action'     => site_url('gudang/tr_barang_keluar/create_action'),
             'kd_barang' => set_value('kd_barang'),
-            'kd_unit' => set_value('kd_unit'),
+            'kd_divisi' => set_value('kd_divisi'),
+            'kd_alok_p' => set_value('kd_alok_p'),
+            'kd_alok_b' => set_value('kd_alok_b'),
+            'penerima' => set_value('penerima'),
             'kd_barang_keluar' => set_value('kd_barang_keluar'),
             'jumlah' => set_value('jumlah'),
             'harga'=> set_value('harga'),
             'nama_barang'=> set_value('nama_barang'),
+            'spesifikasi'=> set_value('spesifikasi'),
             'date'=> date("d/m/Y"),
-            'barang'=>$this->Mtr_barang_keluar->ListBarang(),
-            'unit'=>$this->Mtr_barang_keluar->ListUnit()
+            'barang'=>$this->Mtr_barang_keluar->ListTabel('ref_barang','nm_barang'),
+            'divisi'=>$this->Mtr_barang_keluar->ListTabel('ref_divisi','nm_divisi'),
+            'alok_p'=>$this->Mtr_barang_keluar->ListTabel('ref_alok_p','nm_alok_p'),
+            'alok_b'=>$this->Mtr_barang_keluar->ListTabel('ref_alok_b','nm_alok_b'),
 
 	);
         $this->template->load('Welcome/halaman','tr_barang_keluar/tr_barang_keluar_form', $data);
@@ -176,7 +197,12 @@ class tr_barang_keluar extends CI_Controller {
 		'jumlah' => $this->input->post('jumlah',TRUE),
         'harga' => $this->input->post('harga',TRUE),
         'nm_barang' => $this->input->post('nm_barang',TRUE),
-        'kd_unit' => $this->input->post('kd_unit',TRUE),
+        'kd_divisi' => $this->input->post('kd_divisi',TRUE),
+        'kd_alok_b' => $this->input->post('kd_alok_b',TRUE),
+        'kd_alok_p' => $this->input->post('kd_alok_p',TRUE),
+        'penerima' => $this->input->post('penerima',TRUE),
+        'spesifikasi' => $this->input->post('spesifikasi',TRUE),
+        'kd_sub_div' => $this->input->post('subdiv',TRUE),
 	    );
         $row=$this->db->query("SELECT * FROM ref_barang WHERE kd_barang=$kd_barang")->row();
         if($row)
@@ -236,13 +262,21 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
                 'button'     => 'Update Referensi barang',
                 'action'     => site_url('gudang/tr_barang_keluar/update_action'),
             'kd_barang_keluar' => set_value('kd_barang_keluar',$row->kd_barang_keluar),
-            'kd_unit' => set_value('kd_unit',$row->kd_unit),
+            'kd_divisi' => set_value('kd_divisi',$row->kd_divisi),
+            'kd_alok_p' => set_value('kd_alok_p',$row->kd_alok_p),
+            'kd_alok_b' => set_value('kd_alok_b',$row->kd_alok_b),
+            'penerima' => set_value('penerima',$row->penerima),
             'kd_barang' => set_value('kd_barang',$row->kd_barang),
             'jumlah' => set_value('jumlah',$row->jumlah),
             'nama_barang'=> set_value('nm_barang',$row->nm_barang),
             'date'=> set_value('tanggal',$tgl),
-            'harga'=> set_value('harga',$row->harga),'barang'=>$this->Mtr_barang_keluar->ListBarang(),
-            'unit'=>$this->Mtr_barang_keluar->ListUnit()
+            'harga'=> set_value('harga',$row->harga),
+            'kd_sub_div'=> set_value('kd_sub_div',$row->kd_sub_div),
+            'barang'=>$this->Mtr_barang_keluar->ListTabel('ref_barang','nm_barang'),
+            'divisi'=>$this->Mtr_barang_keluar->ListTabel('ref_divisi','nm_divisi'),
+            'alok_p'=>$this->Mtr_barang_keluar->ListTabel('ref_alok_p','nm_alok_p'),
+            'alok_b'=>$this->Mtr_barang_keluar->ListTabel('ref_alok_b','nm_alok_b'),
+            'subdiv'=>$this->Mtr_barang_keluar->ListTabel('ref_sub_div','kd_sub_div'),
 	    );
            $this->template->load('Welcome/halaman','tr_barang_keluar/tr_barang_keluar_form', $data);
         } else {
@@ -268,7 +302,11 @@ $tgl=substr("$row->tanggal",8,2)."/".substr("$row->tanggal",5,2)."/".substr("$ro
 		'jumlah' => $this->input->post('jumlah',TRUE),
         'tanggal' => substr($this->input->post('date',TRUE),6,4)."-".substr($this->input->post('date',TRUE),3,2)."-".substr($this->input->post('date',TRUE),0,2),
         'kd_barang' => $this->input->post('barang',TRUE),
-        'kd_unit' => $this->input->post('kd_unit',TRUE),
+        'kd_divisi' => $this->input->post('kd_divisi',TRUE),
+        'kd_alok_b' => $this->input->post('kd_alok_b',TRUE),
+        'kd_alok_p' => $this->input->post('kd_alok_p',TRUE),
+        'penerima' => $this->input->post('penerima',TRUE),
+        'kd_sub_div' => $this->input->post('subdiv',TRUE),
 	    );
 
             $this->Mtr_barang_keluar->update($this->input->post('kd_barang_keluar', TRUE), $data);

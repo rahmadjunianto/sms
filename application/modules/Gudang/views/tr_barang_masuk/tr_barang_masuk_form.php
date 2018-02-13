@@ -21,14 +21,32 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >No Faktur
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >No TTB
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="last-name" name="no_faktur" required="required" placeholder="No Faktur" class="form-control col-md-7 col-xs-12" value="<?php echo $no_faktur; ?>">                     
+                          <input type="text" id="last-name" name="no_ttb" required="required" placeholder="No TTB" class="form-control col-md-7 col-xs-12" value="<?php echo $no_ttb; ?>">                     
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >No SPP
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="last-name" name="no_spp" required="required" placeholder="No SPP" class="form-control col-md-7 col-xs-12" value="<?php echo $no_spp; ?>">                     
+                        </div>
+                      </div>  
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Purchase 
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class="select2_single form-control" name="purchase"  id="purchase">
+                    <option></option>
+                    <option <?php if($purchase=="SBY"){echo "selected";}?> value="SBY">SBY</option>
+                    <option <?php if($purchase=="Kediri"){echo "selected";}?> value="Kediri">Kediri</option>
+                          </select>                
                         </div>
                       </div> 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Supplier  <?php echo $kd_supplier; ?>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >Supplier  
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="select2_single form-control" name="supplier"  id="supplier">
@@ -49,7 +67,7 @@ $nm_barang = "var nama = new Array();\n";
                           <select class="select2_single form-control" name="barang"  id="barang" onchange="changeValue(this.value)">
                     <option></option>
                     <?php foreach($barang as $barang){?>
-                    <option <?php if($kd_barang==$barang->kd_barang){echo "selected";}?> value="<?php echo $barang->kd_barang?>"><?php echo $barang->nm_barang?></option>
+                    <option <?php if($kd_barang==$barang->kd_barang){echo "selected";}?> value="<?php echo $barang->kd_barang?>"><?php echo $barang->nm_barang." ".$barang->spesifikasi?></option>
                     <?php                     
           $nm_barang .= "nama['" . $barang->kd_barang . "'] = {nama:'".addslashes($barang->nm_barang)."'};\n";
            }?>

@@ -19,12 +19,15 @@ class Mlap_penerimaan extends CI_Model
     function json() {
         $ku=$this->session->userdata('ku');
         $date=$this->session->userdata('date');
+        $bulan=$this->session->userdata('bulan');
+        $tahun=$this->session->userdata('tahun');
         if ($this->session->userdata('kg')==5) {
-        $wh=" tanggal LIKE '%$date%' AND STATUS='Tervalidasi' AND kd_pengguna=$ku";}
-        else {$wh=" tanggal LIKE '%$date%' AND STATUS='Tervalidasi' ";}
-        $this->datatables->select("id_dukb,nama_supplier,tanggal,kd_siklus,jenis_kayu,plat_nomor,(0) AS kd_asal,a.kabupaten,a.kecamatan ");
+        $wh=" YEAR(tanggal)='$tahun' AND MONTH(tanggal)='$bulan' AND STATUS='Tervalidasi' AND kd_pengguna=$ku";}
+        else {$wh=" YEAR(tanggal)='$tahun' AND MONTH(tanggal)='$bulan' AND STATUS='Tervalidasi' ";}
+        $this->datatables->select("id_dukb,nama_supplier,tanggal,kd_siklus,jenis_kayu,plat_nomor,kode_lokasi AS kd_asal,a.kabupaten,a.kecamatan ");
         $this->datatables->from('tr_dukb a');
         $this->datatables->join('ref_supplier b', 'a.kode_supplier = b.kode_supplier');
+        $this->datatables->join('ref_lokasi_kayu c ', 'a.kecamatan=c.kecamatan AND a.kabupaten=c.kabupaten');
         $this->db->order_by("a.id_dukb", "desc");
         $this->datatables->where($wh);
         return $this->datatables->generate();
@@ -84,72 +87,19 @@ class Mlap_penerimaan extends CI_Model
         $this->db->delete('tr_kayu');
     }    
 
-    function getlist($kabupaten,$kecamatan,$date1,$date2){
+    function getlap(){
+        $date=$this->session->userdata('date');
+        $ku=$this->session->userdata('ku');       
+        if ($this->session->userdata('kg')==5) {
+        $wh="tanggal LIKE '%$date%' AND STATUS='Tervalidasi' AND kd_pengguna=$ku";}
+        else {$wh=" tanggal LIKE '%$date%' AND STATUS='Tervalidasi'";}
 
-        $ku=$this->session->userdata('ku');         if ($this->session->userdata('kg')==5) {
-        $wh=" a.kd_pengguna=$ku  AND tanggal between '$date1' and '$date2' and status='Tervalidasi' AND a.kabupaten='$kabupaten' AND a.kecamatan='$kecamatan'";}
-        else {$wh="  tanggal between '$date1' and '$date2' and status='Tervalidasi'  AND a.kabupaten='$kabupaten' AND a.kecamatan='$kecamatan'";}
-
-        return $this->db->query("select a.id_dukb,CONCAT(SUBSTRING(a.tanggal,9,2),'-',SUBSTRING(a.tanggal,6,2),'-',SUBSTRING(a.tanggal,1,4)) AS tanggal,CONCAT(SUBSTRING(a.tgl_validasi,9,2),'-',SUBSTRING(a.tgl_validasi,6,2),'-',SUBSTRING(a.tgl_validasi,1,4)) AS tanggal_val,b.nama_supplier,a.plat_nomor,a.jenis_kayu,a.kabupaten,a.kecamatan,a.kd_siklus,a.status,SUM(c.harga) AS harga , REPLACE(SUM(ROUND(c.volume,4)),'.',',') AS volume from tr_dukb a join ref_supplier b on a.kode_supplier = b.kode_supplier join tr_dukb_detail c on  c.tr_dukb_id = a.id_dukb where $wh group by a.id_dukb")->result();
+        return $this->db->query("SELECT id_dukb,nama_supplier,tanggal,kd_siklus,jenis_kayu,plat_nomor,kode_lokasi AS kd_asal,a.kabupaten,a.kecamatan,nm_grader
+FROM tr_dukb a
+JOIN ref_supplier b ON a.kode_supplier = b.kode_supplier
+JOIN ref_lokasi_kayu c ON a.kecamatan=c.kecamatan AND a.kabupaten=c.kabupaten
+JOIN ref_grader d ON a.kd_grader=d.kd_grader where $wh")->result();
     }
-    function ListLokasi(){
-        return $this->db->query("SELECT * FROM ref_lokasi_kayu order by kabupaten,kecamatan asc")->result();
-    }
-    function ListSupplier(){
-        return $this->db->query("SELECT b.kode_supplier, a.kode_harga_kayu,b.nama_supplier, a.kabupaten,a.kecamatan 
-FROM man_harga_kayu a
-JOIN ref_supplier b WHERE a.kode_supplier=b.kode_supplier
-
-GROUP BY a.kode_supplier,a.kabupaten,a.kecamatan")->result();
-    }
-    function ListSuppliers(){
-        return $this->db->query("SELECT kode_supplier,nama_supplier from ref_supplier")->result();
-    }    
-    function ListKabupaten(){
-        return $this->db->query("SELECT DISTINCT kabupaten FROM ref_lokasi_kayu order by kabupaten asc")->result();
-    }
-    function ListKecamatan(){
-        return $this->db->query("SELECT kecamatan FROM ref_lokasi_kayu")->result();
-    }   
-        function ListGrader(){
-        return $this->db->query("SELECT * FROM ref_grader")->result();
-    } 
-    function Listp130(){
-        return $this->db->query("SELECT diameter,kelas_diameter,panjang_kayu,v_per_btg,(CASE WHEN (LENGTH(`ref_panjang_kayu`.`v_per_btg`) = 5) THEN CONCAT(`ref_panjang_kayu`.`v_per_btg`,'0') ELSE CONCAT(`ref_panjang_kayu`.`v_per_btg`,'')END) AS `v` FROM ref_panjang_kayu WHERE panjang_kayu='130'")->result();
-    }    
-    function Listp260(){
-        return $this->db->query("SELECT diameter,kelas_diameter,panjang_kayu,v_per_btg,(CASE WHEN (LENGTH(`ref_panjang_kayu`.`v_per_btg`) = 5) THEN CONCAT(`ref_panjang_kayu`.`v_per_btg`,'0')ELSE CONCAT(`ref_panjang_kayu`.`v_per_btg`,'') END) AS `v` FROM ref_panjang_kayu WHERE panjang_kayu='260'")->result();
-    }  
-    function Listp1301(){
-        return $this->db->query("SELECT diameter,kelas_diameter,panjang_kayu,v_per_btg,(CASE WHEN (LENGTH(`ref_panjang_kayu`.`v_per_btg`) = 5) THEN CONCAT(`ref_panjang_kayu`.`v_per_btg`,'0') ELSE CONCAT(`ref_panjang_kayu`.`v_per_btg`,'')END) AS `v` FROM ref_panjang_kayu WHERE panjang_kayu='130'")->result();
-    }    
-    function Listp2601(){
-        return $this->db->query("SELECT diameter,kelas_diameter,panjang_kayu,v_per_btg,(CASE WHEN (LENGTH(`ref_panjang_kayu`.`v_per_btg`) = 5) THEN CONCAT(`ref_panjang_kayu`.`v_per_btg`,'0')ELSE CONCAT(`ref_panjang_kayu`.`v_per_btg`,'') END) AS `v` FROM ref_panjang_kayu WHERE panjang_kayu='260'")->result();
-    } 
-
-        function Listd130($id){
-        return $this->db->query("SELECT a.panjang_kayu,a.diameter,a.batang,
-(CASE WHEN (LENGTH(a.volume) = 5) 
-THEN CONCAT(a.volume,'0')
-ELSE CONCAT(a.volume,'') END) AS volume,
-(CASE WHEN (LENGTH(b.v_per_btg) = 5) 
-THEN CONCAT(b.v_per_btg,'0')
-ELSE CONCAT(b.v_per_btg,'') END) AS v_per_btg FROM tr_kayu a 
-JOIN ref_panjang_kayu b ON a.panjang_kayu=b.panjang_kayu AND a.diameter=b.diameter
-WHERE a.tr_kayu_suplier_id=$id AND a.panjang_kayu=130")->result();
-    }             
-        function Listd260($id){
-        return $this->db->query("SELECT a.panjang_kayu,a.diameter,a.batang,
-(CASE WHEN (LENGTH(a.volume) = 5) 
-THEN CONCAT(a.volume,'0')
-ELSE CONCAT(a.volume,'') END) AS volume,
-(CASE WHEN (LENGTH(b.v_per_btg) = 5) 
-THEN CONCAT(b.v_per_btg,'0')
-ELSE CONCAT(b.v_per_btg,'') END) AS v_per_btg FROM tr_kayu a 
-JOIN ref_panjang_kayu b ON a.panjang_kayu=b.panjang_kayu AND a.diameter=b.diameter
-WHERE a.tr_kayu_suplier_id=$id AND a.panjang_kayu=260
-")->result();
-    }  
 }
 
 /* End of file Mmenu.php */

@@ -24,7 +24,7 @@
         </div>
         <input class="form-control datepicker" id="datepicker" name="date" value="<?php echo $date ?>" type="text"/>
        </div></div> 
-                  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                  <div class="col-md-3 col-sm-12 col-xs-12 form-group">
                           <select   class="kategori form-control input-sm" name="kategori" required="" >
                     <option></option>
                     <option <?php if("all"==$kd_kategori){echo "selected";}?> value="all">Semua Kategori</option>
@@ -41,6 +41,7 @@
                         <tr>
                           <th style="text-align: center ; " width="5%">No</th>
                           <th style="text-align: center ; " width="15%">Nama Barang</th>
+                          <th style="text-align: center ; " width="15%">Spesifikasi</th>
                           <th style="text-align: center ; " width="10%">Satuan</th>
                           <th style="text-align: center ; " width="10%">Kategori</th>
                           <th style="text-align: center ; " width="10%">Jumlah</th>
@@ -116,7 +117,7 @@
                             "data": "kd_barang",
                             "orderable": false,
                             "className" : "text-center",
-                        },{"data": "nm_barang"},{"data": "satuan"},{"data": "nm_kategori"},{"data": "jumlah",
+                        },{"data": "nm_barang"},{"data": "spesifikasi"},{"data": "satuan"},{"data": "inisial"},{"data": "jumlah",
                           "className" : "text-right"},{"data": "harga","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right"},{"data": "total","render": $.fn.dataTable.render.number( '.', '.', 0, '' ),"className" : "text-right"}
                     ],
                     rowCallback: function(row, data, iDisplayIndex) {
@@ -135,7 +136,7 @@
         });
         $(".kategori").select2({
           placeholder: "Kategori",
-          allowClear: true,    dropdownAutoWidth : true,height: '100%',
+          allowClear: true,    dropdownAutoWidth : true,height: '100%',width: '240px'
         });        
         $(".select2_group").select2({});
         $(".select2_multiple").select2({
